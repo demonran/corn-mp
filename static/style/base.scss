@@ -1,0 +1,89 @@
+
+
+
+*{
+	font-family:PingFang SC;
+	}
+
+button{
+	border:none;
+}
+button::after{
+	border:none;
+}
+image{
+	width:100%;
+}
+image.null{
+	background: #ccc;
+}
+.a-line{
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space:nowrap;
+}
+h1,h2,h3,h4,h5,h6{
+	font-weight: bold;
+}
+.line{
+	padding:0 20upx;
+}
+.box{
+	width:90vw;
+	margin-left: 5vw;
+}
+.boxwhite{
+	width:94vw;
+	padding: 3vw;
+	background: #fff;
+	margin-bottom: 20upx;
+}
+.inbox{
+	margin-left: 5vw;
+	padding:3vw;
+	width:84vw;
+}
+.shadow{
+	box-shadow: 0 2px 20px 0 #e9e9e9;
+}
+.load-more{
+	font-size:24upx;
+	color:#acacac;
+	text-align: center;
+}
+.orange-color{
+	color:#FF8300 !important;
+}
+input::-ms-input-placeholder{
+	color:#aaaaaa;
+}
+
+/*定位*/
+.flex{
+  display: flex;
+}
+.relative{
+  position: relative;
+}
+.fixed{
+  position: fixed;
+}
+.absolute{
+  position: absolute;
+}
+.fl{
+	float: left;
+}
+.fr{
+	float:right;
+}
+.BgCover{
+	position: fixed;
+	width: 100%;
+	left: 0;
+	top:0;
+	height:100%;
+	z-index: 99;
+	background: black;
+	opacity: 0.5
+}
