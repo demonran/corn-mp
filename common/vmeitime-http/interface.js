@@ -32,7 +32,12 @@ http.delete('user/1').then((res)=>{
 export default {
 	
 	config: {
+		// #ifdef LOCAL_ENV
+		baseUrl: "http://localhost:8083/",
+		// #endif
+		// #ifndef LOCAL_ENV
 		baseUrl: "http://47.106.127.210:8083/",
+		// #endif
 		header: {
 			'Content-Type':'application/json;charset=UTF-8',
 			'Content-Type':'application/x-www-form-urlencoded'

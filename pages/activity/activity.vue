@@ -1,6 +1,6 @@
 <template>
 	<view class="contentbox">
-		<view class='nav'>			
+		<view class='nav'>	
 			<!-- 导航栏 agents导航栏标题 -->
 			<navTab ref="navTab" :tabTitle="tabTitle" @changeTab='changeTab'></navTab>
 		</view>
