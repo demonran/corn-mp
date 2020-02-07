@@ -30,8 +30,9 @@ http.delete('user/1').then((res)=>{
 
 */
 export default {
+	
 	config: {
-		baseUrl: "http://localhost:8082/",
+		baseUrl: "http://47.106.127.210:8083/",
 		header: {
 			'Content-Type':'application/json;charset=UTF-8',
 			'Content-Type':'application/x-www-form-urlencoded'
@@ -49,6 +50,7 @@ export default {
 		response: null
 	},
 	request(options) {
+		
 		if (!options) {
 			options = {}
 		}

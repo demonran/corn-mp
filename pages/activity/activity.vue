@@ -4,7 +4,7 @@
 			<!-- 导航栏 agents导航栏标题 -->
 			<navTab ref="navTab" :tabTitle="tabTitle" @changeTab='changeTab'></navTab>
 		</view>
-		<!-- swiper切换 swiper-item表示一页 scroll-view表示滚动视窗 -->		
+		<!-- swiper切换 swiper-item表示一页 scroll-view表示滚动视窗 -->	
 		<swiper  :current="currentTab" @change="swiperTab">
 			<swiper-item v-for="(listItem,listIndex) in list" :key="listIndex">
 				<scroll-view  scroll-y="true" @scrolltolower="lower1" scroll-with-animation :scroll-into-view="toView">
