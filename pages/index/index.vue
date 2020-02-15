@@ -63,7 +63,7 @@
 					<li  class="shadow inbox" v-for="item in hotCourse" :key="index">
 						<view class="">
 							<h4>{{item.title}}</h4>
-							<p class="time">{{item.time}}</p>
+							<p class="time">{{item.beginDate}}-{{item.endDate}}</p>
 						</view>
 						<view class="des">
 							<h5 class="prize">{{item.price ? "¥"+item.price : "免费"}}</h5>
@@ -144,55 +144,7 @@
 					}
 				],
 				recommendCourse:[],
-				hotCourse:[
-					{
-						title:"2019少儿美术周末班",
-						time:"2019.09.01-2019.12.11 周六09：:0-12:00",
-						prize:"￥1680",
-						hour:"共20课时",
-						number:"限60人"
-					},
-					{
-						title:"2019少儿美术周末班",
-						time:"2019.09.01-2019.12.11 周六09：:0-12:00",
-						prize:"￥680",
-						hour:"共20课时",
-						number:"限60人"
-					},
-					{
-						title:"2019少儿美术周末班",
-						time:"2019.09.01-2019.12.11 周六09：:0-12:00",
-						prize:"￥1880",
-						hour:"共20课时",
-						number:"限60人"
-					}
-				],
-				works:[
-					{
-						image:"../../static/img/w1.png",
-						title:"作品名称",
-						author:"作者姓名",
-						classify:"分类1"
-					},
-					{
-						image:"../../static/img/w2.png",
-						title:"作品名称",
-						author:"作者姓名",
-						classify:"分类1"
-					},
-					{
-						image:"../../static/img/w3.png",
-						title:"作品名称",
-						author:"作者姓名",
-						classify:"分类1"
-					},
-					{
-						image:"../../static/img/w4.png",
-						title:"作品名称",
-						author:"作者姓名",
-						classify:"分类1"
-					},
-				],
+				hotCourse:[],
 				activity:[ 
 					{
 					image:"../../static/img/w5.png",
