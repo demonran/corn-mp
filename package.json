@@ -1,0 +1,16 @@
+{
+	"uni-app": {
+		"scripts": {
+			"mp-weixin": {
+				"title": "微信小程序",
+				"env": {
+					"UNI_PLATFORM": "mp-weixin"
+				},
+				"define": {
+					"MP-WEIXIN": true,
+					"LOCAL_ENV": true
+				}
+			}
+		}
+	}
+}

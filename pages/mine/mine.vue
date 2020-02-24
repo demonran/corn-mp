@@ -69,22 +69,31 @@
 			}
 		},
 		onLoad() {
-			uni.login({
-			  provider: 'weixin',
-			  success: function (loginRes) {
-			    console.log(loginRes);
-				uni.getUserInfo({
-					provider:"weixin",
-					success: (infoRes) => { 
-						console.log(infoRes)
-					}
-				})
-			  } 
-			});
 			
 		},
 		methods: {
+			
+			// 
+			// uni.login({
+			//   provider: 'weixin',
+			//   success: function (loginRes) {
+			// 	
+			// 	})
+			//   } 
+			// });
 			WX_MP_getuserinfo(e){
+				let that = this;
+				let userInfo = e.detail.userInfo;
+				this.name = userInfo.nickName;
+				this.image = userInfo.avatarUrl;
+				uni.login({
+				  provider: 'weixin',
+				  success: function (loginRes) {
+					  that.$api.login(loginRes.code, e.detail.userInfo).then(res =>{
+						  console.log(res)
+					  	})
+				  }
+				});
 				console.log(e)
 			},
 			goCall:function(){

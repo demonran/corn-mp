@@ -61,11 +61,17 @@ export const hotOfflineCourse = () => {
     return http.get('hot-offline-course')
 }
 
+// jcode2session
+export const login = (code, userInfo) => {
+    return http.post('login', {code:code, userInfo:userInfo})
+}
+
 // 默认全部导出  import api from '@/common/vmeitime-http/'
 export default {
 	test,
     banner,
 	navs,
 	recommendCourse,
-	hotOfflineCourse
+	hotOfflineCourse,
+	login
 }
