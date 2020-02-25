@@ -62,8 +62,8 @@
 				<ul>
 					<li  class="shadow inbox" v-for="item in hotCourse" :key="index">
 						<view class="">
-							<h4>{{item.title}}</h4>
-							<p class="time">{{item.beginDate}}-{{item.endDate}}</p>
+							<h4>{{item.courseName}}</h4>
+							<p class="time">{{item.beginDate}} ～ {{item.endDate}}</p>
 						</view>
 						<view class="des">
 							<h5 class="prize">{{item.price ? "¥"+item.price : "免费"}}</h5>
@@ -183,11 +183,11 @@
 				this.$api.recommendCourse().then(res => {
 					this.recommendCourse = res.data.data;
 				})
-			},
+			}, 
 			initHotOfflineCourse() {
 				this.$api.hotOfflineCourse().then(res => {
-					this.hotCourse = res.data.data;
-				})
+					this.hotCourse = res.data.data; 
+				}) 
 			},
 			
 			goCourse:function(){
@@ -265,6 +265,7 @@
 
 	.banner{
 		height: 320upx;
+		background:#eee;
 		.pic{
 			width:610upx;
 			height:310upx;
