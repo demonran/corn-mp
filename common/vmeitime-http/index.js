@@ -58,7 +58,7 @@ export const recommendCourse = () => {
 
 // 热门线下课程课程
 export const hotOfflineCourse = () => {
-    return http.get('hot-offline-course')
+    return http.get('offline-course/hot')
 }
 
 // jcode2session
