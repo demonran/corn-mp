@@ -39,7 +39,8 @@ export default {
 		baseUrl: "http://47.106.127.210:8083/",
 		// #endif
 		header: {
-			'Content-Type':'application/json;charset=UTF-8'
+			'Content-Type':'application/json;charset=UTF-8',
+			'dbid':'001'
 		},  
 		data: {},
 		method: "GET",

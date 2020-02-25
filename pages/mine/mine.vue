@@ -73,14 +73,7 @@
 		},
 		methods: {
 			
-			// 
-			// uni.login({
-			//   provider: 'weixin',
-			//   success: function (loginRes) {
-			// 	
-			// 	})
-			//   } 
-			// });
+	
 			WX_MP_getuserinfo(e){
 				let that = this;
 				let userInfo = e.detail.userInfo;
