@@ -1,16 +1,28 @@
 <template> 
 <view class="box content"> 
-	<button type="primary" open-type="getUserInfo" @getuserinfo="WX_MP_getuserinfo">微信授权登录</button>
-
-	<navigator class="user" url="mineEdit">
+	
+	
+	<div class="user">
 		<view class="agency-logo">
 			<image class="null" :src="image"></image>
 		</view>
-		<view class="agency-des">
+		<view class="agency-des" v-if="isAuthorize==false">
+			<button class="loginBtn"  open-type="getUserInfo" @getuserinfo="getHandle">
+			<h1 class="a-line">
+				未登录
+			</h1>
+			<text class="a-line">点击登陆</text>
+			</button>
+		</view>
+		<view class="agency-des" v-if="isAuthorize==true">
+			<navigator url="mineEdit">
 			<h1 class="a-line">{{name}}</h1>
 			<text class="a-line">{{tel}}</text>
+			</navigator>
 		</view>
-	</navigator>
+	</div>
+	
+
 	<view class="nav-list flex shadow">
 		<view class="nav-box"  hover-class="nav-hover" v-for="(item,index) in nav" :key="index">
 			<navigator :url="item.goUrl">
@@ -48,6 +60,7 @@
 	export default {
 		data() {
 			return {
+				isAuthorize:false,
 				image:'',
 				name:'张三',
 				tel:'13888888888',
@@ -69,20 +82,108 @@
 			}
 		},
 		onLoad() {
-			
+			// 初始时获取用户设置
+			            this.accessPermission();
 		},
 		methods: {
-			
-	
+			// 执行获取用户设置的函数
+				            accessPermission() {
+				                // 赋值this指向
+				                var _this=this;
+				                // 获取授权信息
+				                uni.getSetting({
+				                    success(res) {
+				                        // 判断scope后对应的scope.userInfo是否授权
+				                        if (res.authSetting['scope.userInfo']) {
+				                            // 如果已经授权,则获取用户信息
+				                            uni.getUserInfo({
+				                                success(res){
+													console.log("获取用户信息成功")
+				                                    // 获取信息后执行登录
+													console.log(res)
+													_this.isAuthorize=true
+				                                    _this.WX_MP_getuserinfo(res);
+				                                },
+				                                fail(err){
+				                                    console.log("获取用户信息失败")
+													_this.isAuthorize=false
+				                                }
+				                            })
+				                        } else if (!res.authSetting['scope.userInfo']) {
+				                            // 如果没有授权则进行提前授权--进入页面时弹出
+				                            // 不配置此项初次进入页面不会弹出申请权限窗口
+				                            uni.authorize({
+				                                // 配置授权选项--用户账号信息
+				                                scope:'scope.userInfo',
+				                                success(res){
+				                                    // 授权成功后可以直接获取用户相关信息
+				                                    console.log("授权成功")
+				                                },
+				                                fail(err){
+				                                    // 提前授权失败时,等待用户手动点击授权
+				                                    console.log("授权失败")
+				                                }
+				                            })
+				                        };
+				                    }
+				                })
+				            },
+  // 点击按钮激发授权事件
+             getHandle() {
+                 // 重赋值this
+                 var _this=this;
+                 // 获取用户授权设置
+                 uni.getSetting({
+                     success(res){
+                         if(res.authSetting['scope.userInfo']){
+                             // 如果要获取的权限已经授权,则直接获取相关信息
+                             uni.getUserInfo({
+                                 success(res){
+                                     // 获取相关数据后，进行登录及数据请求
+									 console.log('请求登陆')
+									 _this.isAuthorize=true
+                                     _this.WX_MP_getuserinfo(res);
+                                 },
+                                 fail(err){
+                                     // 错误信息
+                                     console.log(err)
+									 _this.isAuthorize=false
+                                 }
+                             })
+                         }else if(!res.authSetting['scope.userInfo']){
+                             // 如果要获取的权限尚未授权,则此时触发授权，打开设置页面
+                             uni.showModal({
+                                 //弹出提示框
+                                 title: '是否打开设置页？',
+                                 content: '需要在设置中获取个人信息和微信登陆权限',
+                                 success(res) {
+                                     if (res.confirm) {
+                                         uni.openSetting({
+                                             // 弹出框，确认后打开设置页面
+                                             success(res) {
+                                                 console.log(res.authSetting)
+												 _this.isAuthorize=true
+                                             },    
+                                         })
+                                     } else if (res.cancel) {
+                                         console.log('用户点击取消');
+										 _this.isAuthorize=false
+                                     }
+                                 }
+                             });    
+                         }
+                     }
+                 })    
+             },							
 			WX_MP_getuserinfo(e){
 				let that = this;
-				let userInfo = e.detail.userInfo;
+				let userInfo = e.userInfo;
 				this.name = userInfo.nickName;
 				this.image = userInfo.avatarUrl;
 				uni.login({
 				  provider: 'weixin',
 				  success: function (loginRes) {
-					  that.$api.login(loginRes.code, e.detail.userInfo).then(res =>{
+					  that.$api.login(loginRes.code, e.userInfo).then(res =>{
 						  console.log(res)
 					  	})
 				  }
@@ -116,18 +217,29 @@
 			float:left;
 			image{
 				width:100%;
+				height:100%;
 			}
 		}
 		.agency-des{
-		
-			h1{
-				font-size: 38upx;
-				color:#393939;
+			.loginBtn{
+				background: none;
+				border:none;
+				text-align: left;
+				line-height: 150%;
+				padding: 0;
+
+				h1{
+					font-size: 38upx;
+					color:#393939;
+					
+				}
+				text{
+					font-size: 24upx;
+					color: #7e7e7e;
+				}
 			}
-			text{
-				font-size: 24upx;
-				color: #7e7e7e;
-			}
+			
+			
 		}
 	
 	}

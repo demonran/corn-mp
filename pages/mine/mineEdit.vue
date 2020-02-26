@@ -5,7 +5,7 @@
 			<dl>
 				<dt>头像</dt>
 				<dd>
-					<image class="head" src="" mode=""></image>
+					<image class="head" :src="head" mode=""></image>
 				</dd>
 			</dl>
 		</navigator>
@@ -21,19 +21,19 @@
 		<navigator url="editSex">
 			<dl >
 				<dt>性别</dt>
-				<dd>请输入/选择</dd>
+				<dd>{{sex}}</dd>
 			</dl>
 		</navigator>
 		<navigator url="editTel">
 			<dl >
 				<dt>手机</dt>
-				<dd>13888888888</dd>
+				<dd>{{tel}}</dd>
 			</dl>
 		</navigator>
 		<navigator url="editAddr">
 			<dl >
 				<dt>地址</dt>
-				<dd>四川省成都市金牛区高攀路999号</dd>
+				<dd>{{addr}}</dd>
 			</dl>
 		</navigator>
 	</view>
@@ -44,22 +44,53 @@
 	export default {
 		data() {
 			return {
-				name:'李四',
+				name:'',
+				head:'',
+				sex:'',
+				tel:'',
+				addr:''
+				
 			}
 		},
 		methods: {
-			
+			getInfo(){
+				
+			}
 
 		},
-		
+		onLoad() {
+			let that = this
+			wx.getUserInfo({
+				
+			  success: function(res) {
+
+				let userInfo = res.userInfo;
+				that.name= userInfo.nickName
+				that.head = userInfo.avatarUrl
+				that.addr = userInfo.country + userInfo.province + userInfo.city
+				
+				 
+			    if(userInfo.gender==1){
+					that.sex = '男'
+				}else if(userInfo.gender==2){
+					that.sex = '女'
+				}else{
+					that.sex = '未知'
+				}
+				
+			/*    var gender = userInfo.gender //性别 0：未知、1：男、2：女
+			    var province = userInfo.province
+			    var city = userInfo.city
+			    var country = userInfo.country */
+				
+			  }
+			})
+		},
 		onShow:function(){
-			var that = this;
-			const name = uni.getStorageSync('name');
-			console.log(name)
-			that.name = name
+	
 		},
 		onHide:function(){
-				uni.clearStorage();
+	
 		}
 	}
 </script>
