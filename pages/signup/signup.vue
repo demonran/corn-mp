@@ -53,6 +53,7 @@
 	export default {
 		data() {
 			return {
+				courseId:'',
 				title:'2019少儿美术周末班',
 				time:'2019.09.01 - 2019.12.11 周六 09:00 - 12:00 拷贝 9',
 				prize:'1880',
@@ -104,7 +105,7 @@
 					url:'signInfo'
 				})
 			},
-			
+
 			
 		},
 		onShareAppMessage(res) {
@@ -116,13 +117,13 @@
 		      path: '/pages/study/studyDetail'
 		    }
 		  },
-		onLoad() {
-			uni.getStorage({
-			    key: 'student',
-			    success: function (res) {
-			        console.log(res.data);
-			    }
-			});
+		onLoad(options) {
+			//获取id
+			console.log(options.id )
+			
+			
+
+
 		}
 	}
 </script>

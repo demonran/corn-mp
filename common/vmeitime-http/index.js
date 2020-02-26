@@ -60,7 +60,15 @@ export const recommendCourse = () => {
 export const hotOfflineCourse = () => {
     return http.get('offline-course/hot')
 }
+// 线下课程
+export const OfflineCourse = () => {
+    return http.get('offline-course')
+}
 
+// 线下课程分类
+export const CourseCategory = () => {
+    return http.get('offline-course/categories')
+}
 // jcode2session
 export const login = (code, userInfo) => {
     return http.post('login', {code:code, userInfo:userInfo})
@@ -73,5 +81,6 @@ export default {
 	navs,
 	recommendCourse,
 	hotOfflineCourse,
+	OfflineCourse,
 	login
 }
