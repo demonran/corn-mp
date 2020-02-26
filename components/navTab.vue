@@ -77,9 +77,9 @@
 	.navTabBox{
 		border-bottom: 1px solid #eee;
 		width:100vw;
-		height:100upx;
-		margin-bottom:140upx;
-		line-height: 100upx;
+		height:10vh;
+		background:#333;
+		
 		font-size:30upx;
 		color:#7d7d7d;	
 		background:#fff;

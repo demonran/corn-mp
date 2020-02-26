@@ -6,7 +6,7 @@
 		<view class="agency-logo">
 			<image class="null" :src="image"></image>
 		</view>
-		<view class="agency-des" v-if="isAuthorize==false">
+		<view class="agency-des" v-show="isAuthorize==false">
 			<button class="loginBtn"  open-type="getUserInfo" @getuserinfo="getHandle">
 			<h1 class="a-line">
 				未登录
@@ -14,7 +14,7 @@
 			<text class="a-line">点击登陆</text>
 			</button>
 		</view>
-		<view class="agency-des" v-if="isAuthorize==true">
+		<view class="agency-des" v-show="isAuthorize==true">
 			<navigator url="mineEdit">
 			<h1 class="a-line">{{name}}</h1>
 			<text class="a-line">{{tel}}</text>
@@ -60,10 +60,10 @@
 	export default {
 		data() {
 			return {
-				isAuthorize:false,
+				isAuthorize:true,
 				image:'',
-				name:'张三',
-				tel:'13888888888',
+				name:'',
+				tel:'',
 				nav:[
 					{
 					title:"我的报名",
@@ -83,7 +83,7 @@
 		},
 		onLoad() {
 			// 初始时获取用户设置
-			            this.accessPermission();
+			this.accessPermission();
 		},
 		methods: {
 			// 执行获取用户设置的函数

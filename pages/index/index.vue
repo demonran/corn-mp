@@ -162,6 +162,7 @@
 				]
 			}
 		},
+
 		onShow() {
 			this.initBanner()
 			this.initNavs();
@@ -189,7 +190,8 @@
 					this.hotCourse = res.data.data; 
 				}) 
 			},
-			
+
+
 			goCourse:function(){
 				uni.navigateTo({
 					url: '../course/course',

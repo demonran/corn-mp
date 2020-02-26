@@ -1,11 +1,9 @@
 <template>
-	<view class="contentbox" @touchstart="refreshStart" @touchmove="refreshMove" @touchend="refreshEnd">
-		<!-- 刷新事件isRefresh需要异步操作返回resolve -->
-		<refresh ref="refresh" @isRefresh='isRefresh'></refresh>
-		<view class='nav'>			
+	<view class="contentbox" >
+		<view class='nav'>
 			<!-- 导航栏 agents导航栏标题 -->
 			<navTab ref="navTab" :tabTitle="tabTitle" @changeTab='changeTab'></navTab>
-		</view>
+		</view> 
 		<!-- swiper切换 swiper-item表示一页 scroll-view表示滚动视窗 -->		
 		<swiper  :current="currentTab" @change="swiperTab" >
 			<swiper-item >
@@ -53,26 +51,39 @@
 </template>
 
 <script>
-const util = require('../../utils/util.js');
-import refresh from '../../components/refresh.vue';
+
+
 import navTab from '../../components/navTab.vue';
 export default {
-	components: {refresh,navTab},
+	components: {navTab},
 	data() {
 		return {
 			currentPage:'index',
 			tabTitle:[], //导航栏格式 --导航栏组件
 			currentTab: 0, //sweiper所在页
-			pages:[1,1], //第几个swiper的第几页
+
 			OfflineCourse: [] //数据格式
 		};
 	},
+	onLoad: function (options) {
+	        setTimeout(function () {
+	            console.log('start pulldown');
+	        }, 1000);
+	        uni.startPullDownRefresh();
+			
+	    },
 	onShow() {
 		this.initOfflineCourse();
 		this.initCourseCategory();
 	},
 	onHide() {},
 	methods: {
+		onPullDownRefresh() {
+		    console.log('refresh');
+		    setTimeout(function () {
+		        uni.stopPullDownRefresh();
+		    }, 1000);
+		},
 		initOfflineCourse() {
 			this.$api.OfflineCourse().then(res => {
 				this.OfflineCourse = res.data.data; 
@@ -106,25 +117,7 @@ export default {
 			}
 		},
 
-		// 刷新touch监听
-		refreshStart(e) {
-			this.$refs.refresh.refreshStart(e);
-		},
-		refreshMove(e){
-			this.$refs.refresh.refreshMove(e);
-		},
-		refreshEnd(e) {
-			this.$refs.refresh.refreshEnd(e);
-		},
-		isRefresh(){
-				setTimeout(() => {
-					uni.showToast({
-						icon: 'success',
-						title: '刷新成功'
-					})
-					this.$refs.refresh.endAfter() //刷新结束调用
-				}, 1000)
-		}
+
 	}
 };
 </script>
@@ -132,15 +125,16 @@ export default {
 <style lang="scss">
 @import "../../static/style/base.scss";
 .contentbox{
-	margin-top:12vh;
+	margin-top:10vh;
 	
 }
 	swiper{
-		height: 88vh;
+		height: 90vh;
 		overflow: scroll;
 		swiper-item{
-			width:100%;
-			height:100%;
+			width:100vw;
+			height:84vh;
+			padding:3vh 0 ;
 			overflow: scroll;
 		}
 	}

@@ -210,26 +210,26 @@
 		"list":[
 			{
 			    "pagePath" : "pages/index/index",
-			    // "iconPath" : "static/tab_class.png",
-			    // "selectedIconPath" : "static/tab_class.png",
+			    "iconPath" : "static/img/ico.png",
+			    "selectedIconPath" : "static/img/ico.png",
 			    "text" : "首页"
 			},
 			{
 			    "pagePath" : "pages/course/course",
-			    // "iconPath" : "static/tab_course.png",
-			    // "selectedIconPath" : "static/tab_course.png",
+			    "iconPath" : "static/img/ico.png",
+			    "selectedIconPath" : "static/img/ico.png",
 			    "text" : "选课"
 			},
 			{
 			    "pagePath" : "pages/study/study",
-			    // "iconPath" : "static/tab_class.png",
-			    // "selectedIconPath" : "static/tab_class.png",
+			    "iconPath" : "static/img/ico.png",
+			    "selectedIconPath" : "static/img/ico.png",
 			    "text" : "学习"
 			},
 			{
 			    "pagePath" : "pages/mine/mine",
-			    // "iconPath" : "static/tab_profile.png",
-			    // "selectedIconPath" : "static/tab_profile.png",
+			    "iconPath" : "static/img/ico.png",
+			    "selectedIconPath" : "static/img/ico.png",
 			    "text" : "我的"
 			}
 		]
