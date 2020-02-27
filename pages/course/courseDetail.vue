@@ -8,7 +8,7 @@
 					<view class="bg"></view>
 				</view>
 			</swiper-item>
-		</swiper>		
+		</swiper>		 
 		<view class="rec-des" >
 			<h4 class="a-line">{{title}}</h4>
 			<p class="a-line">{{des}}</p>
@@ -84,32 +84,39 @@
 				course:[],
 				content:''
 			}
-		},
+		}, 
 		onLoad(options) {
-			var that = this
-			const data = JSON.parse(decodeURIComponent(options.item));
-			this.data = data
-			that.title = data.courseName;	
-			that.des = data.courseSubTitle;
 			
-			that.price = "¥"+data.price
+			this.initCourseDetail(options.id);
 
-			that.classHour = data.lesson;
-			that.time = data.beginDate+'~'+data.endDate + '   ' + data.startClassTime + '-' + data.endClassTime;
-			
-			that.num = data.limitStudents;
-			that.headimg = data.courseName;
-			that.teacher = data.teacher;
-			that.content = data.content;
-			//地址、电话、老师类别、老师经验
-			that.addr = data.addr;
-			that.tel = data.tel;
-			
-			that.teacherType = data.teacher;
-			that.year = data.year;
-			//
 		},
 		methods: {
+			initCourseDetail(id) {
+				this.$api.CourseDetail(id).then(res => {
+					this.CourseDetail = res.data.data; 
+					
+					console.log(res.data.data)
+					
+					this.title = this.CourseDetail.courseName
+					this.des = this.CourseDetail.courseSubTitle;
+					
+					this.price = "¥"+this.CourseDetail.price
+					
+					this.classHour = this.CourseDetail.lesson;
+					this.time = this.CourseDetail.beginDate+'~'+this.CourseDetail.endDate + '   ' + this.CourseDetail.startClassTime + '-' + this.CourseDetail.endClassTime;
+					
+					/* this.num = data.limitStudents;
+					this.headimg = data.courseName;
+					this.teacher = data.teacher;
+					this.content = data.content;
+					//地址、电话、老师类别、老师经验
+					this.addr = data.addr;
+					this.tel = data.tel;
+					
+					this.teacherType = data.teacher;
+					this.year = data.year; */
+				}) 
+			},
 			goMap:function(){
 				uni.navigateTo({
 					url: '../map/map',
@@ -123,14 +130,14 @@
 				    phoneNumber: '15281029319' 
 				});
 			},
-			goSignup:function(){
+			goSignup:function(data){
 				const item = this.data;
-				console.log(item)
-				uni.navigateTo({
-				    url:'../signup/signup?item='+encodeURIComponent(JSON.stringify(item)),
-					
-
-				});
+				 uni.navigateTo({
+					url: `/pages/signup/signup?item=`+encodeURIComponent(JSON.stringify(item)),
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				}); 
 			},
 			
 		},

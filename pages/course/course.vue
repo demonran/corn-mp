@@ -8,7 +8,7 @@
 		<swiper  :current="currentTab" @change="swiperTab" >
 			<swiper-item >
 				<scroll-view  scroll-y="true" >	
-						<ul class="hot-course">
+						<ul class="hot-course"> 
 							<li  class="shadow inbox" v-for="(item,index) in OfflineCourse" :key="index">
 								<view class="">
 									<h4 class="a-line">{{item.courseName}}</h4>
@@ -85,7 +85,7 @@ export default {
 				/* this.tabTitle.push('全部')				
 				this.tabTitle.concat(res.data.data);*/ 
 				console.log(this.tabTitle) 
-			}) 
+			})  
 		},
 
 		goSign(courseId){

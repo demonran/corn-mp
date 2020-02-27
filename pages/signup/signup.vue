@@ -84,12 +84,13 @@
 						image:"../../static/img/banner.png"
 					}
 				]
-			}
+			} 
 		},
 		onLoad(options) {
 			//var that = this
+			
 			const data = JSON.parse(decodeURIComponent(options.item));
-			console.log(data)
+			console.log(options.item)
 			
 			
 			that.title = data.courseName;	

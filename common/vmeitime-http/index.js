@@ -64,7 +64,10 @@ export const hotOfflineCourse = () => {
 export const OfflineCourse = () => {
     return http.get('offline-course')
 } 
-
+// 线下课程详情
+export const CourseDetail = (id) => {
+    return http.get('offline-course/'+ id)
+}
 // 线下课程分类
 export const CourseCategory = () => {
     return http.get('offline-course/categories')
@@ -82,6 +85,7 @@ export default {
 	recommendCourse,
 	hotOfflineCourse,
 	OfflineCourse,
+	CourseDetail,
 	CourseCategory,
 	login
 }
