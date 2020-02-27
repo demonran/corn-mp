@@ -193,10 +193,10 @@
 
 
 			goCourse:function(){
-				uni.navigateTo({
+				uni.switchTab({
 					url: '../course/course',
 					success: res => {},
-					fail: () => {},
+					fail: (e) => {console.log(e)},
 					complete: () => {}
 				});
 			},
