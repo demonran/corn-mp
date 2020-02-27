@@ -91,7 +91,9 @@ export default {
 		},
 		initCourseCategory() {
 			this.$api.CourseCategory().then(res => {
-				this.tabTitle = res.data.data; 
+				this.tabTitle.push('全部')
+				this.tabTitle.concat(res.data.data); 
+				console.log(this.tabTitle)
 			}) 
 		},
 
