@@ -96,11 +96,14 @@
 				text-align:center;
 				.click{
 					color:#212121;
+					
+					font-weight: bold;
+					border-bottom: 2px solid #ff8300;	
+				}
+				text{
 					line-height: 100upx;
 					display: inline-block;
 					height:100upx;
-					font-weight: bold;
-					border-bottom: 2px solid #ff8300;	
 				}
 			}
 		}

@@ -60,7 +60,7 @@
 			</view>
 			<view class="hot-course">
 				<ul>
-					<li  class="shadow inbox" v-for="item in hotCourse" :key="index">
+					<li class="shadow inbox" v-for="(item,index) in hotCourse" :key="index">
 						<view class="">
 							<h4>{{item.courseName}}</h4>
 							<p class="time">{{item.beginDate}} ～ {{item.endDate}}</p>
@@ -70,7 +70,7 @@
 							<text class="hour">共{{item.lesson}}课时</text><text class="line">|</text>
 							<text class="number">限{{item.limitStudents}}人</text>
 						</view>
-						<view @click="goCourseDetail" class="sign-up">立即报名</view>
+						<view @click="goCourseDetail(item)" class="sign-up">立即报名</view>
 					</li>
 				</ul>
 				<view class="all-btn" @click="goCourse">
@@ -163,7 +163,7 @@
 			}
 		},
 
-		onShow() {
+		onLoad() {
 			this.initBanner()
 			this.initNavs();
 			this.initRecommendCourse() 
@@ -191,7 +191,6 @@
 				}) 
 			},
 
-
 			goCourse:function(){
 				uni.switchTab({
 					url: '../course/course',
@@ -200,13 +199,14 @@
 					complete: () => {}
 				});
 			},
-			goCourseDetail:function(){
-				uni.navigateTo({
-					url: '../course/courseDetail',
+			goCourseDetail:function(data){		
+				
+				 uni.navigateTo({
+					url: '../course/courseDetail?item='+encodeURIComponent(JSON.stringify(data)),
 					success: res => {},
 					fail: () => {},
 					complete: () => {}
-				});
+				}); 
 			},
 			goOpenDetail:function(){
 				uni.navigateTo({

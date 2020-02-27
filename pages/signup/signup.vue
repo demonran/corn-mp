@@ -53,7 +53,7 @@
 	export default {
 		data() {
 			return {
-				courseId:'',
+				
 				title:'2019少儿美术周末班',
 				time:'2019.09.01 - 2019.12.11 周六 09:00 - 12:00 拷贝 9',
 				prize:'1880',
@@ -85,6 +85,30 @@
 					}
 				]
 			}
+		},
+		onLoad(options) {
+			//var that = this
+			const data = JSON.parse(decodeURIComponent(options.item));
+			console.log(data)
+			
+			
+			that.title = data.courseName;	
+			that.des = data.courseSubTitle;
+			that.price = data.price;
+			that.classHour = data.lesson;
+			that.time = data.beginDate+'~'+data.endDate + '   ' + data.startClassTime + '-' + data.endClassTime;
+			
+			that.num = data.limitStudents;
+			that.headimg = data.courseName;
+			that.teacher = data.teacher;
+			that.content = data.content;
+			//地址、电话、老师类别、老师经验
+			that.addr = data.addr;
+			that.tel = data.tel;
+			
+			that.teacherType = data.teacher;
+			that.year = data.year;
+			//
 		},
 		methods: {
 			goMap:function(){

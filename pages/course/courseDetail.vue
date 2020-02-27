@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<swiper  :autoplay="true" :interval="3000" :duration="1000">
-			<swiper-item v-for="(item,index) in course" :key="index" >
+			<swiper-item v-for="(item,index) in imageUrl" :key="index" >
 				<image :src="item.image" mode="widthFix"></image>
 				<view class="num">
 					<text>{{index+1}}/{{course.length}}</text>
@@ -16,7 +16,7 @@
 		
 			<view class="bottom">
 				<text class="fl">
-					<text class="prize" >{{prize}}</text>
+					<text class="prize" >{{price }}</text>
 					<text class="classHour">共{{classHour}}课时</text>
 				</text>
 				<text class="fr" >
@@ -27,15 +27,15 @@
 		<view class="cont">
 			<dl @click="goCall" class="noIco">
 				<dt>时间</dt>
-				<dd>2019/09/01 - 2019/12/11 周六 09:00 - 12:00</dd>
+				<dd>{{time}}</dd>
 			</dl>
 			<dl @click="goMap">
 				<dt>地址</dt>
-				<dd>成都市高新区华府大道二段11号</dd>
+				<dd>{{addr}}</dd>
 			</dl>
 			<dl @click="goCall">
 				<dt>电话</dt>
-				<dd>028-66668888</dd>
+				<dd>{{tel}}</dd>
 			</dl>
 		</view>
 		<view class="agency flex  ">
@@ -52,14 +52,14 @@
 		<view class=" details">
 			<view class="box">
 				<h6>课程介绍</h6>
-				<image class="null" src="" mode="widthFix"></image>
+				{{content}}
 			</view>
 			
 		</view>
 		<view class="bottomBar">
 			<text class="service">客服</text>
 			<text class="collection">收藏</text>
-			<view @click="goSignup" class="sign-up">立即报名</view>
+			<view @click="goSignup()" class="sign-up">立即报名</view>
 		</view>
 	</view>
 </template>
@@ -67,37 +67,47 @@
 <script>
 	export default {
 		data() {
-			return {
-				title:'2019少儿美术周末班',
-				des:'开启儿童智慧想象力之门，培养孩子艺术美感',
-				prize:'¥1880',
-				classHour:'20',
-				num:'60',
+			return {	
+				data:'',
+				title:'',
+				des:'',
+				price:'',
+				classHour:'',
+				time:'',
+				addr:'四川成都市金牛区',
+				tel:'028-88888888',
+				num:'',
 				headimg:'',
-				teacher:'郭老师',
-				teacherType:'美术教师',
-				year:'8',
-				course:[
-					{
-						image:"../../static/img/banner.png"
-					},
-					{
-						image:"../../static/img/banner.png"
-					},
-					{
-						image:"../../static/img/banner.png"
-					},
-					{
-						image:"../../static/img/banner.png"
-					},
-					{
-						image:"../../static/img/banner.png"
-					},
-					{
-						image:"../../static/img/banner.png"
-					}
-				]
+				teacher:'',
+				teacherType:'',
+				year:'',
+				course:[],
+				content:''
 			}
+		},
+		onLoad(options) {
+			var that = this
+			const data = JSON.parse(decodeURIComponent(options.item));
+			this.data = data
+			that.title = data.courseName;	
+			that.des = data.courseSubTitle;
+			
+			that.price = "¥"+data.price
+
+			that.classHour = data.lesson;
+			that.time = data.beginDate+'~'+data.endDate + '   ' + data.startClassTime + '-' + data.endClassTime;
+			
+			that.num = data.limitStudents;
+			that.headimg = data.courseName;
+			that.teacher = data.teacher;
+			that.content = data.content;
+			//地址、电话、老师类别、老师经验
+			that.addr = data.addr;
+			that.tel = data.tel;
+			
+			that.teacherType = data.teacher;
+			that.year = data.year;
+			//
 		},
 		methods: {
 			goMap:function(){
@@ -114,8 +124,12 @@
 				});
 			},
 			goSignup:function(){
+				const item = this.data;
+				console.log(item)
 				uni.navigateTo({
-				    url:'../signup/signup'
+				    url:'../signup/signup?item='+encodeURIComponent(JSON.stringify(item)),
+					
+
 				});
 			},
 			

@@ -9,10 +9,10 @@
 			<swiper-item >
 				<scroll-view  scroll-y="true" >	
 						<ul class="hot-course">
-							<li class="shadow inbox" v-for="(item,index) in OfflineCourse" v-if="OfflineCourse.length > 0" :key="index">
+							<li  class="shadow inbox" v-for="(item,index) in OfflineCourse" :key="index">
 								<view class="">
 									<h4 class="a-line">{{item.courseName}}</h4>
-									<p class="time">{{item.beginDate}} ～ {{item.endDate}}</p>
+									<p class="time">{{item.beginDate}} ～ {{item.endDate}} {{item.startClassTime}}-{{item.endClassTime}}</p>
 								</view>
 								<view class="des">
 									<h5 class="prize">{{item.price ? "¥"+item.price : "免费"}}</h5>
@@ -35,16 +35,7 @@
 						333
 				</scroll-view>
 			</swiper-item>
-			<swiper-item >
-				<scroll-view  scroll-y="true" >
-						444
-				</scroll-view>
-			</swiper-item>
-			<swiper-item >
-				<scroll-view  scroll-y="true" >
-						555
-				</scroll-view>
-			</swiper-item>
+
 		</swiper> 
 		
 	</view>
@@ -59,7 +50,7 @@ export default {
 	data() {
 		return {
 			currentPage:'index',
-			tabTitle:[], //导航栏格式 --导航栏组件
+			tabTitle:['全部','美术','少儿'], //导航栏格式 --导航栏组件
 			currentTab: 0, //sweiper所在页
 
 			OfflineCourse: [] //数据格式
@@ -91,9 +82,9 @@ export default {
 		},
 		initCourseCategory() {
 			this.$api.CourseCategory().then(res => {
-				this.tabTitle.push('全部')
-				this.tabTitle.concat(res.data.data); 
-				console.log(this.tabTitle)
+				/* this.tabTitle.push('全部')				
+				this.tabTitle.concat(res.data.data);*/ 
+				console.log(this.tabTitle) 
 			}) 
 		},
 
