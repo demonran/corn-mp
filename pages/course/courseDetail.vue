@@ -10,111 +10,80 @@
 			</swiper-item>
 		</swiper>		 
 		<view class="rec-des" >
-			<h4 class="a-line">{{title}}</h4>
-			<p class="a-line">{{des}}</p>
-				<button open-type="share" class="share">分享</button>
-		
+			<h4 class="a-line">{{CourseDetail.courseName}}</h4>
+			<p class="a-line">{{CourseDetail.courseSubTitle}}</p>
+			<button open-type="share" class="share">分享</button>		
 			<view class="bottom">
 				<text class="fl">
-					<text class="prize" >{{price }}</text>
-					<text class="classHour">共{{classHour}}课时</text>
+					<text class="prize" >
+					{{CourseDetail.price ? "¥"+CourseDetail.price : "免费"}}
+					</text>
+					<text class="classHour">共{{CourseDetail.lesson}}课时</text>
 				</text>
 				<text class="fr" >
-					<text>限{{num}}人</text>
+					<text>限{{CourseDetail.limitStudents}}人</text>
 				</text>
 			</view>
 		</view>
 		<view class="cont">
 			<dl @click="goCall" class="noIco">
 				<dt>时间</dt>
-				<dd>{{time}}</dd>
+				<dd>
+				{{CourseDetail.beginDate}}～{{CourseDetail.endDate}} 
+				{{CourseDetail.startClassTime}}-{{CourseDetail.endClassTime}}
+				</dd>
 			</dl>
 			<dl @click="goMap">
 				<dt>地址</dt>
-				<dd>{{addr}}</dd>
+				<dd>{{CourseDetail.addr}}</dd>
 			</dl>
 			<dl @click="goCall">
 				<dt>电话</dt>
-				<dd>{{tel}}</dd>
+				<dd>{{CourseDetail.tel}}</dd>
 			</dl>
 		</view>
 		<view class="agency flex  ">
 			<view class="agency-logo">
-				<image class="null" :src="headimg"></image>
+				<image class="null" :src="CourseDetail.headimg"></image>
 			</view>
 			<view class="agency-des">
-				<h1 class="a-line">主讲:{{teacher}}</h1>
+				<h1 class="a-line">主讲:{{CourseDetail.teacher}}</h1>
 				<text class="a-line">
-					<text>{{teacherType}}</text><text class="line">|</text><text>{{year}}年经验</text>
+					<text>{{CourseDetail.teacherType}}</text><text class="line">|</text><text>{{CourseDetail.year}}年经验</text>
 				</text>
 			</view>
 		</view>
 		<view class=" details">
 			<view class="box">
 				<h6>课程介绍</h6>
-				{{content}}
+				<view v-html="CourseDetail.content"></view>		
 			</view>
 			
 		</view>
 		<view class="bottomBar">
 			<text class="service">客服</text>
 			<text class="collection">收藏</text>
-			<view @click="goSignup()" class="sign-up">立即报名</view>
+			<view @click="goSignup(CourseDetail.courseId)" class="sign-up">立即报名</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	
+	
 	export default {
 		data() {
 			return {	
-				data:'',
-				title:'',
-				des:'',
-				price:'',
-				classHour:'',
-				time:'',
-				addr:'四川成都市金牛区',
-				tel:'028-88888888',
-				num:'',
-				headimg:'',
-				teacher:'',
-				teacherType:'',
-				year:'',
-				course:[],
-				content:''
+				CourseDetail:{},
 			}
 		}, 
-		onLoad(options) {
-			
+		onLoad(options) {			
 			this.initCourseDetail(options.id);
-
 		},
 		methods: {
 			initCourseDetail(id) {
 				this.$api.CourseDetail(id).then(res => {
 					this.CourseDetail = res.data.data; 
-					
-					console.log(res.data.data)
-					
-					this.title = this.CourseDetail.courseName
-					this.des = this.CourseDetail.courseSubTitle;
-					
-					this.price = "¥"+this.CourseDetail.price
-					
-					this.classHour = this.CourseDetail.lesson;
-					this.time = this.CourseDetail.beginDate+'~'+this.CourseDetail.endDate + '   ' + this.CourseDetail.startClassTime + '-' + this.CourseDetail.endClassTime;
-					
-					/* this.num = data.limitStudents;
-					this.headimg = data.courseName;
-					this.teacher = data.teacher;
-					this.content = data.content;
-					//地址、电话、老师类别、老师经验
-					this.addr = data.addr;
-					this.tel = data.tel;
-					
-					this.teacherType = data.teacher;
-					this.year = data.year; */
 				}) 
 			},
 			goMap:function(){
@@ -130,10 +99,9 @@
 				    phoneNumber: '15281029319' 
 				});
 			},
-			goSignup:function(data){
-				const item = this.data;
+			goSignup:function(id){
 				 uni.navigateTo({
-					url: `/pages/signup/signup?item=`+encodeURIComponent(JSON.stringify(item)),
+					url: `/pages/signup/signup?id=`+id,
 					success: res => {},
 					fail: () => {},
 					complete: () => {}
@@ -283,6 +251,7 @@ swiper{
 		
 		padding:40upx 0
 	}
+	padding-bottom:200upx;
 }
 .bottomBar{
 	position: fixed;

@@ -6,30 +6,31 @@
 		<view class="rec-des boxwhite" >
 			<view class="">
 				<view class="word">
-					<h4 class="a-line">{{title}}</h4>
-					<p class="a-line">{{time}}</p>
+					<h4 class="a-line">{{CourseDetail.courseName}}</h4>
+					<p class="a-line">{{CourseDetail.beginDate}}～{{CourseDetail.endDate}} 
+				{{CourseDetail.startClassTime}}-{{CourseDetail.endClassTime}}</p>
 				</view>			
-				<text class="prize" >{{prize}}</text>
+				<text class="prize" >¥{{CourseDetail.price}}</text>
 			</view>
 			<view class="bottom">
 				<view class="fl teacherbox">
 					<image class="null head" :src="headimg"></image>				
 					<view class="teacher">
-						<text>{{teacherType}}</text>
-						<h1 class="a-line">{{teacher}}</h1>
+						<text>{{CourseDetail.teacherType}}</text>
+						<h1 class="a-line">{{CourseDetail.teacher}}</h1>
 					</view>					
 				</view>
 				<text class="fr" >
-					<text class="classHour">共{{classHour}}课时</text><text class="line">|</text><text>限{{num}}人</text>
+					<text class="classHour">共{{CourseDetail.lesson}}课时</text><text class="line">|</text><text>限{{CourseDetail.limitStudents}}人</text>
 				</text>
 			</view>
 		</view>
 		<view class="cont boxwhite">
 			<dl class="noIco">
 				<dt>课程费用</dt>
-				<dd>¥1880</dd>
+				<dd>¥{{CourseDetail.price}}</dd>
 			</dl>
-			<dl @click="">
+			 <dl @click="">
 				<dt>优惠券</dt>
 				<dd class="orange-color">-200</dd>
 			</dl>
@@ -40,7 +41,7 @@
 		</view>
 		<view class="bottomBar">
 			<view class="fl">
-				<view class="prize orange-color">应付：¥{{prize}}</view>
+				<view class="prize orange-color">应付：¥{{CourseDetail.price}}</view>
 				<view class="coupon">优惠群优惠：{{coupon}}元</view>
 			</view>
 			
@@ -53,65 +54,18 @@
 	export default {
 		data() {
 			return {
-				
-				title:'2019少儿美术周末班',
-				time:'2019.09.01 - 2019.12.11 周六 09:00 - 12:00 拷贝 9',
-				prize:'1880',
-				coupon:'200',
-				classHour:'20',
-				num:'60',
-				headimg:'',
-				teacher:'郭老师',
-				teacherType:'美术教师',
-				year:'8',
-				course:[
-					{
-						image:"../../static/img/banner.png"
-					},
-					{
-						image:"../../static/img/banner.png"
-					},
-					{
-						image:"../../static/img/banner.png"
-					},
-					{
-						image:"../../static/img/banner.png"
-					},
-					{
-						image:"../../static/img/banner.png"
-					},
-					{
-						image:"../../static/img/banner.png"
-					}
-				]
+				CourseDetail:{},
 			} 
 		},
 		onLoad(options) {
-			//var that = this
-			
-			const data = JSON.parse(decodeURIComponent(options.item));
-			console.log(options.item)
-			
-			
-			that.title = data.courseName;	
-			that.des = data.courseSubTitle;
-			that.price = data.price;
-			that.classHour = data.lesson;
-			that.time = data.beginDate+'~'+data.endDate + '   ' + data.startClassTime + '-' + data.endClassTime;
-			
-			that.num = data.limitStudents;
-			that.headimg = data.courseName;
-			that.teacher = data.teacher;
-			that.content = data.content;
-			//地址、电话、老师类别、老师经验
-			that.addr = data.addr;
-			that.tel = data.tel;
-			
-			that.teacherType = data.teacher;
-			that.year = data.year;
-			//
+			this.initCourseDetail(options.id);
 		},
 		methods: {
+			initCourseDetail(id) {
+				this.$api.CourseDetail(id).then(res => {
+					this.CourseDetail = res.data.data; 
+				}) 
+			},
 			goMap:function(){
 				uni.navigateTo({
 					url: '../map/map',
@@ -142,14 +96,6 @@
 		      path: '/pages/study/studyDetail'
 		    }
 		  },
-		onLoad(options) {
-			//获取id
-			console.log(options.id )
-			
-			
-
-
-		}
 	}
 </script>
 
@@ -216,7 +162,7 @@
 				float:left;
 			}
 			.teacher{
-				width: 60vw;
+				width: 50vw;
 				h1{
 					font-size: 24upx;
 					color:#393939;
