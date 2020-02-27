@@ -41,12 +41,6 @@
 			}
 		}
         ,{
-            "path" : "pages/firstPage/firstPage",
-            "style" : {
-				"navigationBarTitleText": "玉米苗"
-			}
-        }
-        ,{
             "path" : "pages/mine/about",
             "style" : {
 				"navigationBarTitleText": "关于我们"
