@@ -1,7 +1,5 @@
 <template>
 	<view class="box content">
-
-
 		<div class="user">
 			<view class="agency-logo">
 				<image class="null" :src="image"></image>
@@ -80,52 +78,10 @@
 			}
 		},
 		onLoad() {
-			// 初始时获取用户设置
-			this.accessPermission();
+
 		},
 		methods: {
-			// 执行获取用户设置的函数
-			accessPermission() {
-				// 赋值this指向
-				var _this = this;
-				// 获取授权信息
-				uni.getSetting({
-					success(res) {
-						// 判断scope后对应的scope.userInfo是否授权
-						if (res.authSetting['scope.userInfo']) {
-							// 如果已经授权,则获取用户信息
-							uni.getUserInfo({
-								success(res) {
-									console.log("获取用户信息成功")
-									// 获取信息后执行登录
-									console.log(res)
-									_this.isAuthorize = true
-									_this.WX_MP_getuserinfo(res);
-								},
-								fail(err) {
-									console.log("获取用户信息失败")
-									_this.isAuthorize = false
-								}
-							})
-						} else if (!res.authSetting['scope.userInfo']) {
-							// 如果没有授权则进行提前授权--进入页面时弹出
-							// 不配置此项初次进入页面不会弹出申请权限窗口
-							uni.authorize({
-								// 配置授权选项--用户账号信息
-								scope: 'scope.userInfo',
-								success(res) {
-									// 授权成功后可以直接获取用户相关信息
-									console.log("授权成功")
-								},
-								fail(err) {
-									// 提前授权失败时,等待用户手动点击授权
-									console.log("授权失败")
-								}
-							})
-						};
-					}
-				})
-			},
+
 			// 点击按钮激发授权事件
 			getHandle() {
 				// 重赋值this
@@ -159,7 +115,7 @@
 										uni.openSetting({
 											// 弹出框，确认后打开设置页面
 											success(res) {
-												console.log(res.authSetting)
+												//console.log(res.authSetting)
 												_this.isAuthorize = true
 											},
 										})
@@ -181,12 +137,25 @@
 				uni.login({
 					provider: 'weixin',
 					success: function(loginRes) {
-						that.$api.login(loginRes.code, e.userInfo).then(res => {
+						that.$api.login(loginRes.code, userInfo).then(res => {
 							console.log(res)
+						
+						/* 	uni.setStorage({
+								key:'token',
+								data:res.token,
+								success:function(){
+									uni.getStorage({
+										key:"token",
+										success:function(res){
+											console.log(res)
+										}
+									})
+								}
+							}) */
 						})
 					}
 				});
-				console.log(e)
+				//console.log(e)
 			},
 			goCall: function() {
 				uni.makePhoneCall({

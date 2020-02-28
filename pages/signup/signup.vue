@@ -30,22 +30,22 @@
 				<dt>课程费用</dt>
 				<dd>¥{{CourseDetail.price}}</dd>
 			</dl>
-			 <dl @click="">
+			 <!-- <dl @click="">
 				<dt>优惠券</dt>
 				<dd class="orange-color">-200</dd>
 			</dl>
 			<dl class="noIco">
 				<dt>备注说明</dt>
 				<dd><input type="text" value="" placeholder="请输入备注说明"/></dd>
-			</dl>
+			</dl> -->
 		</view>
 		<view class="bottomBar">
 			<view class="fl">
 				<view class="prize orange-color">应付：¥{{CourseDetail.price}}</view>
-				<view class="coupon">优惠群优惠：{{coupon}}元</view>
+				<!-- <view class="coupon">优惠群优惠：{{coupon}}元</view> -->
 			</view>
 			
-			<view class="sign-up">提交报名</view>
+			<view @click="isPay" class="sign-up">提交报名</view>
 		</view>
 	</view>
 </template>
@@ -84,6 +84,33 @@
 					url:'signInfo'
 				})
 			},
+			isPay(){
+				let that = this;
+				uni.showModal({
+					//弹出提示框
+					title: '支付',
+					content: '报名成功，是否前往支付页面？',
+					success(res) {
+						if (res.confirm) {
+							that.goPay()
+						} else if (res.cancel) {
+							console.log('用户点击取消');
+							that.goSignResult();
+						}
+					}
+				});
+			},
+			goPay(){
+				uni.navigateTo({
+					url:`/pages/signup/goPay`,
+					
+				})
+			},
+			goSignResult(){
+				uni.redirectTo({
+					url:`/pages/signup/goSignResult`
+				})
+			}
 
 			
 		},

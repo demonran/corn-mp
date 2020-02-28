@@ -126,6 +126,18 @@
 			}
 		},
 		{
+			"path": "pages/signup/goPay",
+			"style": {
+				"navigationBarTitleText": "支付"
+			}
+		},
+		{
+			"path": "pages/signup/goSignResult",
+			"style": {
+				"navigationBarTitleText": "报名结果"
+			}
+		},
+		{
 			"path": "pages/signup/mySign",
 			"style": {
 				"navigationBarTitleText": "我的报名"
@@ -181,31 +193,31 @@
 	],
 	"tabBar": {
 		"color": "#7A7E83",
-		"selectedColor": "#007AFF",
+		"selectedColor": "#ff7e00",
 		"borderStyle": "black",
 		"backgroundColor": "#F8F8F8",
 		"list": [{
 				"pagePath": "pages/index/index",
-				"iconPath": "static/img/ico.png",
-				"selectedIconPath": "static/img/ico.png",
+				"iconPath": "static/img/index.png",
+				"selectedIconPath": "static/img/indexNow.png",
 				"text": "首页"
 			},
 			{
 				"pagePath": "pages/course/course",
-				"iconPath": "static/img/ico.png",
-				"selectedIconPath": "static/img/ico.png",
+				"iconPath": "static/img/course.png",
+				"selectedIconPath": "static/img/courseNow.png",
 				"text": "选课"
 			},
 			{
 				"pagePath": "pages/study/study",
-				"iconPath": "static/img/ico.png",
-				"selectedIconPath": "static/img/ico.png",
+				"iconPath": "static/img/study.png",
+				"selectedIconPath": "static/img/studyNow.png",
 				"text": "学习"
 			},
 			{
 				"pagePath": "pages/mine/mine",
-				"iconPath": "static/img/ico.png",
-				"selectedIconPath": "static/img/ico.png",
+				"iconPath": "static/img/mine.png",
+				"selectedIconPath": "static/img/mineNow.png",
 				"text": "我的"
 			}
 		]
