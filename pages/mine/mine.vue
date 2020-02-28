@@ -54,11 +54,15 @@
 	</view>
 </template>
 
+
+
 <script>
+	
 	export default {
 		data() {
 			return {
-				isAuthorize: false,
+				userInfo:'',
+				isAuthorize: true,
 				image: '',
 				name: '张三',
 				tel: '13888888888',
@@ -78,14 +82,23 @@
 			}
 		},
 		onLoad() {
-
+			this.initUserInfo();
 		},
-		methods: {
 
+		methods: {
+			initUserInfo() {
+				this.$api.userInfo().then(res => {
+					this.userInfo = res.data.data;
+					console.log('123')
+					console.log(res.data.data)
+					this.name = this.userInfo.nickName;
+					this.image = this.userInfo.avatarUrl;
+				})
+			},
 			// 点击按钮激发授权事件
 			getHandle() {
 				// 重赋值this
-				var _this = this;
+				let _this = this;
 				// 获取用户授权设置
 				uni.getSetting({
 					success(res) {
@@ -134,29 +147,31 @@
 				let userInfo = e.userInfo;
 				this.name = userInfo.nickName;
 				this.image = userInfo.avatarUrl;
+
 				uni.login({
 					provider: 'weixin',
 					success: function(loginRes) {
 						that.$api.login(loginRes.code, userInfo).then(res => {
-							console.log(res)
-						
-						/* 	uni.setStorage({
+							//console.log(res)					
+						 	uni.setStorage({
 								key:'token',
-								data:res.token,
+								data:res.data.data,
 								success:function(){
+									console.log('set token')
 									uni.getStorage({
 										key:"token",
 										success:function(res){
-											console.log(res)
+											console.log(res.data)
 										}
-									})
+									}) 
 								}
-							}) */
+							})
 						})
 					}
 				});
 				//console.log(e)
 			},
+
 			goCall: function() {
 				uni.makePhoneCall({
 					phoneNumber: '15281029319'

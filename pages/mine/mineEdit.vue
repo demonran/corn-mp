@@ -5,7 +5,7 @@
 			<dl>
 				<dt>头像</dt>
 				<dd>
-					<image class="head" :src="head" mode=""></image>
+					<image class="head" :src="userInfo.avatarUrl" mode=""></image>
 				</dd>
 			</dl>
 		</navigator>
@@ -13,7 +13,7 @@
 			<dl >
 				<dt>昵称</dt>
 				<dd>
-					{{name}}
+					{{userInfo.nickName}}
 				</dd>
 				
 			</dl>
@@ -33,7 +33,7 @@
 		<navigator url="editAddr">
 			<dl >
 				<dt>地址</dt>
-				<dd>{{addr}}</dd>
+				<dd>{{userInfo.country}} {{userInfo.province}}  {{userInfo.city}}</dd>
 			</dl>
 		</navigator>
 	</view>
@@ -44,47 +44,32 @@
 	export default {
 		data() {
 			return {
-				name:'',
-				head:'',
+				userInfo:'',
 				sex:'',
-				tel:'',
-				addr:''
+				tel:''
 				
 			}
 		},
 		methods: {
-			getInfo(){
-				
-			}
+			initUserInfo() {
+				this.$api.userInfo().then(res => {
+					this.userInfo = res.data.data;
+					console.log('123')
+					console.log(res.data.data)
+
+					if(this.userInfo.gender==1){
+						this.sex = '男'
+					}else if(this.userInfo.gender==2){
+						this.sex = '女'
+					}else{
+						this.sex = '未知'
+					}
+				})
+			},
 
 		},
 		onLoad() {
-			let that = this
-			wx.getUserInfo({
-				
-			  success: function(res) {
-
-				let userInfo = res.userInfo;
-				that.name= userInfo.nickName
-				that.head = userInfo.avatarUrl
-				that.addr = userInfo.country + userInfo.province + userInfo.city
-				
-				 
-			    if(userInfo.gender==1){
-					that.sex = '男'
-				}else if(userInfo.gender==2){
-					that.sex = '女'
-				}else{
-					that.sex = '未知'
-				}
-				
-			/*    var gender = userInfo.gender //性别 0：未知、1：男、2：女
-			    var province = userInfo.province
-			    var city = userInfo.city
-			    var country = userInfo.country */
-				
-			  }
-			})
+			this.initUserInfo();
 		},
 		onShow:function(){
 	

@@ -129,6 +129,7 @@
 </template>
 
 <script>
+	
 	export default {
 		data() {
 			
@@ -169,6 +170,7 @@
 			this.initRecommendCourse() 
 			this.initHotOfflineCourse();
 		},
+
 		methods: {
 			initBanner() {
 				this.$api.banner().then(res => {
