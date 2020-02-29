@@ -80,6 +80,10 @@ export const login = (code, userInfo) => {
 export const userInfo = () => {
     return http.get('user/info')
 }
+// 课程报名
+export const orders = (data) => {
+    return http.post('orders',{data:data})
+}
 // 默认全部导出  import api from '@/common/vmeitime-http/'
 export default {
 	test,
@@ -91,5 +95,6 @@ export default {
 	CourseDetail,
 	CourseCategory,
 	login,
-	userInfo
+	userInfo,
+	orders
 }

@@ -45,7 +45,7 @@
 				<!-- <view class="coupon">优惠群优惠：{{coupon}}元</view> -->
 			</view>
 			
-			<view @click="isPay" class="sign-up">提交报名</view>
+			<view @click="isPay()" class="sign-up">提交报名</view>
 		</view>
 	</view>
 </template>
@@ -55,6 +55,7 @@
 		data() {
 			return {
 				CourseDetail:{},
+				
 			} 
 		},
 		onLoad(options) {
@@ -84,7 +85,19 @@
 					url:'signInfo'
 				})
 			},
+			initOrder() {
+				this.$api.orders().then(res => {
+					//this.orders = res.data.data;
+					/* let res = {
+						courseId:this.CourseDetail.courseId
+					} */
+					 console.log(res)
+					 
+				}) 
+	
+			},
 			isPay(){
+				this.initOrder()
 				/* let that = this;
 				uni.showModal({
 					//弹出提示框
@@ -100,7 +113,9 @@
 					}
 				}); */
 				// 仅作为示例，非真实参数信息。
-				uni.requestPayment({
+				
+				
+				/* uni.requestPayment({
 				    provider: 'wxpay',
 				    timeStamp: String(Date.now()),
 				    nonceStr: 'A1B2C3D4E5',
@@ -117,7 +132,7 @@
 					complete:function(){
 						goSignResult()
 					}
-				});
+				}); */
 			},
 
 			goSignResult(){

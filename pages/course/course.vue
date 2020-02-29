@@ -50,7 +50,7 @@ export default {
 	data() {
 		return {
 			currentPage:'index',
-			tabTitle:['全部','美术','少儿'], //导航栏格式 --导航栏组件
+			tabTitle:[], //导航栏格式 --导航栏组件
 			currentTab: 0, //sweiper所在页
 
 			OfflineCourse: [] //数据格式
@@ -81,10 +81,16 @@ export default {
 			}) 
 		},
 		initCourseCategory() {
-			this.$api.CourseCategory().then(res => {
-				/* this.tabTitle.push('全部')				
-				this.tabTitle.concat(res.data.data);*/ 
-				console.log(this.tabTitle) 
+			this.$api.CourseCategory().then(res => {		
+				let title =res.data.data
+				let tabTitle = []
+				tabTitle.unshift('全部')
+				for(var i = 0;i<title.length;i++){				
+					var str = title[i].categoryName
+					tabTitle.push(str)
+				}				
+				console.log(tabTitle)
+				this.tabTitle = tabTitle				
 			})  
 		},
 
