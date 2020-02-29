@@ -19,7 +19,7 @@
 									<text class="hour">共{{item.lesson}}课时</text><text class="line">|</text>
 									<text class="number">限{{item.limitStudents}}人</text>
 								</view>
-								<view @click="goSign(item.courseId)" class="sign-up">立即报名</view>
+								<view @click="goCourseDetail(item.courseId)" class="sign-up">立即报名</view>
 							</li>
 						</ul>	
 				</scroll-view>
@@ -88,9 +88,9 @@ export default {
 			})  
 		},
 
-		goSign(courseId){
+		goCourseDetail(courseId){
 			uni.navigateTo({
-				url: `/pages/signup/signup?id=`+ courseId,
+				url: `/pages/course/courseDetail?id=`+ courseId,
 				success: res => {},
 				fail: () => {},
 				complete: () => {}

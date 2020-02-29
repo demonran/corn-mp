@@ -62,10 +62,10 @@
 		data() {
 			return {
 				userInfo:'',
-				isAuthorize: true,
+				isAuthorize: false,
 				image: '',
-				name: '张三',
-				tel: '13888888888',
+				name: '',
+				tel: '',
 				nav: [{
 					title: "我的报名",
 					image: "../../static/img/nav4.png",
@@ -83,6 +83,7 @@
 		},
 		onLoad() {
 			this.initUserInfo();
+			this.getHandle()
 		},
 
 		methods: {

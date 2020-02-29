@@ -85,7 +85,7 @@
 				})
 			},
 			isPay(){
-				let that = this;
+				/* let that = this;
 				uni.showModal({
 					//弹出提示框
 					title: '支付',
@@ -98,14 +98,28 @@
 							that.goSignResult();
 						}
 					}
+				}); */
+				// 仅作为示例，非真实参数信息。
+				uni.requestPayment({
+				    provider: 'wxpay',
+				    timeStamp: String(Date.now()),
+				    nonceStr: 'A1B2C3D4E5',
+				    package: 'prepay_id=wx20180101abcdefg',
+				    signType: 'MD5',
+				    paySign: '',
+				    success: function (res) {
+				        console.log('success:' + JSON.stringify(res));
+				    },
+				    fail: function (err) {
+				        console.log('fail:' + JSON.stringify(err));
+						
+				    },
+					complete:function(){
+						goSignResult()
+					}
 				});
 			},
-			goPay(){
-				uni.navigateTo({
-					url:`/pages/signup/goPay`,
-					
-				})
-			},
+
 			goSignResult(){
 				uni.redirectTo({
 					url:`/pages/signup/goSignResult`
