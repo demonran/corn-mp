@@ -101,7 +101,7 @@
 				/* var send = {
 					"command":b
 				} */
-				this.$api.orders(JSON.stringify(a) 	).then(res => {					
+				this.$api.orders(a).then(res => {					
 					
 				}) 
 			},

@@ -29,8 +29,7 @@ http.delete('user/1').then((res)=>{
 }) 
 
 */
-
-const _token = uni.getStorageSync('token');			
+		
 export default {
 	
 	config: {
@@ -43,7 +42,7 @@ export default {
 		header: {
 			'Content-Type':'application/json;charset=UTF-8',
 			'dbid':'001',
-			'token':_token
+			'token':uni.getStorageSync('token')
 			
 		},  
 		data: {},

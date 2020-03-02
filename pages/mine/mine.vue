@@ -154,7 +154,7 @@
 					success: function(loginRes) {
 						that.$api.login(loginRes.code, userInfo).then(res => {
 							//console.log(res)
-						uni.setStorageSync('token', JSON.stringify(res.data.data));				
+						uni.setStorageSync('token',res.data.data);				
 						 /* 	uni.setStorage({
 								key:'token',
 								data:res.data.data,
