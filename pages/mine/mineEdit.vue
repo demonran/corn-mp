@@ -21,7 +21,7 @@
 		<navigator url="editSex">
 			<dl >
 				<dt>性别</dt>
-				<dd>{{sex}}</dd>
+				<dd>{{userInfo.gender}}</dd>
 			</dl>
 		</navigator>
 		<navigator url="editTel">
@@ -58,7 +58,7 @@
 					console.log(res.data.data)
 
 					if(this.userInfo.gender==1){
-						this.sex = '男'
+						userInfo.gender = '男'
 					}else if(this.userInfo.gender==2){
 						this.sex = '女'
 					}else{

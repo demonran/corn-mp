@@ -29,6 +29,8 @@ http.delete('user/1').then((res)=>{
 }) 
 
 */
+
+const _token = uni.getStorageSync('token');			
 export default {
 	
 	config: {
@@ -40,7 +42,9 @@ export default {
 		// #endif
 		header: {
 			'Content-Type':'application/json;charset=UTF-8',
-			'dbid':'001'
+			'dbid':'001',
+			'token':_token
+			
 		},  
 		data: {},
 		method: "GET",
@@ -65,7 +69,12 @@ export default {
 		options.data = options.data || {}
 		options.method = options.method || this.config.method
 		//TODO 加密数据
-		
+		 
+		 //const _token = uni.getStorageSync('token');
+		 //response.setHeader("token",_token);
+		//const _token = {'token': uni.getStorage('token')|| 'undefined'},
+		//_token = {'token': getStorage('token')|| 'undefined'},
+		//options.header = Object.assign({}, options.header, _token) 
 		//TODO 数据签名
 		/* 
 		_token = {'token': getStorage(STOREKEY_LOGIN).token || 'undefined'},

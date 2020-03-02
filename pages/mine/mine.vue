@@ -82,8 +82,8 @@
 			}
 		},
 		onLoad() {
-			this.initUserInfo();
-			this.getHandle()
+			/* this.initUserInfo();
+			this.getHandle() */
 		},
 
 		methods: {
@@ -153,12 +153,14 @@
 					provider: 'weixin',
 					success: function(loginRes) {
 						that.$api.login(loginRes.code, userInfo).then(res => {
-							//console.log(res)					
-						 	uni.setStorage({
+							//console.log(res)
+						uni.setStorageSync('token', JSON.stringify(res.data.data));				
+						 /* 	uni.setStorage({
 								key:'token',
 								data:res.data.data,
 								success:function(){
 									console.log('set token')
+									
 									uni.getStorage({
 										key:"token",
 										success:function(res){
@@ -166,7 +168,7 @@
 										}
 									}) 
 								}
-							})
+							}) */
 						})
 					}
 				});

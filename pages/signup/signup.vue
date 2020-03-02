@@ -45,7 +45,7 @@
 				<!-- <view class="coupon">优惠群优惠：{{coupon}}元</view> -->
 			</view>
 			
-			<view @click="isPay()" class="sign-up">提交报名</view>
+			<view @click="initOrder(CourseDetail)" class="sign-up">提交报名</view>
 		</view>
 	</view>
 </template>
@@ -60,6 +60,7 @@
 		},
 		onLoad(options) {
 			this.initCourseDetail(options.id);
+			
 		},
 		methods: {
 			initCourseDetail(id) {
@@ -85,54 +86,24 @@
 					url:'signInfo'
 				})
 			},
-			initOrder() {
-				this.$api.orders().then(res => {
-					//this.orders = res.data.data;
-					/* let res = {
-						courseId:this.CourseDetail.courseId
-					} */
-					 console.log(res)
-					 
+			initOrder(data) {
+				//console.log(data)		
+				  var a = {		
+					 // "id":data.courseId,
+					"courseId": data.courseId,
+					"courseName": data.courseName,
+					"patriarchName": "123",
+					"studentName": "123",
+					"tel": "13555555555",
+					"totalAmount": data.price
+				} 
+				//let b = JSON.stringify(a) 	
+				/* var send = {
+					"command":b
+				} */
+				this.$api.orders(JSON.stringify(a) 	).then(res => {					
+					
 				}) 
-	
-			},
-			isPay(){
-				this.initOrder()
-				/* let that = this;
-				uni.showModal({
-					//弹出提示框
-					title: '支付',
-					content: '报名成功，是否前往支付页面？',
-					success(res) {
-						if (res.confirm) {
-							that.goPay()
-						} else if (res.cancel) {
-							console.log('用户点击取消');
-							that.goSignResult();
-						}
-					}
-				}); */
-				// 仅作为示例，非真实参数信息。
-				
-				
-				/* uni.requestPayment({
-				    provider: 'wxpay',
-				    timeStamp: String(Date.now()),
-				    nonceStr: 'A1B2C3D4E5',
-				    package: 'prepay_id=wx20180101abcdefg',
-				    signType: 'MD5',
-				    paySign: '',
-				    success: function (res) {
-				        console.log('success:' + JSON.stringify(res));
-				    },
-				    fail: function (err) {
-				        console.log('fail:' + JSON.stringify(err));
-						
-				    },
-					complete:function(){
-						goSignResult()
-					}
-				}); */
 			},
 
 			goSignResult(){
