@@ -6,13 +6,13 @@
 		</view>
 		<!-- swiper切换 swiper-item表示一页 scroll-view表示滚动视窗 -->		
 		<swiper  :current="currentTab" @change="swiperTab">
-			<swiper-item v-for="(listItem,listIndex) in list" :key="listIndex">
+			<swiper-item>
 				<scroll-view  scroll-y="true" @scrolltolower="lower1" scroll-with-animation :scroll-into-view="toView">
 			
 						<ul class="hot-course">
-							<li class="inbox" v-for="(item,index) in listItem" v-if="listItem.length > 0" :key="index">
+							<li class="inbox" v-for="(item,index) in list" v-if="list.length > 0" :key="index">
 								<view class="">
-									<h4 class="a-line">{{item.title}}</h4>
+									<h4 class="a-line">{{item.courseName}}</h4>
 									<p class="time">{{item.time}}</p>
 									
 									<view v-show="item.study==0" class="icon">待支付</view>
@@ -20,7 +20,7 @@
 									<view v-show="item.study==2" class="icon studied">已学完</view>
 								</view>
 								<view class="des">
-									<h5 class="prize">{{item.prize}}</h5>
+									<h5 class="prize">{{item.totalAmount}}</h5>
 									<text class="hour">共{{item.hour}}课时</text><text class="line">|</text>
 									<text class="number">限{{item.number}}人</text>
 								</view>
@@ -47,74 +47,19 @@ export default {
 	data() {
 		return {
 			currentPage:'index',
-			tabTitle:['全部','已支付','未支付','已完成'], //导航栏格式 --导航栏组件
+			tabTitle:["全部",'已支付','未支付','已完成'], //导航栏格式 --导航栏组件
 			currentTab: 0, //sweiper所在页
 			toView:'',//回到顶部id
-			list: [
-				[
-					{
-						title:"2019少儿美术周末班0",
-						time:"2019.09.01-2019.12.11 周六09：:0-12:00",
-						prize:"1880",
-						hour:"2",
-						number:"35",
-						study:0
-					},
-					{
-						title:"2019少儿美术周末班1",
-						time:"2019.09.01-2019.12.11 周六09：:0-12:00",
-						prize:"180",
-						hour:"12",
-						number:"5",
-						study:1
-					},
-					{
-						title:"2019少儿美术周末班1",
-						time:"2019.09.01-2019.12.11 周六09：:0-12:00",
-						prize:"880",
-						hour:"12",
-						number:"5",
-						study:2
-					}
-				],
-				[
-					{
-						title:"2019少儿美术周末班1",
-						time:"2019.09.01-2019.12.11 周六09：:0-12:00",
-						prize:"1880",
-						hour:"12",
-						number:"5",
-						study:1
-					}
-				],
-				[
-					{
-						title:"2019少儿美术周末班1",
-						time:"2019.09.01-2019.12.11 周六09：:0-12:00",
-						prize:"1880",
-						hour:"12",
-						number:"5",
-						study:1
-					}
-				],
-				[
-					{
-						title:"2019少儿美术周末班1",
-						time:"2019.09.01-2019.12.11 周六09：:0-12:00",
-						prize:"1880",
-						hour:"12",
-						number:"5",
-						study:1
-					}
-				]
-			] //数据格式
+			list: [] //数据格式
 		};
 	},
 	onLoad: function (options) {
+		
 	        setTimeout(function () {
 	            console.log('start pulldown');
 	        }, 1000);
 	        uni.startPullDownRefresh();
+			
 			
 	    },
 	    onPullDownRefresh() {
@@ -124,13 +69,18 @@ export default {
 	        }, 1000);
 	    },
 		onShow() {
+			this.initMyOrders();
 			uni.pageScrollTo({
 			    scrollTop: 0,
 			    duration: 300
 			});
 		},
 	methods: {
-
+		initMyOrders(){
+			this.$api.myOrders().then(res => {
+				this.list = res.data.data; 
+			}) 
+		},
 		changeTab(index){
 			this.currentTab = index
 		},

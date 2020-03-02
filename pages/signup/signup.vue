@@ -1,7 +1,21 @@
 <template>
 	<view>
-		<view class="boxwhite" @click="goSignInfo">
+
+		<view class="sign">
+		<view class="boxwhite" @click="goSignInfo"  v-show="signInfo == 0">
 			<view class="sign-des orange-color">请填写报名信息</view>
+		</view>
+		<view class="boxwhite edit" @click="goSignInfo"  v-show="signInfo == 2">
+			<view class="sign-des orange-color">
+				<view class="student">
+					学生：{{studentName}}
+				</view>
+				<view class="parent">
+					<text>家长：{{patriarchName}}</text> 
+					<text class="line">|</text>
+					<text>电话：{{tel}}</text>
+				</view>
+			</view>
 		</view>
 		<view class="rec-des boxwhite" >
 			<view class="">
@@ -43,10 +57,32 @@
 			<view class="fl">
 				<view class="prize orange-color">应付：¥{{CourseDetail.price}}</view>
 				<!-- <view class="coupon">优惠群优惠：{{coupon}}元</view> -->
-			</view>
-			
-			<view @click="initOrder(CourseDetail)" class="sign-up">提交报名</view>
+			</view>		
+			<view @click="goOrder(CourseDetail)" class="sign-up">提交报名</view>
 		</view>
+		</view>
+		
+		<view v-show="signInfo==1" class="box goSignInfo">	
+			<view class="cont">
+				<dl>
+					<dt>学生姓名</dt>
+					<dd><input :key="student" v-model="studentName"  type="text" placeholder="请输入学生姓名" /></dd>
+				</dl>
+				<dl>
+					<dt>家长姓名</dt>
+					<dd><input type="text" v-model="patriarchName" placeholder="请输入家长姓名" /></dd>
+				</dl>
+				<dl>
+					<dt>联系电话</dt>
+					<dd><input type="number" maxlength="11" v-model="tel"  placeholder="请输入11位手机号码"/></dd>
+				</dl>
+			</view>
+		
+			<view @click="goSignup" class="sign-up">保存</view>
+		
+		</view>
+		
+		
 	</view>
 </template>
 
@@ -55,6 +91,11 @@
 		data() {
 			return {
 				CourseDetail:{},
+				signInfo:0,
+				patriarchName:'',
+				studentName:'',
+				tel:''
+				
 				
 			} 
 		},
@@ -82,27 +123,29 @@
 				});
 			},
 			goSignInfo:function(){
-				uni.navigateTo({
-					url:'signInfo'
-				})
+				this.signInfo = 1
+				
 			},
-			initOrder(data) {
+			goSignup(){
+				this.signInfo = 2
+			},
+			goOrder(data) {
+				let that = this
 				//console.log(data)		
 				  var a = {		
 					 // "id":data.courseId,
 					"courseId": data.courseId,
 					"courseName": data.courseName,
-					"patriarchName": "123",
-					"studentName": "123",
-					"tel": "13555555555",
+					"patriarchName": this.patriarchName,
+					"studentName": this.studentName,
+					"tel": this.tel, 
+					
 					"totalAmount": data.price
 				} 
-				//let b = JSON.stringify(a) 	
-				/* var send = {
-					"command":b
-				} */
+
 				this.$api.orders(a).then(res => {					
-					
+					console.log(res)
+					that.goSignResult()
 				}) 
 			},
 
@@ -131,6 +174,22 @@
 	page{
 		background: #F7F7F7;
 	}
+	.sign{
+		.edit{
+			.student{
+				font-size:36upx;
+				font-family:PingFang SC;
+				color:rgba(57,57,57,1);
+				line-height:50upx;
+				font-weight:bold;
+			}
+			.parent{
+				font-size:30upx;
+				font-family:PingFang SC;
+				color:rgba(126,126,126,1);
+				line-height:36upx;
+			}	
+		}
 .sign-des{
 	font-size: 36upx;
 	height: 88upx;
@@ -286,5 +345,50 @@
 	.line{
 		padding:0 20upx;
 	}
+
+
+}
+.goSignInfo{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 90vw;
+	height: 100vh;
+	background: #fff;
+	margin: 0;
+	padding: 5vw;
+
+		
+		.sign-up{
+			width:100%upx;
+			height:72upx;
+			line-height:72upx;
+			border-radius: 8upx;
+			text-align: center;
+			font-size: 24upx;
+			color:#fff;
+			background:#ff8300;
+		}
 	
+	.cont{
+		
+		dl{
+			font-size:30upx;
+			margin:60upx 0;
+			border-bottom:1px solid #ededed;
+			dt{
+				color:#212121;
+				margin-top:20upx;
+			}
+			dd{
+				color:#aaaaaa;
+				input{
+					
+					line-height:88upx;
+					height: 88upx;
+				}
+			}
+		}
+	}
+}	
 </style>

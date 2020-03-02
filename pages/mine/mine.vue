@@ -1,23 +1,31 @@
 <template>
 	<view class="box content">
 		<div class="user">
-			<view class="agency-logo">
-				<image class="null" :src="image"></image>
+			<view class="" v-if="isAuthorize==false">
+				<view class="agency-logo">
+					<image class="null" :src="image"></image>
+				</view>
+				<view class="agency-des" >
+					<button class="loginBtn" open-type="getUserInfo" @getuserinfo="getHandle">
+						<h1 class="a-line">
+							未登录
+						</h1>
+						<text class="a-line">点击登陆</text>
+					</button>
+				</view>
 			</view>
-			<view class="agency-des" v-if="isAuthorize==false">
-				<button class="loginBtn" open-type="getUserInfo" @getuserinfo="getHandle">
-					<h1 class="a-line">
-						未登录
-					</h1>
-					<text class="a-line">点击登陆</text>
-				</button>
+			<view class="mine" @click="goMyEdit">
+				<view class="agency-logo">
+					<image class="null" :src="image"></image>
+				</view>
+				<view class="agency-des" v-if="isAuthorize==true">
+					
+						<h1 class="a-line">{{name}}</h1>
+						<text class="a-line">{{tel}}</text>
+					
+				</view>
 			</view>
-			<view class="agency-des" v-if="isAuthorize==true">
-				<navigator url="mineEdit">
-					<h1 class="a-line">{{name}}</h1>
-					<text class="a-line">{{tel}}</text>
-				</navigator>
-			</view>
+			
 		</div>
 
 
@@ -62,7 +70,7 @@
 		data() {
 			return {
 				userInfo:'',
-				isAuthorize: false,
+				isAuthorize: true,
 				image: '',
 				name: '',
 				tel: '',
@@ -82,8 +90,13 @@
 			}
 		},
 		onLoad() {
-			/* this.initUserInfo();
-			this.getHandle() */
+			
+			if(uni.getStorageSync('token')){
+				console.log('获取token')
+				this.isAuthorize = true
+				this.initUserInfo();
+			}
+			//this.getHandle() 
 		},
 
 		methods: {
@@ -153,22 +166,9 @@
 					provider: 'weixin',
 					success: function(loginRes) {
 						that.$api.login(loginRes.code, userInfo).then(res => {
-							//console.log(res)
-						uni.setStorageSync('token',res.data.data);				
-						 /* 	uni.setStorage({
-								key:'token',
-								data:res.data.data,
-								success:function(){
-									console.log('set token')
-									
-									uni.getStorage({
-										key:"token",
-										success:function(res){
-											console.log(res.data)
-										}
-									}) 
-								}
-							}) */
+							console.log(res)
+							uni.setStorageSync('token',res.data.data);				
+
 						})
 					}
 				});
@@ -178,6 +178,14 @@
 			goCall: function() {
 				uni.makePhoneCall({
 					phoneNumber: '15281029319'
+				});
+			},
+			goMyEdit(){
+				uni.navigateTo({
+					url: 'mineEdit',
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
 				});
 			}
 		}
@@ -193,7 +201,10 @@
 		border-radius: 8upx;
 		background: #fff url(../../static/img/info-arr.png) no-repeat 85vw center;
 		background-size: 40upx;
-
+		.mine{
+			display: inline-block;
+			width:100%;
+		}
 		.agency-logo {
 			width: 15vw;
 			height: 15vw;
