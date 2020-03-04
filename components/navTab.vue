@@ -107,7 +107,29 @@
 				}
 			}
 		}
-		
+		.longTab{
+			display:flex;
+			white-space:nowrap;
+			
+			.longItem{
+				width:25vw;
+				display: inline-block;
+				line-height:10vh;
+				text-align:center;
+				
+				text{
+					line-height: 100upx;
+					display: inline-block;
+					height:100upx;
+				}
+				
+			}
+			.click{
+				color:#212121;					
+				font-weight: bold;
+				border-bottom: 2px solid #ff8300;	
+			}
+		}
 			
 			
 		

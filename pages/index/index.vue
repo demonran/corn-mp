@@ -270,7 +270,6 @@
 
 	.banner{
 		height: 320upx;
-		background:#eee;
 		.pic{
 			width:610upx;
 			height:310upx;

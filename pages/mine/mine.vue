@@ -70,7 +70,7 @@
 		data() {
 			return {
 				userInfo:'',
-				isAuthorize: true,
+				isAuthorize: false,
 				image: '',
 				name: '',
 				tel: '',
@@ -94,17 +94,19 @@
 			if(uni.getStorageSync('token')){
 				console.log('获取token')
 				this.isAuthorize = true
-				this.initUserInfo();
+				this.getUserInfo();
+			}else{
+				this.isAuthorize = false
 			}
 			//this.getHandle() 
 		},
 
 		methods: {
-			initUserInfo() {
+			getUserInfo() {
 				this.$api.userInfo().then(res => {
 					this.userInfo = res.data.data;
 					console.log('123')
-					console.log(res.data.data)
+					console.log(res)
 					this.name = this.userInfo.nickName;
 					this.image = this.userInfo.avatarUrl;
 				})
