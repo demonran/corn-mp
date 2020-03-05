@@ -12,7 +12,7 @@
 						<ul class="hot-course">
 							<li class="inbox" v-for="(item,index) in list" v-if="list.length > 0" :key="index">
 								<view class="">
-									<h4 class="a-line">{{item.courseName}}</h4>
+									<h4 class="a-line">{{item.courseInfo.courseName}}</h4>
 									<p class="time">{{item.time}}</p>
 									
 									<view v-show="item.study==0" class="icon">待支付</view>
@@ -21,8 +21,8 @@
 								</view>
 								<view class="des">
 									<h5 class="prize">{{item.totalAmount}}</h5>
-									<text class="hour">共{{item.hour}}课时</text><text class="line">|</text>
-									<text class="number">限{{item.number}}人</text>
+									<text class="hour">共{{item.courseInfo.lesson}}课时</text><text class="line">|</text>
+									<text class="number">限{{item.courseInfo.limitStudents}}人</text>
 								</view>
 								<view  class="state">
 									<view @click="gostudyDetail" v-show="item.study==1||item.study==2" class="btn">查看记录</view>
