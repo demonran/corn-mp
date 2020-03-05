@@ -53,7 +53,7 @@
 				<dd><input type="text" value="" placeholder="请输入备注说明"/></dd>
 			</dl> -->
 		</view>
-		<view class="bottomBar">
+		<view class="bottomBar" v-show="signInfo == 0 || signInfo == 2">
 			<view class="fl">
 				<view class="prize orange-color">应付：¥{{CourseDetail.price}}</view>
 				<!-- <view class="coupon">优惠群优惠：{{coupon}}元</view> -->

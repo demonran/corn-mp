@@ -1,11 +1,11 @@
 <template>
 	<view class="box content">
 		<div class="user">
-			<view class="" v-if="isAuthorize==false">
+			<view class="" >
 				<view class="agency-logo">
 					<image class="null" :src="image"></image>
 				</view>
-				<view class="agency-des" >
+				<view class="agency-des"  v-if="isAuthorize==false">
 					<button class="loginBtn" open-type="getUserInfo" @getuserinfo="getHandle">
 						<h1 class="a-line">
 							未登录
@@ -13,18 +13,15 @@
 						<text class="a-line">点击登陆</text>
 					</button>
 				</view>
-			</view>
-			<view class="mine" @click="goMyEdit">
-				<view class="agency-logo">
-					<image class="null" :src="image"></image>
-				</view>
-				<view class="agency-des" v-if="isAuthorize==true">
-					
-						<h1 class="a-line">{{name}}</h1>
-						<text class="a-line">{{tel}}</text>
-					
+				<view class="agency-des mine" v-if="isAuthorize==true" @click="goMyEdit">					
+					<h1 class="a-line">{{name}}</h1>
+					<text class="a-line">
+						点击修改个人信息
+					<!-- {{tel}} -->
+					</text>
 				</view>
 			</view>
+
 			
 		</div>
 
@@ -91,18 +88,19 @@
 		},
 		onLoad() {
 			
-			if(uni.getStorageSync('token')){
+			/* if(uni.getStorageSync('token')){
 				console.log('获取token')
 				this.isAuthorize = true
 				this.getUserInfo();
 			}else{
 				this.isAuthorize = false
-			}
+			} */
+			//判断是否授权
 			//this.getHandle() 
 		},
 
 		methods: {
-			getUserInfo() {
+			/* getUserInfo() {
 				this.$api.userInfo().then(res => {
 					this.userInfo = res.data.data;
 					console.log('123')
@@ -110,7 +108,7 @@
 					this.name = this.userInfo.nickName;
 					this.image = this.userInfo.avatarUrl;
 				})
-			},
+			}, */
 			// 点击按钮激发授权事件
 			getHandle() {
 				// 重赋值this
@@ -137,7 +135,7 @@
 							// 如果要获取的权限尚未授权,则此时触发授权，打开设置页面
 							uni.showModal({
 								//弹出提示框
-								title: '是否打开设置页？',
+								title: '是否打开设置页授权登陆？',
 								content: '需要在设置中获取个人信息和微信登陆权限',
 								success(res) {
 									if (res.confirm) {
@@ -158,6 +156,7 @@
 					}
 				})
 			},
+			//登陆
 			WX_MP_getuserinfo(e) {
 				let that = this;
 				let userInfo = e.userInfo;
@@ -204,8 +203,12 @@
 		background: #fff url(../../static/img/info-arr.png) no-repeat 85vw center;
 		background-size: 40upx;
 		.mine{
-			display: inline-block;
-			width:100%;
+			display: block;
+			height:60upx;
+			text {
+				font-size: 24upx;
+				color: #7e7e7e;
+			}
 		}
 		.agency-logo {
 			width: 15vw;

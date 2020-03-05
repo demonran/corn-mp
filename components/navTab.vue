@@ -79,7 +79,7 @@
 		width:100vw;
 		height:10vh;
 		background:#333;
-		
+		line-height:10vh;
 		font-size:30upx;
 		color:#7d7d7d;	
 		background:#fff;
@@ -95,38 +95,32 @@
 				width:25vw;
 				text-align:center;
 				.click{
-					color:#212121;
-					
+					color:#212121;	
 					font-weight: bold;
 					border-bottom: 2px solid #ff8300;	
 				}
 				text{
-					line-height: 100upx;
 					display: inline-block;
-					height:100upx;
+					height:10vh;
 				}
 			}
 		}
-		.longTab{
-			display:flex;
-			white-space:nowrap;
-			
-			.longItem{
-				width:25vw;
-				display: inline-block;
-				line-height:10vh;
-				text-align:center;
-				
-				text{
-					line-height: 100upx;
-					display: inline-block;
-					height:100upx;
-				}
-				
+		.longTab{			
+			    white-space: nowrap;
+			    display:flex;
+			    flex-direction: row;
+			    flex-wrap:nowrap;			 			
+			.longItem{		
+				margin:0 10vw;
+				display: inline-block;			
+				width:auto;
+				text-align:center;			
 			}
+
 			.click{
 				color:#212121;					
 				font-weight: bold;
+				display: inline-block;				
 				border-bottom: 2px solid #ff8300;	
 			}
 		}
