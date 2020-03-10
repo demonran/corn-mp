@@ -42,7 +42,6 @@ export default {
 		header: {
 			'Content-Type':'application/json;charset=UTF-8',
 			'dbid':'001',
-			'token':uni.getStorageSync('token')
 			
 		},  
 		data: {},
@@ -67,19 +66,21 @@ export default {
 		options.url = options.baseUrl + options.url
 		options.data = options.data || {}
 		options.method = options.method || this.config.method
+		options.header = options.header || this.config.header
 		//TODO 加密数据
 		 
 		 //const _token = uni.getStorageSync('token');
 		 //response.setHeader("token",_token);
 		//const _token = {'token': uni.getStorage('token')|| 'undefined'},
-		//_token = {'token': getStorage('token')|| 'undefined'},
-		//options.header = Object.assign({}, options.header, _token) 
+		
 		//TODO 数据签名
 		/* 
 		_token = {'token': getStorage(STOREKEY_LOGIN).token || 'undefined'},
 		_sign = {'sign': sign(JSON.stringify(options.data))}
 		options.header = Object.assign({}, options.header, _token,_sign) 
 		*/
+	   let _token = {'token': uni.getStorageSync('token')};
+	   options.header = Object.assign({}, options.header, _token, this.config.header);
 	   
 		return new Promise((resolve, reject) => {
 			let _config = null
@@ -108,6 +109,9 @@ export default {
 			}
 
 			_config = Object.assign({}, this.config, options)
+			console.log('test-----this.config',this.config)
+			console.log('test-----options',options)
+			console.log('test-----',_config)
 			_config.requestId = new Date().getTime()
 
 			if (this.interceptor.request) {
