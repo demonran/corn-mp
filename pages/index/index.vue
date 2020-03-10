@@ -86,13 +86,14 @@
 			</view>
 			<view class="works">
 				<ul class="box flex">
-					<li v-for="item in works" :key="index" @click="goWorksDetail">
+					<li v-for="(item,index) in works" :key="index" 
+					@click="goWorkDetail(item.id)" >
 						<view class="works-pic">
 							<image :src="item.image" mode="widthFix"></image>	
 						</view>
 						<view class="works-des">
-							<h4 class="a-line">{{item.title}}</h4>
-							<span>{{item.author}}</span><span class="line">|</span><span>{{item.classify}}</span>
+							<h4 class="a-line">{{item.name}}</h4>
+							<span>{{item.author}}</span><span class="line">|</span><span>{{item.category.name}}</span>
 						</view>
 					</li>
 				</ul>
@@ -146,6 +147,7 @@
 				],
 				recommendCourse:[],
 				hotCourse:[],
+				works:[],
 				activity:[ 
 					{
 					image:"../../static/img/w5.png",
@@ -169,9 +171,19 @@
 			this.initNavs();
 			this.initRecommendCourse() 
 			this.initHotOfflineCourse();
+			this.initWorks();
+			this.getOrganization();
 		},
 
 		methods: {
+			getOrganization(){
+			
+			},
+			initWorks() {
+				this.$api.worksRecommend().then(res => {
+					this.works = res.data.data;
+				})
+			},
 			initBanner() {
 				this.$api.banner().then(res => {
 					this.banner = res.data.data;
@@ -237,9 +249,9 @@
 					complete: () => {}
 				});
 			},
-			goWorksDetail:function(){
+			goWorkDetail:function(id){
 				uni.navigateTo({
-					url: '../works/worksDetail',
+					url: `/pages/works/worksDetail?id=`+ id,
 					success: res => {},
 					fail: () => {},
 					complete: () => {}

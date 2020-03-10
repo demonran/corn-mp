@@ -3,11 +3,11 @@
 		<!-- 优秀作品 start -->
 			<view class="works">			
 				<view class="works-pic">
-					<image :src="image" mode="widthFix"></image>	
+					<image :src="detail.image" mode="widthFix"></image>	
 				</view>
 				<view class="box">
-					<h4 class="a-line">{{title}}</h4>
-					<span>{{author}}</span><span class="line">|</span><span>{{classify}}</span>
+					<h4 class="a-line">{{detail.name}}</h4>
+					<span>{{detail.author}}</span><span class="line">|</span><span>{{detail.category.name}}</span>
 				</view>	
 			</view>
 		<!-- 优秀作品 end -->		
@@ -19,15 +19,21 @@
 export default {
 	data() {
 		return {
-			image:"../../static/img/w1.png",
-			title:"作品名称",
-			author:"作者姓名",
-			classify:"分类1"
+			detail:[]
 		};
 	},
-
+	onLoad(options) {
+		console.log(options.id)
+		this.getDetail(options.id);
+		console.log(options.id)
+	},
 	methods: {
-
+		getDetail(id) {
+			this.$api.worksDetail(id).then(res => {
+				this.detail = res.data.data;
+				console.log(this.detail)
+			})
+		},
 	
 	}
 };

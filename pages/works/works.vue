@@ -6,20 +6,20 @@
 		</view>
 		<!-- swiper切换 swiper-item表示一页 scroll-view表示滚动视窗 -->		
 		<swiper  :current="currentTab" @change="swiperTab">
-			<swiper-item v-for="(listItem,listIndex) in list" :key="listIndex">
+			<swiper-item v-for="(item,index) in worklist" :key="index">
 				<scroll-view  scroll-y="true" @scrolltolower="lower1" scroll-with-animation :scroll-into-view="toView">
 			
 						<!-- 优秀作品 start -->
 					
 							<view class="works">
 								<ul class="box flex">
-									<li @click="goWorkDetail" v-for="(item,index) in listItem" :key="index">
+									<li @click="goWorkDetail(item.id)" >
 										<view class="works-pic">
 											<image :src="item.image" mode="widthFix"></image>	
 										</view>
 										<view class="works-des">
-											<h4 class="a-line">{{item.title}}</h4>
-											<span>{{item.author}}</span><span class="line">|</span><span>{{item.classify}}</span>
+											<h4 class="a-line">{{item.name}}</h4>
+											<span>{{item.author}}</span><span class="line">|</span><span>{{item.category.name}}</span>
 										</view>
 									</li>
 								</ul>
@@ -43,62 +43,14 @@ export default {
 	data() {
 		return {
 			currentPage:'index',
-			tabTitle:['全部','分类1','分类2','分类3'], //导航栏格式 --导航栏组件
+			tabTitle:[], //导航栏格式 --导航栏组件
 			currentTab: 0, //sweiper所在页
-			list: [
-				[
-					{
-						image:"../../static/img/w1.png",
-						title:"作品名称",
-						author:"作者姓名",
-						classify:"分类1"
-					},
-					{
-						image:"../../static/img/w2.png",
-						title:"作品名称",
-						author:"作者姓名",
-						classify:"分类1"
-					}
-				],
-				[
-					{
-						image:"../../static/img/w3.png",
-						title:"作品名称",
-						author:"作者姓名",
-						classify:"分类1"
-					}
-				],
-				[
-					{
-						image:"../../static/img/w3.png",
-						title:"作品名称",
-						author:"作者姓名",
-						classify:"分类1"
-					}
-				],
-				[
-					{
-						image:"../../static/img/w3.png",
-						title:"作品名称",
-						author:"作者姓名",
-						classify:"分类1"
-					}
-				]
-			] //数据格式
+			worklist: [] //数据格式
 		};
 	},
 	onLoad: function (options) {
-	        setTimeout(function () {
-	            console.log('start pulldown');
-	        }, 1000);
-	        uni.startPullDownRefresh();
-			
-	    },
-	    onPullDownRefresh() {
-	        console.log('refresh');
-	        setTimeout(function () {
-	            uni.stopPullDownRefresh();
-	        }, 1000);
+	    this.initWorksList()	
+		this.initCourseCategory();
 	    },
 		onShow() {
 			uni.pageScrollTo({
@@ -107,7 +59,25 @@ export default {
 			});
 		},
 	methods: {
-
+		initCourseCategory() {
+			this.$api.CourseCategory().then(res => {		
+				let title =res.data.data
+				let tabTitle = []
+				//tabTitle.unshift('全部')
+				for(var i = 0;i<title.length;i++){				
+					var str = title[i].categoryName
+					tabTitle.push(str)
+				}				
+				console.log(tabTitle)
+				this.tabTitle = tabTitle				
+			})  
+		},
+		initWorksList(){
+			this.$api.worksList().then(res => {
+				this.worklist = res.data.data.content;
+				console.log(this.worklist)
+			})
+		},
 		changeTab(index){
 			this.currentTab = index
 		},
@@ -121,9 +91,9 @@ export default {
 				this.$refs.navTab.longClick(index)
 			}
 		},
-		goWorkDetail:function(){
+		goWorkDetail:function(id){
 			uni.navigateTo({
-				url: 'worksDetail',
+				url: `/pages/works/worksDetail?id=`+ id,
 				success: res => {},
 				fail: () => {},
 				complete: () => {}

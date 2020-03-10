@@ -47,9 +47,9 @@
 				<image class="null" :src="CourseDetail.headimg"></image>
 			</view>
 			<view class="agency-des">
-				<h1 class="a-line">主讲:{{CourseDetail.teacher}}</h1>
+				<h1 class="a-line">主讲:{{CourseDetail.teacher.teacherName}}</h1>
 				<text class="a-line">
-					<text>{{CourseDetail.teacherType}}</text><text class="line">|</text><text>{{CourseDetail.year}}年经验</text>
+					<text>{{CourseDetail.teacher.teacherId}}</text><text class="line">|</text><text>{{CourseDetail.year}}年经验</text>
 				</text>
 			</view>
 		</view>

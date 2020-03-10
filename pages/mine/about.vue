@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<swiper  :autoplay="true" :interval="3000" :duration="1000">
-			<swiper-item v-for="(item,index) in about" :key="index" >
+			<swiper-item v-for="(item,index) in organization" :key="index" >
 				<image :src="item.image" mode="widthFix"></image>
 				<view class="num">
 					<text>{{index+1}}/{{about.length}}</text>
@@ -59,7 +59,16 @@
 				]
 			}
 		},
+		onLoad() {
+			this.getOrganization();
+		},
 		methods: {
+			getOrganization(){
+				this.$api.organization().then(res => {
+					this.organization = res.data.data;
+					console.log('organization:',this.organization)
+				})
+			},
 			goMap:function(){
 				uni.navigateTo({
 					url: '../map/map',

@@ -64,6 +64,10 @@ export const onlineCourseDetail = (id) => {
 export const hotOfflineCourse = () => {
     return http.get('offline-course/hot')
 }
+// 组织机构
+export const organization = () => {
+    return http.get('/organization/info')
+} 
 // 线下课程
 export const OfflineCourse = () => {
     return http.get('offline-course')
@@ -84,7 +88,26 @@ export const login = (code, userInfo) => {
 export const userInfo = () => {
     return http.get('user/info')
 }
-
+// 老师列表
+export const teacherList = () => {
+    return http.get('teachers')
+}
+// 老师详情
+export const teacherDetail = (id) => {
+    return http.get('teachers/'+id)
+}
+// 作品列表
+export const worksList = () => {
+    return http.get('painting')
+}
+// 作品推荐列表
+export const worksRecommend = () => {
+    return http.get('painting/recommend')
+}
+// 作品详情
+export const worksDetail = (id) => {
+    return http.get('painting/'+id)
+}
 // 课程报名
 export const orders = (data) => {
     return http.post('orders',data)
@@ -107,5 +130,11 @@ export default {
 	userInfo,
 	orders,
 	myOrders,
-	onlineCourseDetail
+	onlineCourseDetail,
+	teacherList,
+	teacherDetail,
+	worksList,
+	worksDetail,
+	worksRecommend,
+	organization
 }

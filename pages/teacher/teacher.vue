@@ -1,14 +1,14 @@
 <template>
 	<view>
-		<view @click="goTeacherDetail" class="teachlist" v-for="(item,index) in teacher" :key="index">
+		<view @click="goTeacherDetail(item.id)" class="teachlist" v-for="(item,index) in teacher" :key="index">
 			<view class="agency flex inbox shadow">
 				<view class="agency-logo">
-					<image class="null" :src="item.headimg"></image>
+					<image class="null" :src="item.avatar"></image>
 				</view>
 				<view class="agency-des">
-					<h1 class="a-line">主讲:{{item.teacher}}</h1>
+					<h1 class="a-line">主讲:{{item.name}}</h1>
 					<text class="a-line">
-						<text>{{item.teacherType}}</text><text class="line">|</text><text>{{item.year}}年经验</text>
+						<text>{{item.categoryName}}</text><text class="line">|</text><text>{{item.experience}}年经验</text>
 					</text>
 				</view>
 			</view>
@@ -20,38 +20,29 @@
 	export default {
 		data() {
 			return {
-				teacher:[
-					{
-						headimg:'',
-						teacher:'郭老师',
-						teacherType:'美术教师',
-						year:'8'
-					},
-					{
-						headimg:'',
-						teacher:'李老师',
-						teacherType:'美术教师',
-						year:'2'
-					},
-					{
-						headimg:'',
-						teacher:'郭老师',
-						teacherType:'美术教师',
-						year:'8'
-					}
-				]
+				teacher:[]
 				
 			}
 		},
+		onLoad() {
+			this.initTeacher()
+		},
 		methods: {
-			goTeacherDetail:function(){
+			initTeacher() {
+				this.$api.teacherList().then(res => {
+					this.teacher = res.data.data.content;
+					console.log(this.teacher)
+				})
+			},
+			goTeacherDetail:function(id){
 				uni.navigateTo({
-					url: 'teacherDetail',
+					url: `/pages/teacher/teacherDetail?id=`+ id,
 					success: res => {},
 					fail: () => {},
 					complete: () => {}
 				});
-			}
+			},
+
 		}
 
 	}
@@ -79,6 +70,7 @@
 			margin-right:2vw;
 			image{
 				width:100%;
+				height:100%;
 			}
 		}
 		.agency-des{
