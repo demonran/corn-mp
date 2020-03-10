@@ -109,9 +109,6 @@ export default {
 			}
 
 			_config = Object.assign({}, this.config, options)
-			console.log('test-----this.config',this.config)
-			console.log('test-----options',options)
-			console.log('test-----',_config)
 			_config.requestId = new Date().getTime()
 
 			if (this.interceptor.request) {
