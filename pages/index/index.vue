@@ -39,15 +39,15 @@
 				<p class="more fr" @click="goStudyOpen()">更多</p>				
 			</view>
 			<scroll-view class="rec-course "  scroll-x="true" >
-				<view @click="goOpenDetail" class="shadow rec-box" v-for="(item,index) in recommendCourse" :key="index">
+				<view @click="goOpenDetail(item.id)" class="shadow rec-box" v-for="(item,index) in recommendCourse" :key="index">
 					<view class="rec-pic">
 						<image class="btn" src="../../static/img/play-btn.png" mode="widthFix"></image>
-						<image :src="item.imageUrl" mode="widthFix"></image>
+						<image :src="item.cover" mode="widthFix"></image>
 						<text class="prize">{{item.price ? "¥"+item.price : "免费"}}</text>
 					</view>
 					<view class="rec-des">
 						<h4 class="a-line">{{item.title}}</h4>
-						<p class="a-line">{{item.des}}</p>
+						<p class="a-line">{{item.subTitle}}</p>
 					</view>
 				</view>
 			</scroll-view>						
@@ -211,9 +211,9 @@
 					complete: () => {}
 				}); 
 			},
-			goOpenDetail:function(){
+			goOpenDetail:function(id){
 				uni.navigateTo({
-					url: '../studyOpen/openDetail',
+					url: `../studyOpen/openDetail?id=${id}`,
 					success: res => {},
 					fail: () => {},
 					complete: () => {}

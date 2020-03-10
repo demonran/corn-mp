@@ -1,18 +1,18 @@
 <template>
 	<view>
 		<video id="myVideo" 
-		src="https://dcloud-img.oss-cn-hangzhou.aliyuncs.com/guide/uniapp/%E7%AC%AC1%E8%AE%B2%EF%BC%88uni-app%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%EF%BC%89-%20DCloud%E5%AE%98%E6%96%B9%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B@20181126.mp4"
+		:src="course.videoUrl"
 			@error="videoErrorCallback"  controls>
 		</video>		
 		<view class="rec-des" >
-			<h4 class="a-line">{{title}}</h4>
-			<p class="a-line">{{des}}</p>
+			<h4 class="a-line">{{course.title}}</h4>
+			<p class="a-line">{{course.subTitle}}</p>
 				<button open-type="share" class="share">分享</button>
 		
 			<view class="bottom">
-				<text class="prize fl" >{{prize}}</text>
+				<text class="prize fl" >{{course.price ? "¥"+course.price : "免费"}}</text>
 				<text class="fr" >
-					<text>{{course}}</text><text class="line">|</text><text>{{played}}人已观看</text>
+					<text>{{course.category.name}}</text><text class="line">|</text><text>{{course.watchedCount}}人已观看</text>
 				</text>
 			</view>
 		</view>
@@ -21,15 +21,15 @@
 				<image class="null" :src="headimg"></image>
 			</view>
 			<view class="agency-des">
-				<h1 class="a-line">主讲:{{teacher}}</h1>
+				<h1 class="a-line">主讲:{{course.teacher.name}}</h1>
 				<text class="a-line">
-					<text>{{teacherType}}</text><text class="line">|</text><text>{{year}}年经验</text>
+					<text>{{teacherType}}</text><text class="line">|</text><text>{{course.teacher.experience}}年经验</text>
 				</text>
 			</view>
 		</view>
 		<view class="box details">
 			<h6>课程介绍</h6>
-			<image class="null" src="" mode="widthFix"></image>
+			<rich-text mode="widthFix" :nodes="course.content"></rich-text>
 		</view>
 		<view class="bottomBar">
 			<text class="service">客服</text>
@@ -43,16 +43,12 @@
 	export default {
 		data() {
 			return {
-				title:'中外美术历史',
-				des:'全方位了解中外美术史，提升素养',
-				prize:'免费',
-				course:'美术课程',
-				played:'12421',
-				headimg:'',
-				teacher:'郭老师',
-				teacherType:'美术教师',
-				year:'8'
+				course: {}
 			}
+		},
+		onLoad(options) {
+			console.log(options)
+			this.initOnlineCourseDetail(options.id);
 		},
 		methods: {
 			videoErrorCallback: function(e) {
@@ -61,7 +57,11 @@
 					showCancel: false
 				})
 			},
-			
+			initOnlineCourseDetail(id) {
+				this.$api.onlineCourseDetail(id).then(res => {
+					this.course = res.data.data;
+				})
+			}
 		},
 		onShareAppMessage(res) {
 		    if (res.from === 'button') {// 来自页面内分享按钮

@@ -50,10 +50,14 @@ export const navs = () => {
 // 推荐课程
 export const recommendCourse = () => {
     return http.request({
-        url: 'recommend-course',
+        url: 'online-course/recommend',
         method: 'GET', 
 		// handle:true
     })
+}
+// 推荐课程
+export const onlineCourseDetail = (id) => {
+    return http.get('online-course/' + id)
 }
 
 // 热门线下课程课程
@@ -102,5 +106,6 @@ export default {
 	login,
 	userInfo,
 	orders,
-	myOrders
+	myOrders,
+	onlineCourseDetail
 }
