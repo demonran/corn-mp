@@ -116,6 +116,10 @@ export const orders = (data) => {
 export const myOrders = () => {
     return http.get('orders')
 }
+// 最新活动
+export const article = () => {
+    return http.get('article')
+}
 // 默认全部导出  import api from '@/common/vmeitime-http/'
 export default {
 	test,
@@ -136,5 +140,6 @@ export default {
 	worksList,
 	worksDetail,
 	worksRecommend,
-	organization
+	organization,
+	article
 }

@@ -21,13 +21,13 @@
 		<!-- nav end -->
 		<!-- 培训机构信息 start -->
 		<view class="section" @tap="goAbout">
-			<view class="agency flex inbox shadow" v-for="(item,index) in trainAgency" :key="index">
+			<view class="agency flex inbox shadow">
 				<view class="agency-logo">
-					<image class="null" :src="item.image"></image>
+					<image class="null" :src="trainAgency.image"></image>
 				</view>
 				<view class="agency-des">
-					<h1 class="a-line">{{item.title}}</h1>
-					<text class="a-line">{{item.addr}}</text>
+					<h1 class="a-line">{{trainAgency.name}}</h1>
+					<text class="a-line">{{trainAgency.address}}</text>
 				</view>
 			</view>
 		</view>
@@ -111,14 +111,14 @@
 			</view>
 			<view class="activity">
 				<ul class="box">
-					<li @click="goActivityDetail" class="shadow " v-for="(item,index) in activity" :index="index">
+					<li @click="goActivityDetail(item.id)" class="shadow " v-for="(item,index) in activity" :index="index">
 						<view class="activity-pic">
-							<image :src="item.image" mode="widthFix"></image>	
+							<image :src="item.cover" mode="widthFix"></image>	
 						</view>
 						<view class="des">
 							<h4 class="title">{{item.title}}</h4>
-							<view class="cont">{{item.des}}</view>
-							<span>{{item.classify}}</span><span class="line">|</span><span>{{item.date}}</span>
+							<view class="cont">{{item.description}}</view>
+							<span>{{item.category.name}}</span><span class="line">|</span><span>{{item.createdAt}}</span>
 						</view>
 					</li>
 				</ul>
@@ -138,31 +138,11 @@
 
 				banner: [],
 				nav:[],
-				trainAgency:[
-					{
-						title:"成都印象派美术教育机构",
-						addr:"成都市高新区华府大道二段11号5栋320",
-						image:""
-					}
-				],
+				trainAgency:[],
 				recommendCourse:[],
 				hotCourse:[],
 				works:[],
-				activity:[ 
-					{
-					image:"../../static/img/w5.png",
-					title:"中央积极投身粤港澳大湾区建设",
-					des:"2019年2月18日，中共中央、国务院印发了《粤港澳大湾区发展规划纲要》全文中共中央、国务院印发了《粤港澳大湾区发展规划纲要》全文 ",
-					classify:"机构新闻",
-					date:"2019-02-16"
-				},{
-					image:"../../static/img/w6.png",
-					title:"中央积极投身粤港澳大湾区建设",
-					des:"2019年2月18日，中共中央、国务院印发了《粤港澳大湾区发展规划纲要》",
-					classify:"机构新闻",
-					date:"2019-02-16"
-				}
-				]
+				activity:[]
 			}
 		},
 
@@ -173,11 +153,20 @@
 			this.initHotOfflineCourse();
 			this.initWorks();
 			this.getOrganization();
+			this.initArticle();
+			
 		},
 
 		methods: {
 			getOrganization(){
-			
+				this.$api.organization().then(res => {
+					this.trainAgency = res.data.data;
+				})
+			},
+			initArticle() {
+				this.$api.article().then(res => {
+					this.activity = res.data.data;
+				})
 			},
 			initWorks() {
 				this.$api.worksRecommend().then(res => {
@@ -213,8 +202,7 @@
 					complete: () => {}
 				});
 			},
-			goCourseDetail:function(id){		
-				 
+			goCourseDetail:function(id){						 
 				 uni.navigateTo({
 					 
 					url: `/pages/course/courseDetail?id=`+id,
@@ -265,9 +253,9 @@
 					complete: () => {}
 				});
 			},
-			goActivityDetail:function(){
+			goActivityDetail:function(id){
 				uni.navigateTo({
-					url: '../activity/activityDetail',
+					url: `/pages/activity/activityDetail?id=`+ id,
 					success: res => {},
 					fail: () => {},
 					complete: () => {}
