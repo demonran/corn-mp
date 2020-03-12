@@ -159,7 +159,14 @@
 			"style": {
 				"navigationBarTitleText": "作品展示"
 			}
-		}, {
+		},
+		{
+			"path": "pages/works/workslist",
+			"style": {
+				"navigationBarTitleText": "作品展示"
+			}
+		},
+		{
 			"path": "pages/works/worksDetail",
 			"style": {}
 		}, {
@@ -209,11 +216,17 @@
 				"text": "选课"
 			},
 			{
+				"pagePath": "pages/works/works",
+				"iconPath": "static/img/study.png",
+				"selectedIconPath": "static/img/studyNow.png",
+				"text": "作品"
+			},
+			/* {
 				"pagePath": "pages/study/study",
 				"iconPath": "static/img/study.png",
 				"selectedIconPath": "static/img/studyNow.png",
 				"text": "学习"
-			},
+			}, */
 			{
 				"pagePath": "pages/mine/mine",
 				"iconPath": "static/img/mine.png",

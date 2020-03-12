@@ -35,11 +35,11 @@
 			</dl>
 			<dl @click="goMap">
 				<dt>地址</dt>
-				<dd>{{CourseDetail.addr}}</dd>
+				<dd>{{organization.address}}</dd>
 			</dl>
 			<dl @click="goCall">
 				<dt>电话</dt>
-				<dd>{{CourseDetail.tel}}</dd>
+				<dd>{{organization.tel}}</dd>
 			</dl>
 		</view>
 		<view class="agency flex  ">
@@ -47,9 +47,9 @@
 				<image class="null" :src="CourseDetail.headimg"></image>
 			</view>
 			<view class="agency-des">
-				<h1 class="a-line">主讲:{{CourseDetail.teacher.teacherName}}</h1>
+				<h1 class="a-line">主讲:{{CourseDetail.teacher.name}}</h1>
 				<text class="a-line">
-					<text>{{CourseDetail.teacher.teacherId}}</text><text class="line">|</text><text>{{CourseDetail.year}}年经验</text>
+					<text>{{CourseDetail.courseCategory.name}}</text><text class="line">|</text><text>{{CourseDetail.teacher.experience}}年经验</text>
 				</text>
 			</view>
 		</view>
@@ -74,13 +74,21 @@
 	export default {
 		data() {
 			return {	
-				CourseDetail:{},
+				CourseDetail:[],
+				organization:[]
 			}
 		}, 
 		onLoad(options) {			
 			this.initCourseDetail(options.id);
+			this.getOrganization();
 		},
 		methods: {
+			getOrganization(){
+				this.$api.organization().then(res => {
+					this.organization = res.data.data;
+					console.log('organization:',this.organization)
+				})
+			},
 			initCourseDetail(id) {
 				this.$api.CourseDetail(id).then(res => {
 					this.CourseDetail = res.data.data; 
@@ -96,7 +104,7 @@
 			},
 			goCall:function(){
 				uni.makePhoneCall({
-				    phoneNumber: '15281029319' 
+				    phoneNumber: this.organization.tel 
 				});
 			},
 			goSignup:function(id){

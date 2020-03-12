@@ -75,7 +75,7 @@
 			},
 			goCall:function(){
 				uni.makePhoneCall({
-				    phoneNumber: '15281029319' 
+				    phoneNumber: this.organization.tel
 				});
 			}
 			

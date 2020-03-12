@@ -10,15 +10,25 @@
 		</swiper>
 		<!-- banner end -->
 		<!-- nav start -->
-		<view class="nav-list flex">
+<!-- 		<view class="nav-list flex">
 			<view class="nav-box"  hover-class="nav-hover" v-for="(item,index) in nav" :key="index">
 				<navigator :url="item.link">
 					<image :src="item.image"></image>
 					<view class="text">{{item.title}}</view>
 				</navigator>					
 			</view>
-		</view>
+		</view> -->
 		<!-- nav end -->
+		<!-- nav start -->
+				<view class="nav-list flex">
+					<view class="nav-box"  hover-class="nav-hover" v-for="(item,index) in nav" :key="index">
+						<navigator :url="item.goUrl">
+							<image :src="item.image"></image>
+							<view class="text">{{item.title}}</view>
+						</navigator>					
+					</view>
+				</view>
+				<!-- nav end -->
 		<!-- 培训机构信息 start -->
 		<view class="section" @tap="goAbout">
 			<view class="agency flex inbox shadow">
@@ -117,7 +127,7 @@
 						</view>
 						<view class="des">
 							<h4 class="title">{{item.title}}</h4>
-							<view class="cont">{{item.description}}</view>
+							<view class="cont" v-html="item.description"></view>
 							<span>{{item.category.name}}</span><span class="line">|</span><span>{{item.createdAt}}</span>
 						</view>
 					</li>
@@ -137,18 +147,35 @@
 			return {
 
 				banner: [],
-				nav:[],
 				trainAgency:[],
 				recommendCourse:[],
 				hotCourse:[],
 				works:[],
-				activity:[]
+				activity:[],
+				nav:[
+						{
+							title:"公开课",
+							image:"../../static/img/nav1.png",
+							goUrl:"../studyOpen/studyOpen"
+						},{
+							title:"优秀教师",
+							image:"../../static/img/nav2.png",
+							goUrl:"../teacher/teacher"
+						},{
+							title:"作品展示",
+							image:"../../static/img/nav3.png",
+							goUrl:"../works/workslist"
+						},{
+							title:"最新活动",
+							image:"../../static/img/nav7.png",
+							goUrl:"../activity/activity"
+						},
+					],
 			}
 		},
 
 		onLoad() {
 			this.initBanner()
-			this.initNavs();
 			this.initRecommendCourse() 
 			this.initHotOfflineCourse();
 			this.initWorks();
@@ -164,8 +191,9 @@
 				})
 			},
 			initArticle() {
-				this.$api.article().then(res => {
+				this.$api.articleRecommend().then(res => {
 					this.activity = res.data.data;
+					console.log('active',this.activity)
 				})
 			},
 			initWorks() {
@@ -176,11 +204,6 @@
 			initBanner() {
 				this.$api.banner().then(res => {
 					this.banner = res.data.data;
-				})
-			},
-			initNavs() {
-				this.$api.navs().then(res => {
-					this.nav = res.data.data;
 				})
 			},
 			initRecommendCourse() { 
@@ -203,8 +226,7 @@
 				});
 			},
 			goCourseDetail:function(id){						 
-				 uni.navigateTo({
-					 
+				 uni.navigateTo({	 
 					url: `/pages/course/courseDetail?id=`+id,
 					success: res => {},
 					fail: () => {},
@@ -230,7 +252,8 @@
 				})
 			},
 			goWorks:function(){
-				uni.navigateTo({
+				//uni.navigateTo({
+				uni.switchTab({
 					url: '../works/works',
 					success: res => {},
 					fail: () => {},

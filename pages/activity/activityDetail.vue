@@ -1,14 +1,11 @@
 <template>
 	<view class="box">
 			<view class="title">
-				<h3>{{title}}</h3>
-				<span>{{classify}}</span><span class="line">|</span><span>{{date}}</span>
+				<h3>{{article.title}}</h3>
+				<span>{{article.category.name}}</span><span class="line">|</span><span>{{article.createdAt}}</span>
 			</view>
-			<p>
-				刘襄（前201-前179年）汉高祖刘邦长孙，齐悼惠王刘肥长子，西汉宗室、诸侯王。前189年，刘肥去世，刘襄即齐王位。前188年汉惠帝刘盈驾崩，吕后临朝称制。次年，吕台封王，割齐济南郡为吕王奉邑。前186年，其弟刘章入宿卫长安，封朱虚侯，前180年，吕后驾崩，吕产、吕禄准备举行政变，刘章知其谋，阴告他发兵入关诛诸吕，以乘机夺取帝位，刘襄遂举兵西进。吕产闻迅派灌婴率兵迎击，灌婴至荥阳屯兵，使人与齐连和。
-			</p>
-			<view class="img">
-				<image src="../../static/img/banner.png" mode="widthFix"></image>
+			<view class="img" v-html="article.description">
+				
 			</view>
 	</view>
 </template>
@@ -17,14 +14,25 @@
 	export default {
 		data() {
 			return {
-				
-				title:"中央积极投身粤港澳大湾区建设澳大湾区建设",				
-				classify:"机构新闻",
-				date:"2019-02-16"
+				article:[]
 			}
 		},
+		onLoad(options) {
+			this.getArticle(options.id);
+			console.log(options.id)
+		},
 		methods: {
-			
+			getArticle(id) {
+				this.$api.articleDetail(id).then(res => {
+					this.article = res.data.data;
+					console.log('res:',res)
+				})
+			},
+			/* initCourseDetail(id) {
+				this.$api.CourseDetail(id).then(res => {
+					this.CourseDetail = res.data.data; 
+				}) 
+			}, */
 		}
 	}
 </script>

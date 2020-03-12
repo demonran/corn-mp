@@ -59,7 +59,10 @@ export const recommendCourse = () => {
 export const onlineCourseDetail = (id) => {
     return http.get('online-course/' + id)
 }
-
+// 公开课列表
+export const onlineCourse = () => {
+    return http.get('online-course' )
+}
 // 热门线下课程课程
 export const hotOfflineCourse = () => {
     return http.get('offline-course/hot')
@@ -120,6 +123,15 @@ export const myOrders = () => {
 export const article = () => {
     return http.get('article')
 }
+// 最新活动详情
+export const articleDetail = (id) => {
+    return http.get('article/'+id)
+}
+
+// 推荐活动
+export const articleRecommend = () => {
+    return http.get('article/recommend')
+}
 // 默认全部导出  import api from '@/common/vmeitime-http/'
 export default {
 	test,
@@ -135,11 +147,14 @@ export default {
 	orders,
 	myOrders,
 	onlineCourseDetail,
+	onlineCourse,
 	teacherList,
 	teacherDetail,
 	worksList,
 	worksDetail,
 	worksRecommend,
 	organization,
-	article
+	article,
+	articleDetail,
+	articleRecommend
 }

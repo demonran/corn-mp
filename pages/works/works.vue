@@ -6,14 +6,14 @@
 		</view>
 		<!-- swiper切换 swiper-item表示一页 scroll-view表示滚动视窗 -->		
 		<swiper  :current="currentTab" @change="swiperTab">
-			<swiper-item v-for="(item,index) in worklist" :key="index">
+			<swiper-item >
 				<scroll-view  scroll-y="true" @scrolltolower="lower1" scroll-with-animation :scroll-into-view="toView">
 			
 						<!-- 优秀作品 start -->
 					
 							<view class="works">
 								<ul class="box flex">
-									<li @click="goWorkDetail(item.id)" >
+									<li @click="goWorkDetail(item.id)" v-for="(item,index) in worklist" :key="index">
 										<view class="works-pic">
 											<image :src="item.image" mode="widthFix"></image>	
 										</view>
@@ -51,6 +51,7 @@ export default {
 	onLoad: function (options) {
 	    this.initWorksList()	
 		this.initCourseCategory();
+
 	    },
 		onShow() {
 			uni.pageScrollTo({
@@ -63,7 +64,7 @@ export default {
 			this.$api.CourseCategory().then(res => {		
 				let title =res.data.data
 				let tabTitle = []
-				//tabTitle.unshift('全部')
+				tabTitle.unshift('全部')
 				for(var i = 0;i<title.length;i++){				
 					var str = title[i].categoryName
 					tabTitle.push(str)
@@ -75,7 +76,7 @@ export default {
 		initWorksList(){
 			this.$api.worksList().then(res => {
 				this.worklist = res.data.data.content;
-				console.log(this.worklist)
+				console.log('this.worklist',this.worklist)
 			})
 		},
 		changeTab(index){

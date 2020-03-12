@@ -1,6 +1,5 @@
 <template>
 	<view>
-
 		<view class="sign">
 		<view class="boxwhite" @click="goSignInfo"  v-show="signInfo == 0">
 			<view class="sign-des orange-color">请填写报名信息</view>
@@ -30,8 +29,8 @@
 				<view class="fl teacherbox">
 					<image class="null head" :src="headimg"></image>				
 					<view class="teacher">
-						<text>{{CourseDetail.teacherType}}</text>
-						<h1 class="a-line">{{CourseDetail.teacher}}</h1>
+						<text>{{CourseDetail.courseCategory.name}}</text>
+						<h1 class="a-line">{{CourseDetail.teacher.name}}</h1>
 					</view>					
 				</view>
 				<text class="fr" >

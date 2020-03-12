@@ -6,19 +6,19 @@
 		</view>
 		<!-- swiper切换 swiper-item表示一页 scroll-view表示滚动视窗 -->	
 		<swiper  :current="currentTab" @change="swiperTab">
-			<swiper-item v-for="(listItem,listIndex) in list" :key="listIndex">
+			<swiper-item >
 				<scroll-view  scroll-y="true" @scrolltolower="lower1" scroll-with-animation :scroll-into-view="toView">
 			
 					<view class="activity">
 						<ul class="box">
-							<li @click="goActivityDetail" class="shadow " v-for="(item,index) in listItem" :key="index">
+							<li @click="goActivityDetail(item.id)" class="shadow " v-for="(item,index) in list" :key="index">
 								<view class="activity-pic">
-									<image :src="item.image" mode="widthFix"></image>	
+									<image :src="item.cover" mode="widthFix"></image>	
 								</view>
 								<view class="des">
 									<h4 class="title">{{item.title}}</h4>
-									<view class="cont">{{item.des}}</view>
-									<span>{{item.classify}}</span><span class="line">|</span><span>{{item.date}}</span>
+									<view class="cont" v-html="item.description"></view>
+									<span>{{item.category.name}}</span><span class="line">|</span><span>{{item.createdAt}}</span>
 								</view>
 							</li>
 						</ul>
@@ -39,48 +39,16 @@ export default {
 	data() {
 		return {
 			currentPage:'index',
-			tabTitle:['全部','新闻','活动'], //导航栏格式 --导航栏组件
+			tabTitle:['全部'], //导航栏格式 --导航栏组件
 			currentTab: 0, //sweiper所在页
 			toView:'',//回到顶部id
 			list: [
-				[
-					{
-						image:"../../static/img/w5.png",
-						title:"中央积极投身粤港澳大湾区建设",
-						des:"2019年2月18日，中共中央、国务院印发了《粤港澳大湾区发展规划纲要》全文中共中央、国务院印发了《粤港澳大湾区发展规划纲要》全文 ",
-						classify:"机构新闻",
-						date:"2019-02-16"
-					},
-					{
-						image:"../../static/img/w5.png",
-						title:"中央积极投身粤港澳大湾区建设",
-						des:"2019年2月18日，中共中央、国务院印发了《粤港澳大湾区发展规划纲要》全文中共中央、国务院印发了《粤港澳大湾区发展规划纲要》全文 ",
-						classify:"机构新闻",
-						date:"2019-02-16"
-					}
-				],
-				[
-					{
-						image:"../../static/img/w5.png",
-						title:"中央积极投身粤港澳大湾区建设",
-						des:"2019年2月18日，中共中央、国务院印发了《粤港澳大湾区发展规划纲要》全文中共中央、国务院印发了《粤港澳大湾区发展规划纲要》全文 ",
-						classify:"机构新闻",
-						date:"2019-02-16"
-					}
-				],
-				[
-					{
-						image:"../../static/img/w5.png",
-						title:"中央积极投身粤港澳大湾区建设",
-						des:"2019年2月18日，中共中央、国务院印发了《粤港澳大湾区发展规划纲要》全文中共中央、国务院印发了《粤港澳大湾区发展规划纲要》全文 ",
-						classify:"机构新闻",
-						date:"2019-02-16"
-					}
-				]
+				
 			] //数据格式
 		};
 	},
 	onLoad: function (options) {
+		this.initArticle();
 	        setTimeout(function () {
 	            console.log('start pulldown');
 	        }, 1000);
@@ -99,7 +67,14 @@ export default {
 			    duration: 300
 			});
 		},
+
 	methods: {
+		initArticle() {
+			this.$api.article().then(res => {
+				this.list = res.data.data.content;
+				console.log('ac:',this.list)
+			})
+		},
 
 		changeTab(index){
 			this.currentTab = index
@@ -114,9 +89,9 @@ export default {
 			}
 		},
 		
-		goActivityDetail:function(){
+		goActivityDetail:function(id){
 			uni.navigateTo({
-				url: '../activity/activityDetail',
+				url: `/pages/activity/activityDetail?id=`+id,
 				success: res => {},
 				fail: () => {},
 				complete: () => {}
