@@ -111,7 +111,14 @@ export default {
 	margin-top:140upx;
 }
 	swiper{
-		height:120vh;
+		height: 90vh;
+		overflow: scroll;
+		swiper-item{
+			width:100vw;
+			height:84vh;
+			padding:3vh 0 ;
+			overflow: scroll;
+		}
 	}
 	.rec-course{
 		width:90vw;

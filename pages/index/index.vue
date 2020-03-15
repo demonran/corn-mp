@@ -2,7 +2,7 @@
 	<view class="content">
 		<!-- banner start -->
 		<swiper class="banner" :indicator-dots="true" autoplay="true" circular="true" interval="3000" previous-margin="25" next-margin="25">
-			<swiper-item  v-for="(item,i) in banner" :key="id">
+			<swiper-item  v-for="(item,i) in banner" :key="id" @click="goBanner(item.link)">
 				<view class="pic">
 					<image :src="item.image" mode="widthFix"></image>
 				</view>
@@ -76,7 +76,7 @@
 							<p class="time">{{item.beginDate}} ～ {{item.endDate}}</p>
 						</view>
 						<view class="des">
-							<h5 class="prize">{{item.price ? "¥"+item.price : "免费"}}</h5>
+							<h5 class="prize">{{item.totalAmount ? "¥"+item.totalAmount : "免费"}}</h5>
 							<text class="hour">共{{item.lesson}}课时</text><text class="line">|</text>
 							<text class="number">限{{item.limitStudents}}人</text>
 						</view>
@@ -205,6 +205,10 @@
 				this.$api.banner().then(res => {
 					this.banner = res.data.data;
 				})
+			},
+			goBanner(link){
+				console.log(link)
+				
 			},
 			initRecommendCourse() { 
 				this.$api.recommendCourse().then(res => {

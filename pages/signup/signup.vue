@@ -19,18 +19,18 @@
 		<view class="rec-des boxwhite" >
 			<view class="">
 				<view class="word">
-					<h4 class="a-line">{{CourseDetail.courseName}}</h4>
+					<h4 class="a-line">{{CourseDetail.courseName||course.title}}</h4>
 					<p class="a-line">{{CourseDetail.beginDate}}～{{CourseDetail.endDate}} 
 				{{CourseDetail.startClassTime}}-{{CourseDetail.endClassTime}}</p>
 				</view>			
-				<text class="prize" >¥{{CourseDetail.price}}</text>
+				<text class="prize" >¥{{CourseDetail.price||course.price}}</text>
 			</view>
 			<view class="bottom">
 				<view class="fl teacherbox">
-					<image class="null head" :src="headimg"></image>				
+					<image class="null head" :src="CourseDetail.teacher.avatar||course.teacher.avatar"></image>				
 					<view class="teacher">
-						<text>{{CourseDetail.courseCategory.name}}</text>
-						<h1 class="a-line">{{CourseDetail.teacher.name}}</h1>
+						<text>{{CourseDetail.courseCategory.name||course.category.name}}</text>
+						<h1 class="a-line">{{CourseDetail.teacher.name||course.teacher.name}}</h1>
 					</view>					
 				</view>
 				<text class="fr" >
@@ -41,7 +41,7 @@
 		<view class="cont boxwhite">
 			<dl class="noIco">
 				<dt>课程费用</dt>
-				<dd>¥{{CourseDetail.price}}</dd>
+				<dd>¥{{CourseDetail.price||course.price}}</dd>
 			</dl>
 			 <!-- <dl @click="">
 				<dt>优惠券</dt>
@@ -93,16 +93,23 @@
 				signInfo:0,
 				patriarchName:'',
 				studentName:'',
-				tel:''
+				tel:'',
+				course:[]
 				
 				
 			} 
 		},
 		onLoad(options) {
 			this.initCourseDetail(options.id);
+			this.initOnlineCourseDetail(options.id);
 			
 		},
 		methods: {
+			initOnlineCourseDetail(id) {
+				this.$api.onlineCourseDetail(id).then(res => {
+					this.course = res.data.data;
+				})
+			},
 			initCourseDetail(id) {
 				this.$api.CourseDetail(id).then(res => {
 					this.CourseDetail = res.data.data; 
@@ -234,7 +241,8 @@
 		width:94vw;
 		height:80upx;
 		.teacherbox{
-			
+			width:300upx;
+			overflow:hidden;
 			.head{
 				width:60upx;
 				height:60upx;

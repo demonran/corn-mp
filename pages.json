@@ -169,9 +169,12 @@
 		{
 			"path": "pages/works/worksDetail",
 			"style": {}
-		}, {
+		}, 
+		{
 			"path": "pages/activity/activity",
-			"style": {}
+			"style": {
+				 "enablePullDownRefresh": true
+			}
 		}, {
 			"path": "pages/activity/activityDetail",
 			"style": {}

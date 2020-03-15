@@ -16,26 +16,26 @@
 				</text>
 			</view>
 		</view>
-		<view class="agency flex inbox shadow">
+		<view class="agency flex inbox shadow" @click="goTeacherDetail(course.teacher.id)">
 			<view class="agency-logo">
-				<image class="null" :src="headimg"></image>
+				<image class="null" :src="course.teacher.avatar"></image>
 			</view>
 			<view class="agency-des">
 				<h1 class="a-line">主讲:{{course.teacher.name}}</h1>
 				<text class="a-line">
-					<text>{{teacherType}}</text><text class="line">|</text><text>{{course.teacher.experience}}年经验</text>
+					<text>{{course.category.name}}</text><text class="line">|</text><text>{{course.teacher.experience}}年经验</text>
 				</text>
 			</view>
 		</view>
 		<view class="box details">
 			<h6>课程介绍</h6>
-			<rich-text mode="widthFix" :nodes="course.content"></rich-text>
+			<rich-text style="padding-bottom:100upx;" mode="widthFix" :nodes="course.content"></rich-text>
 		</view>
-		<view class="bottomBar">
+<!-- 		<view class="bottomBar">
 			<text class="service">客服</text>
 			<text class="collection">收藏</text>
-			<view class="sign-up">购买学习</view>
-		</view>
+			<view @click="goSignup(course.id)" class="sign-up">购买学习</view>
+		</view> -->
 	</view>
 </template>
 
@@ -61,7 +61,23 @@
 				this.$api.onlineCourseDetail(id).then(res => {
 					this.course = res.data.data;
 				})
-			}
+			},
+			goSignup:function(id){
+				 uni.navigateTo({
+					url: `/pages/signup/signup?id=`+id,
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				}); 
+			},
+			goTeacherDetail:function(id){
+				uni.navigateTo({
+					url: `/pages/teacher/teacherDetail?id=`+ id,
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
+			},
 		},
 		onShareAppMessage(res) {
 		    if (res.from === 'button') {// 来自页面内分享按钮
@@ -156,12 +172,14 @@ video{
 
 	}
 .details{
+	padding-bottom:200upx;
 	margin-top:60upx;
 	h6{
 		font-size: 30upx;
 		color: #393939;
 		margin-bottom: 20upx;
 	}
+
 }
 .bottomBar{
 	position: fixed;

@@ -6,12 +6,14 @@
 		</view> 
 		<!-- swiper切换 swiper-item表示一页 scroll-view表示滚动视窗 -->		
 		<swiper  :current="currentTab" @change="swiperTab" >
-			<swiper-item >
+			<swiper-item v-for="(item,key,index) in OfflineCourseList" :key="index">
 				<scroll-view  scroll-y="true" >	
 						<ul class="hot-course"> 
-							<li  class="shadow inbox" v-for="(item,index) in OfflineCourse" :key="index">
+							<li  class="shadow inbox">
 								<view class="">
-									<h4 class="a-line">{{item.courseName}}</h4>
+									<h4 class="a-line">{{item.courseName}}
+									
+									</h4>
 									<p class="time">{{item.beginDate}} ～ {{item.endDate}} {{item.startClassTime}}-{{item.endClassTime}}</p>
 								</view>
 								<view class="des">
@@ -22,20 +24,8 @@
 								<view @click="goCourseDetail(item.courseId)" class="sign-up">立即报名</view>
 							</li>
 						</ul>	
-				</scroll-view>
-				
+				</scroll-view>				
 			</swiper-item>
-			<swiper-item >
-				<scroll-view  scroll-y="true" >
-						222
-				</scroll-view>
-			</swiper-item>
-			<swiper-item >
-				<scroll-view  scroll-y="true" >
-						333
-				</scroll-view>
-			</swiper-item>
-
 		</swiper> 
 		
 	</view>
@@ -52,8 +42,9 @@ export default {
 			currentPage:'index',
 			tabTitle:[], //导航栏格式 --导航栏组件
 			currentTab: 0, //sweiper所在页
-
-			OfflineCourse: [] //数据格式
+categoryId:'',
+			listitem: [] ,//数据格式
+			OfflineCourseList:[],
 		};
 	},
 	onLoad: function (options) {
@@ -67,8 +58,11 @@ export default {
 		this.initOfflineCourse();
 		this.initCourseCategory();
 	},
-	onHide() {},
+	onHide() {
+
+	},
 	methods: {
+
 		onPullDownRefresh() {
 		    console.log('refresh');
 		    setTimeout(function () {
@@ -77,7 +71,38 @@ export default {
 		},
 		initOfflineCourse() {
 			this.$api.OfflineCourse().then(res => {
-				this.OfflineCourse = res.data.data; 
+				this.OfflineCourseList = res.data.data; 
+				//console.log(this.OfflineCourseList)
+				//栏目:{{item.categoryId}}
+				console.log(res)
+				//
+				/* this.OfflineCourse=[];
+				for(var i=0;i<res.data.data.length;i++){
+				if(this.keyword == res.data.data[i].categoryId  ){
+				this.OfflineCourse.push(res.data.data[i]);
+				}
+				if(this.keyword==''){
+				this.OfflineCourse=res.data.data;
+				}
+				} */
+				
+			/* 	      if(this.OfflineCourseList){
+				        // 不区分大小写处理
+				        //var reg = new RegExp(_search, 'ig')
+				        // es6 filter过滤匹配，有则返回当前，无则返回所有
+				        return this.OfflineCourseList.filter(function(e) {
+				          // 匹配所有字段
+				          return Object.keys(e).some(function(key) {
+				            return e[key].match(reg);
+				          })
+				          // 匹配某个字段
+				          // return e.name.match(reg);
+				        })
+				      }; */
+				
+			
+				
+				
 			}) 
 		},
 		initCourseCategory() {

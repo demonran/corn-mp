@@ -1,14 +1,14 @@
 <template>
 	<view>
-		<swiper  :autoplay="true" :interval="3000" :duration="1000">
-			<swiper-item v-for="(item,index) in imageUrl" :key="index" >
-				<image :src="item.image" mode="widthFix"></image>
-				<view class="num">
+		<!-- <swiper  :autoplay="true" :interval="3000" :duration="1000">
+			<swiper-item v-for="(item,index) in imageUrl" :key="index" > -->
+				<image :src="CourseDetail.imageUrl" mode="widthFix"></image>
+				<!-- <view class="num">
 					<text>{{index+1}}/{{course.length}}</text>
 					<view class="bg"></view>
-				</view>
-			</swiper-item>
-		</swiper>		 
+				</view> -->
+	<!-- 		</swiper-item>
+		</swiper> -->		 
 		<view class="rec-des" >
 			<h4 class="a-line">{{CourseDetail.courseName}}</h4>
 			<p class="a-line">{{CourseDetail.courseSubTitle}}</p>
@@ -16,7 +16,7 @@
 			<view class="bottom">
 				<text class="fl">
 					<text class="prize" >
-					{{CourseDetail.price ? "¥"+CourseDetail.price : "免费"}}
+					{{CourseDetail.totalAmount ? "¥"+CourseDetail.totalAmount : "免费"}}
 					</text>
 					<text class="classHour">共{{CourseDetail.lesson}}课时</text>
 				</text>
@@ -42,21 +42,22 @@
 				<dd>{{organization.tel}}</dd>
 			</dl>
 		</view>
-		<view class="agency flex  ">
+		<view class="agency flex  "  @click="goTeacherDetail(CourseDetail.teacher.id)">
 			<view class="agency-logo">
-				<image class="null" :src="CourseDetail.headimg"></image>
+				<image class="null" :src="CourseDetail.teacher.avatar"></image>
 			</view>
 			<view class="agency-des">
 				<h1 class="a-line">主讲:{{CourseDetail.teacher.name}}</h1>
 				<text class="a-line">
-					<text>{{CourseDetail.courseCategory.name}}</text><text class="line">|</text><text>{{CourseDetail.teacher.experience}}年经验</text>
+					<text>{{CourseDetail.category.categoryName}}</text><text class="line">|</text><text>{{CourseDetail.teacher.experience}}年经验</text>
 				</text>
 			</view>
 		</view>
 		<view class=" details">
 			<view class="box">
 				<h6>课程介绍</h6>
-				<view v-html="CourseDetail.content"></view>		
+				
+					<rich-text :nodes="CourseDetail.content"></rich-text>	
 			</view>
 			
 		</view>
@@ -93,6 +94,14 @@
 				this.$api.CourseDetail(id).then(res => {
 					this.CourseDetail = res.data.data; 
 				}) 
+			},
+			goTeacherDetail:function(id){
+				uni.navigateTo({
+					url: `/pages/teacher/teacherDetail?id=`+ id,
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
 			},
 			goMap:function(){
 				uni.navigateTo({
@@ -235,6 +244,7 @@ swiper{
 			margin-left:3vw;
 			image{
 				width:100%;
+				height:100%;
 			}
 		}
 		.agency-des{

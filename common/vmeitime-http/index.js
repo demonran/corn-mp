@@ -1,5 +1,5 @@
 import http from './interface'
-
+ 
 /**
  * 将业务所有接口统一起来便于维护
  * 如果项目很大可以将 url 独立成文件，接口分成不同的模块
@@ -120,8 +120,8 @@ export const myOrders = () => {
     return http.get('orders')
 }
 // 最新活动
-export const article = () => {
-    return http.get('article')
+export const article = (categoryId) => {
+    return http.get('article?categoryId='+categoryId)
 }
 // 最新活动详情
 export const articleDetail = (id) => {
