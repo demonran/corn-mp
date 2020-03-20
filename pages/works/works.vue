@@ -6,7 +6,10 @@
 		</view>
 		<!-- swiper切换 swiper-item表示一页 scroll-view表示滚动视窗 -->		
 		<swiper  :current="currentTab" @change="swiperTab">
-			<swiper-item >
+			<swiper-item v-for="(page,i) in tabTitle.length">
+				<view class="no-data" v-show="noData==true">
+					暂时没有数据
+				</view>
 				<scroll-view  scroll-y="true" @scrolltolower="lower1" scroll-with-animation :scroll-into-view="toView">
 			
 						<!-- 优秀作品 start -->
@@ -45,11 +48,12 @@ export default {
 			currentPage:'index',
 			tabTitle:[], //导航栏格式 --导航栏组件
 			currentTab: 0, //sweiper所在页
-			worklist: [] //数据格式
+			worklist: [] ,//数据格式
+			noData:false
 		};
 	},
 	onLoad: function (options) {
-	    this.initWorksList()	
+	    this.initWorksList('')	
 		this.initCourseCategory();
 
 	    },
@@ -62,35 +66,52 @@ export default {
 	methods: {
 		initCourseCategory() {
 			this.$api.CourseCategory().then(res => {		
-				let title =res.data.data
-				let tabTitle = []
-				tabTitle.unshift('全部')
-				for(var i = 0;i<title.length;i++){				
-					var str = title[i].categoryName
+				let tab =res.data.data
+				let tabTitle = []				
+				tab.unshift({categoryName:'全部',categoryId:''})
+				for(var i = 0;i<tab.length;i++){				
+					var str = tab[i].categoryName
 					tabTitle.push(str)
 				}				
-				console.log(tabTitle)
-				this.tabTitle = tabTitle				
+				this.tabTitle = tabTitle	
+				this.tab = tab
+				console.log('tab:',this.tab)			
 			})  
 		},
-		initWorksList(){
-			this.$api.worksList().then(res => {
-				this.worklist = res.data.data.content;
+		initWorksList(id){
+			let _this = this;
+			console.log('栏目id',id)
+			let arr = []
+			this.$api.worksList(id).then(res => {
+				_this.worklist = res.data.data.content;
+				for(var i = 0;i<_this.worklist.length;i++){
+					arr = _this.worklist[i]					
+				}			
+				_this.worklist.concat(arr)
+				if(_this.worklist.length == 0){
+					_this.noData = true
+				}else{
+					_this.noData = false
+				}
 				console.log('this.worklist',this.worklist)
 			})
 		},
 		changeTab(index){
 			this.currentTab = index
+			let id = this.tab[index].categoryId
+			this.initWorksList(id)	
 		},
 	
 		// swiper 滑动
 		swiperTab: function(e) {
 			var index = e.detail.current //获取索引
+			let id = this.tab[index].categoryId
 			if(this.tabTitle.length<=4){
 				this.$refs.navTab.navClick(index)
 			}else{
 				this.$refs.navTab.longClick(index)
 			}
+			this.initWorksList(id)	
 		},
 		goWorkDetail:function(id){
 			uni.navigateTo({
@@ -110,7 +131,17 @@ export default {
 	margin-top:140upx;
 }
 	swiper{
-		height:150vh;
+		height: 90vh;
+		overflow: scroll;
+		swiper-item{
+			width:100vw;
+			height:84vh;
+			overflow: scroll;
+			.no-data{
+				text-align: center;
+				margin-top:50upx;
+			}
+		}
 	}
 	
 	.works{

@@ -102,8 +102,8 @@ export const teacherDetail = (id) => {
     return http.get('teachers/'+id)
 }
 // 作品列表
-export const worksList = () => {
-    return http.get('painting')
+export const worksList = (categoryId) => {
+    return http.get('painting?categoryId=' + categoryId)
 }
 // 作品推荐列表
 export const worksRecommend = () => {

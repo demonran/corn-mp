@@ -44,12 +44,12 @@
 		</view>
 		<view class="agency flex  ">
 			<view class="agency-logo">
-				<image class="null" :src="CourseDetail.headimg"></image>
+				<image class="null" :src="CourseDetail.teacher.avatar"></image>
 			</view>
 			<view class="agency-des">
 				<h1 class="a-line">主讲:{{CourseDetail.teacher.name}}</h1>
 				<text class="a-line">
-					<text>{{CourseDetail.courseCategory.name}}</text><text class="line">|</text><text>{{CourseDetail.teacher.experience}}年经验</text>
+					<text>{{CourseDetail.category.categoryName}}</text><text class="line">|</text><text>{{CourseDetail.teacher.experience}}年经验</text>
 				</text>
 			</view>
 		</view>

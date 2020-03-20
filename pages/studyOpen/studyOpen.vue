@@ -7,6 +7,9 @@
 		<!-- swiper切换 swiper-item表示一页 scroll-view表示滚动视窗 -->		
 		<swiper  :current="currentTab" @change="swiperTab">
 			<swiper-item v-for="(page,i) in tabTitle.length">
+				<view class="no-data" v-show="noData==true">
+					暂时没有数据
+				</view>
 				<scroll-view  scroll-y="true" @scrolltolower="lower1" scroll-with-animation :scroll-into-view="toView">		
 						<ul class="rec-course">
 							<li class="shadow rec-box" v-for="(item,index) in list"  :key="index"
@@ -50,7 +53,8 @@ export default {
 			toView:'',//回到顶部id
 			pages:[1,1,1,1], //第几个swiper的第几页
 			list: [
-			] //数据格式
+			] ,//数据格式
+			noData:false
 		};
 	},
 	onLoad: function (options) {
@@ -98,14 +102,20 @@ export default {
 			
 			console.log('栏目id',id)
 			let arr = []
-			this.$api.onlineCourse(id).then(res => {								
+			
+			this.$api.onlineCourse(id).then(res => {	
 				_this.list = res.data.data.content
+				
 				for(var i = 0;i<_this.list.length;i++){
-					var str = _this.list[i].title
-					console.log(str)
 					arr = _this.list[i]					
 				}
+				
 				_this.list.concat(arr)
+				if(_this.list.length == 0){
+					_this.noData = true
+				}else{
+					_this.noData = false
+				}
 					console.log('list',_this.list)
 				
 		
@@ -168,6 +178,10 @@ export default {
 			width:100vw;
 			height:84vh;
 			overflow: scroll;
+			.no-data{
+				text-align: center;
+				margin-top:50upx;
+			}
 		}
 	}
 	.rec-course{
