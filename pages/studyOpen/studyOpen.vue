@@ -6,7 +6,7 @@
 		</view>
 		<!-- swiper切换 swiper-item表示一页 scroll-view表示滚动视窗 -->		
 		<swiper  :current="currentTab" @change="swiperTab">
-			<swiper-item >
+			<swiper-item v-for="(page,i) in tabTitle.length">
 				<scroll-view  scroll-y="true" @scrolltolower="lower1" scroll-with-animation :scroll-into-view="toView">		
 						<ul class="rec-course">
 							<li class="shadow rec-box" v-for="(item,index) in list"  :key="index"
@@ -45,7 +45,7 @@ export default {
 	data() {
 		return {
 			currentPage:'index',
-			tabTitle:['全部','分类1','分类2'], //导航栏格式 --导航栏组件
+			tabTitle:[], //导航栏格式 --导航栏组件
 			currentTab: 0, //sweiper所在页
 			toView:'',//回到顶部id
 			pages:[1,1,1,1], //第几个swiper的第几页
@@ -54,7 +54,9 @@ export default {
 		};
 	},
 	onLoad: function (options) {
-		this.initRecommendCourse();
+		this.initCourseCategory();
+		this.initRecommendCourse('');
+		
 	        setTimeout(function () {
 	            console.log('start pulldown');
 	        }, 1000);
@@ -74,11 +76,56 @@ export default {
 			});
 		},
 	methods: {
-		initRecommendCourse() {
-			this.$api.onlineCourse().then(res => {
-				this.list = res.data.data.content;
-				console.log('this.recommendCourse',this.recommendCourse)
+		/* initRecommendCourse(id) {
+			console.log('栏目id',id)
+			let _this = this
+			let arr = []
+			this.$api.onlineCourse(id).then(res => {
+				_this.list = res.data.data.content;
+				for(var i = 0;i<_this.list.length;i++){
+							
+					arr = _this.list[i]					
+				}
+				_this.list.concat(arr)
+						
+				console.log('data:',_this.list)
 			})
+		}, */
+		initRecommendCourse(id) {
+			//index是索引
+			
+			let _this = this;
+			
+			console.log('栏目id',id)
+			let arr = []
+			this.$api.onlineCourse(id).then(res => {								
+				_this.list = res.data.data.content
+				for(var i = 0;i<_this.list.length;i++){
+					var str = _this.list[i].title
+					console.log(str)
+					arr = _this.list[i]					
+				}
+				_this.list.concat(arr)
+					console.log('list',_this.list)
+				
+		
+			}) 
+			
+		},
+
+		initCourseCategory() {
+			this.$api.CourseCategory().then(res => {		
+				let tab =res.data.data
+				let tabTitle = []				
+				tab.unshift({categoryName:'全部',categoryId:''})
+				for(var i = 0;i<tab.length;i++){				
+					var str = tab[i].categoryName
+					tabTitle.push(str)
+				}				
+				this.tabTitle = tabTitle	
+				this.tab = tab
+				console.log('tab:',this.tab)			
+			})  
 		},
 		goCourseDetail:function(id){
 			uni.navigateTo({
@@ -90,16 +137,20 @@ export default {
 		},
 		changeTab(index){
 			this.currentTab = index
+			let id = this.tab[index].categoryName
+			this.initRecommendCourse(id);
 		},
 	
 		// swiper 滑动
 		swiperTab: function(e) {
 			var index = e.detail.current //获取索引
+			let id = this.tab[index].categoryName
 			if(this.tabTitle.length<=4){
 				this.$refs.navTab.navClick(index)
 			}else{
 				this.$refs.navTab.longClick(index)
 			}
+			this.initRecommendCourse(id);
 		}
 	}
 };
@@ -116,7 +167,6 @@ export default {
 		swiper-item{
 			width:100vw;
 			height:84vh;
-			padding:3vh 0 ;
 			overflow: scroll;
 		}
 	}

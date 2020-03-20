@@ -60,8 +60,8 @@ export const onlineCourseDetail = (id) => {
     return http.get('online-course/' + id)
 }
 // 公开课列表
-export const onlineCourse = () => {
-    return http.get('online-course' )
+export const onlineCourse = (categoryName) => {
+    return http.get('online-course?categoryName='+ categoryName )
 }
 // 热门线下课程课程
 export const hotOfflineCourse = () => {
@@ -72,13 +72,15 @@ export const organization = () => {
     return http.get('/organization/info')
 } 
 // 线下课程
-export const OfflineCourse = () => {
-    return http.get('offline-course')
+export const OfflineCourse = (categoryId) => {
+    return http.get('offline-course?categoryId='+categoryId)
 } 
 // 线下课程详情
 export const CourseDetail = (id) => {
     return http.get('offline-course/'+ id)
 }
+
+
 // 线下课程分类
 export const CourseCategory = () => {
     return http.get('offline-course/categories')

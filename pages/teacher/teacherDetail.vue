@@ -12,14 +12,15 @@
 					</view>
 				</view>
 			</view>
-			<image class="tbg" src="" mode="widthFix"></image>
+			<image class="tbg" :src="teacher.avatar" mode="widthFix"></image>
 		</view>
 		
 		
 		<view class="box">
 			<view class="des">
 				<h4>教师介绍</h4>
-				<view v-html="teacher.description"></view>	
+				
+				<rich-text :nodes="teacher.description"></rich-text>	
 			</view>
 		</view>
 	</view>
@@ -51,17 +52,21 @@
 	.top{
 		position:relative;
 		height: 750upx;
+		background:#000;
 		.tbg{
-				background: #666;
-				height: 750upx;
+				min-height: 750upx;
 				position:absolute;
 				top:0;
 				left:0;
-				z-index: -1;
+				min-width: 100%;
+				opacity: .3;
+
 			}
 		.agency{
 				text-align: center;
 				padding-top:130upx;
+				position:relative;
+				z-index:2;
 				.agency-logo{
 					width:200upx;
 					height:200upx;

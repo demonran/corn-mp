@@ -156,6 +156,7 @@ video{
 			margin-right:2vw;
 			image{
 				width:100%;
+				height: 100%;
 			}
 		}
 		.agency-des{

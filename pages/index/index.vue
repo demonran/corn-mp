@@ -2,8 +2,9 @@
 	<view class="content">
 		<!-- banner start -->
 		<swiper class="banner" :indicator-dots="true" autoplay="true" circular="true" interval="3000" previous-margin="25" next-margin="25">
-			<swiper-item  v-for="(item,i) in banner" :key="id" @click="goBanner(item.link)">
-				<view class="pic">
+			<swiper-item  v-for="(item,index) in banner" :key="index" >
+				<view class="pic" @click="goBanner(item.link)">
+					{{item.link}}
 					<image :src="item.image" mode="widthFix"></image>
 				</view>
 			</swiper-item>
@@ -207,7 +208,17 @@
 				})
 			},
 			goBanner(link){
-				console.log(link)
+				plus.runtime.openURL(link, function(res) {  
+				    console.log(res);  
+				});  
+				/* uni.navigateTo({
+					url: link,
+					success: res => {},
+					fail: () => {},
+					complete: () => {
+						console.log(link)
+					}
+				}); */
 				
 			},
 			initRecommendCourse() { 

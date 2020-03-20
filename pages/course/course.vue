@@ -6,10 +6,13 @@
 		</view> 
 		<!-- swiper切换 swiper-item表示一页 scroll-view表示滚动视窗 -->		
 		<swiper  :current="currentTab" @change="swiperTab" >
-			<swiper-item v-for="(item,key,index) in OfflineCourseList" :key="index">
+			<swiper-item v-for="(page,i) in tabTitle.length">
+				<view class="no-data" v-show="noData==true">
+					暂时没有数据
+				</view>
 				<scroll-view  scroll-y="true" >	
-						<ul class="hot-course"> 
-							<li  class="shadow inbox">
+						<ul class="hot-course">							
+							<li @click="goCourseDetail(item.courseId)" class="shadow inbox" v-for="(item,index) in OfflineCourseList" :key="index">
 								<view class="">
 									<h4 class="a-line">{{item.courseName}}
 									
@@ -21,7 +24,10 @@
 									<text class="hour">共{{item.lesson}}课时</text><text class="line">|</text>
 									<text class="number">限{{item.limitStudents}}人</text>
 								</view>
-								<view @click="goCourseDetail(item.courseId)" class="sign-up">立即报名</view>
+								<view @click="goCourseDetail(item.courseId)" class="sign-up">
+									立即报名
+									{{item.courseId}}
+								</view>
 							</li>
 						</ul>	
 				</scroll-view>				
@@ -42,9 +48,9 @@ export default {
 			currentPage:'index',
 			tabTitle:[], //导航栏格式 --导航栏组件
 			currentTab: 0, //sweiper所在页
-categoryId:'',
 			listitem: [] ,//数据格式
 			OfflineCourseList:[],
+			noData:false
 		};
 	},
 	onLoad: function (options) {
@@ -55,26 +61,38 @@ categoryId:'',
 			
 	    },
 	onShow() {
-		this.initOfflineCourse();
+		
 		this.initCourseCategory();
+		this.initOfflineCourse('');
 	},
 	onHide() {
 
 	},
 	methods: {
-
 		onPullDownRefresh() {
 		    console.log('refresh');
 		    setTimeout(function () {
 		        uni.stopPullDownRefresh();
 		    }, 1000);
 		},
-		initOfflineCourse() {
-			this.$api.OfflineCourse().then(res => {
-				this.OfflineCourseList = res.data.data; 
-				//console.log(this.OfflineCourseList)
-				//栏目:{{item.categoryId}}
-				console.log(res)
+		initOfflineCourse(id) {
+			console.log('栏目id',id)
+			let _this = this
+			let arr = []
+			this.$api.OfflineCourse(id).then(res => {
+				_this.OfflineCourseList = res.data.data; 
+				for(var i = 0;i<_this.OfflineCourseList.length;i++){
+	
+					arr = _this.OfflineCourseList[i]					
+				}
+				_this.OfflineCourseList.concat(arr)
+				if(_this.OfflineCourseList.length == 0){
+					_this.noData = true
+				}else{
+					_this.noData = false
+				}
+
+				console.log('data:',_this.OfflineCourseList)
 				//
 				/* this.OfflineCourse=[];
 				for(var i=0;i<res.data.data.length;i++){
@@ -84,9 +102,9 @@ categoryId:'',
 				if(this.keyword==''){
 				this.OfflineCourse=res.data.data;
 				}
-				} */
+				} 
 				
-			/* 	      if(this.OfflineCourseList){
+				      if(this.OfflineCourseList){
 				        // 不区分大小写处理
 				        //var reg = new RegExp(_search, 'ig')
 				        // es6 filter过滤匹配，有则返回当前，无则返回所有
@@ -98,47 +116,53 @@ categoryId:'',
 				          // 匹配某个字段
 				          // return e.name.match(reg);
 				        })
-				      }; */
+				      }; 
 				
-			
+			 */
 				
 				
 			}) 
 		},
 		initCourseCategory() {
 			this.$api.CourseCategory().then(res => {		
-				let title =res.data.data
-				let tabTitle = []
-				tabTitle.unshift('全部')
-				for(var i = 0;i<title.length;i++){				
-					var str = title[i].categoryName
+				let tab =res.data.data
+				let tabTitle = []				
+				tab.unshift({categoryName:'全部',categoryId:''})
+				for(var i = 0;i<tab.length;i++){				
+					var str = tab[i].categoryName
 					tabTitle.push(str)
 				}				
-				console.log(tabTitle)
-				this.tabTitle = tabTitle				
+				this.tabTitle = tabTitle	
+				this.tab = tab
+				console.log('tab:',this.tab)			
 			})  
 		},
 
-		goCourseDetail(courseId){
-			uni.navigateTo({
-				url: `/pages/course/courseDetail?id=`+ courseId,
+		goCourseDetail:function(id){
+			 uni.navigateTo({	 
+				url: `/pages/course/courseDetail?id=`+id,
 				success: res => {},
 				fail: () => {},
 				complete: () => {}
-			});
+			}); 
 		},
 		changeTab(index){
 			this.currentTab = index
+			let id = this.tab[index].categoryId
+			
+			this.initOfflineCourse(id)
 		},
 	
 		// swiper 滑动
 		swiperTab: function(e) {
 			var index = e.detail.current //获取索引
+			let id = this.tab[index].categoryId
 			if(this.tabTitle.length<=4){
 				this.$refs.navTab.navClick(index)
 			}else{
 				this.$refs.navTab.longClick(index)
 			}
+			this.initOfflineCourse(id)
 		},
 
 
@@ -158,8 +182,11 @@ categoryId:'',
 		swiper-item{
 			width:100vw;
 			height:84vh;
-			padding:3vh 0 ;
 			overflow: scroll;
+			.no-data{
+				text-align: center;
+				margin-top:50upx;
+			}
 		}
 	}
 	.hot-course{
