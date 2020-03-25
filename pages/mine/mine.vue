@@ -89,6 +89,9 @@
 				}]
 			}
 		},
+		onShow() {
+			this.userInfo = getApp().globalData.userInfo
+		},
 		onLoad() {
 
 			/* if(uni.getStorageSync('token')){
