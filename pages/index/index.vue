@@ -182,9 +182,19 @@
 			this.getOrganization();
 			this.initArticle();
 			
+			setTimeout(function () {
+			    console.log('start pulldown');
+			}, 1000);
+			uni.startPullDownRefresh();
 		},
 
 		methods: {
+			onPullDownRefresh() {
+			    console.log('refresh');
+			    setTimeout(function () {
+			        uni.stopPullDownRefresh();
+			    }, 1000);
+			},
 			getOrganization(){
 				this.$api.organization().then(res => {
 					this.trainAgency = res.data.data;

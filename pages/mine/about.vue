@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<swiper  :autoplay="true" :interval="3000" :duration="1000">
+		<!-- <swiper  :autoplay="true" :interval="3000" :duration="1000">
 			<swiper-item v-for="(item,index) in about" :key="index" >
 				<image :src="item.image" mode="widthFix"></image>
 				<view class="num">
@@ -8,7 +8,11 @@
 					<view class="bg"></view>
 				</view>
 			</swiper-item>
-		</swiper>
+		</swiper> -->
+		<view class="banner">
+			<image :src="organization.cover" ></image>
+		</view>
+		
 		<view class="box">
 			<view class="">
 				<dl @click="goMap">
@@ -90,7 +94,7 @@
 <style lang="scss" scoped>
 	@import "../../static/style/base.scss";
 	swiper{
-		hegiht:422px;
+		hegiht:420px;
 		swiper-item{
 			position: relative;
 			.num{
@@ -123,6 +127,11 @@
 			
 		}
 		
+	}
+	.banner{
+		hegiht:420upx;
+		width:100%;
+		overflow: hidden;
 	}
 	dl{
 		background: url(../../static/img/info-arr.png) no-repeat right center; 

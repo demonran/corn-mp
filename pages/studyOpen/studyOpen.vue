@@ -55,11 +55,13 @@ export default {
 			list: [
 			] ,//数据格式
 			noData:false
+
 		};
 	},
 	onLoad: function (options) {
 		this.initCourseCategory();
 		this.initRecommendCourse('');
+		
 		
 	        setTimeout(function () {
 	            console.log('start pulldown');
@@ -102,12 +104,14 @@ export default {
 			
 			console.log('栏目id',id)
 			let arr = []
+			let itemId
 			
 			this.$api.onlineCourse(id).then(res => {	
 				_this.list = res.data.data.content
 				
+				
 				for(var i = 0;i<_this.list.length;i++){
-					arr = _this.list[i]					
+					arr = _this.list[i]		
 				}
 				
 				_this.list.concat(arr)
@@ -117,11 +121,12 @@ export default {
 					_this.noData = false
 				}
 					console.log('list',_this.list)
-				
-		
 			}) 
 			
+			
+			
 		},
+
 
 		initCourseCategory() {
 			this.$api.CourseCategory().then(res => {		
@@ -147,14 +152,14 @@ export default {
 		},
 		changeTab(index){
 			this.currentTab = index
-			let id = this.tab[index].categoryName
+			let id = this.tab[index].categoryId
 			this.initRecommendCourse(id);
 		},
 	
 		// swiper 滑动
 		swiperTab: function(e) {
 			var index = e.detail.current //获取索引
-			let id = this.tab[index].categoryName
+			let id = this.tab[index].categoryId
 			if(this.tabTitle.length<=4){
 				this.$refs.navTab.navClick(index)
 			}else{

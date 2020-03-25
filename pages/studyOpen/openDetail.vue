@@ -62,6 +62,7 @@
 					this.course = res.data.data;
 				})
 			},
+
 			goSignup:function(id){
 				 uni.navigateTo({
 					url: `/pages/signup/signup?id=`+id,

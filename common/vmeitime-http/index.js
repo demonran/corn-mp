@@ -60,8 +60,12 @@ export const onlineCourseDetail = (id) => {
     return http.get('online-course/' + id)
 }
 // 公开课列表
-export const onlineCourse = (categoryName) => {
-    return http.get('online-course?categoryName='+ categoryName )
+export const onlineCourse = (categoryId) => {
+    return http.get('online-course?categoryId='+ categoryId )
+}
+// 公开课次数更新
+export const onlineCourseCount = (id) => {
+    return http.put('online-course/'+ id +'/watch_times' )
 }
 // 热门线下课程课程
 export const hotOfflineCourse = () => {
@@ -150,6 +154,7 @@ export default {
 	myOrders,
 	onlineCourseDetail,
 	onlineCourse,
+	onlineCourseCount,
 	teacherList,
 	teacherDetail,
 	worksList,
