@@ -1,13 +1,11 @@
 <template>
 	<view class="box content">
-		<button v-if="!userInfo.nickName" open-type="getUserInfo" @getuserinfo="bindGetUserInfo" id="user-button">
-		</button>
 		<div class="user">
-			<view class="">
+			<view class="" >
 				<view class="agency-logo">
-					<image class="null" :src="userInfo.avatarUrl"></image>
+					<image class="null" :src="image"></image>
 				</view>
-				<view class="agency-des" v-if="!userInfo.nickName">
+				<view class="agency-des"  v-if="isAuthorize==false">
 					<button class="loginBtn" open-type="getUserInfo" @getuserinfo="getHandle">
 						<h1 class="a-line">
 							未登录
@@ -15,11 +13,11 @@
 						<text class="a-line">点击登陆</text>
 					</button>
 				</view>
-				<view class="agency-des mine" v-else @click="goMyEdit">
-					<h1 class="a-line">{{userInfo.nickName}}</h1>
+				<view class="agency-des mine" v-if="isAuthorize==true" @click="goMyEdit">					
+					<h1 class="a-line">{{name}}</h1>
 					<text class="a-line">
 						点击修改个人信息
-						<!-- {{tel}} -->
+					<!-- {{tel}} -->
 					</text>
 				</view>
 			</view>
@@ -68,8 +66,7 @@
 	export default {
 		data() {
 			return {
-				// userInfo:'',
-				userInfo: getApp().globalData.userInfo,
+				userInfo:'',
 				isAuthorize: false,
 				image: '',
 				name: '',
@@ -89,9 +86,6 @@
 				}]
 			}
 		},
-		onShow() {
-			this.userInfo = getApp().globalData.userInfo
-		},
 		onLoad() {
 
 			/* if(uni.getStorageSync('token')){
@@ -106,20 +100,6 @@
 		},
 
 		methods: {
-			bindGetUserInfo(e) {
-				if (this.userInfo.nickName) return false
-				if (e.mp.detail.userInfo) {
-					getApp().getUserInfo().then(res => {
-						this.userInfo = res
-					}).catch(e => {})
-				} else {
-					// 拒绝
-					uni.showToast({
-						title: '授权失败',
-						icon: 'none'
-					})
-				}
-			},
 			/* getUserInfo() {
 				this.$api.userInfo().then(res => {
 					this.userInfo = res.data.data;
@@ -188,7 +168,7 @@
 					success: function(loginRes) {
 						that.$api.login(loginRes.code, userInfo).then(res => {
 							console.log(res)
-							uni.setStorageSync('token', res.data.data);
+							uni.setStorageSync('token',res.data.data);
 
 						})
 					}
@@ -216,19 +196,6 @@
 <style lang="scss" scoped>
 	@import "../../static/style/base.scss";
 
-	#user-button {
-		color: not specified;
-		background: none;
-		padding-left: 0;
-		padding-right: 0;
-		text-align: inherit;
-		border-radius: 0;
-		position: fixed;
-		z-index: 100;
-		height: 100%;
-		width: 100%;
-	}
-
 	.user {
 		padding: 60upx 0;
 		height: 14vw;
@@ -236,10 +203,9 @@
 		background: #fff url(../../static/img/info-arr.png) no-repeat 85vw center;
 		background-size: 40upx;
 
-		.mine {
+		.mine{
 			display: block;
-			height: 60upx;
-
+			height:60upx;
 			text {
 				font-size: 24upx;
 				color: #7e7e7e;
