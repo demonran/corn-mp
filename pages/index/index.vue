@@ -217,9 +217,10 @@
 				})
 			},
 			goBanner(link){
-				plus.runtime.openURL(link, function(res) {  
+				
+				/* plus.runtime.openURL(link, function(res) {  
 				    console.log(res);  
-				});  
+				}); */ 
 				/* uni.navigateTo({
 					url: link,
 					success: res => {},

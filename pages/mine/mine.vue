@@ -87,32 +87,36 @@
 			}
 		},
 		onLoad() {
-
-			/* if(uni.getStorageSync('token')){
-				console.log('获取token')
+			const app = getApp()
+			const authorize= app.globalData.isAuthorize
+			
+			console.log('获取授权',authorize)
+			 if(authorize == true){
+				
 				this.isAuthorize = true
 				this.getUserInfo();
 			}else{
 				this.isAuthorize = false
-			} */
+				//this.getHandle() 
+			} 
 			//判断是否授权
-			//this.getHandle() 
+			
 		},
 
 		methods: {
-			/* getUserInfo() {
+			getUserInfo() {
 				this.$api.userInfo().then(res => {
 					this.userInfo = res.data.data;
-					console.log('123')
 					console.log(res)
 					this.name = this.userInfo.nickName;
 					this.image = this.userInfo.avatarUrl;
 				})
-			}, */
+			}, 
 			// 点击按钮激发授权事件
 			getHandle() {
 				// 重赋值this
 				let _this = this;
+				const app = getApp()
 				// 获取用户授权设置
 				uni.getSetting({
 					success(res) {
@@ -122,13 +126,13 @@
 								success(res) {
 									// 获取相关数据后，进行登录及数据请求
 									console.log('请求登陆')
-									_this.isAuthorize = true
+									app.globalData.isAuthorize = _this.isAuthorize = true
 									_this.WX_MP_getuserinfo(res);
 								},
 								fail(err) {
 									// 错误信息
 									console.log(err)
-									_this.isAuthorize = false
+									app.globalData.isAuthorize = _this.isAuthorize = false
 								}
 							})
 						} else if (!res.authSetting['scope.userInfo']) {
@@ -171,6 +175,8 @@
 							uni.setStorageSync('token',res.data.data);
 
 						})
+						
+
 					}
 				});
 				//console.log(e)

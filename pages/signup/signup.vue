@@ -86,6 +86,7 @@
 </template>
 
 <script>
+
 	export default {
 		data() {
 			return {
@@ -135,25 +136,77 @@
 			goSignup(){
 				this.signInfo = 2
 			},
-			goOrder(data) {
-				let that = this
-				//console.log(data)		
-				  var a = {		
-					 // "id":data.courseId,
-					"courseId": data.courseId,
-					"courseName": data.courseName,
-					"patriarchName": this.patriarchName,
-					"studentName": this.studentName,
-					"tel": this.tel, 
-					
-					"totalAmount": data.price
-				} 
 
-				this.$api.orders(a).then(res => {					
-					console.log(res)
-					that.goSignResult()
-				}) 
+			goOrder(data) {
+				//判断是否登陆，没有登陆，则先登陆
+				const app = getApp()
+				if(app.globalData.isAuthorize == true){
+					let that = this
+					//console.log(data)		
+					  var a = {		
+						 // "id":data.courseId,
+						"courseId": data.courseId,
+						"courseName": data.courseName,
+						"patriarchName": this.patriarchName,
+						"studentName": this.studentName,
+						"tel": this.tel, 
+						
+						"totalAmount": data.price
+					} 
+					
+					this.$api.orders(a).then(res => {					
+						console.log(res)
+						that.goSignResult()
+					}) 
+
+				}else{
+					//this.isAuthorize = false
+					//app.globalData.isAuthorize = false
+					let _this = this
+					// 如果要获取的权限尚未授权,则此时触发授权，打开设置页面
+					uni.showModal({
+						//弹出提示框
+						title: '是否打开设置页授权登陆？',
+						content: '需要在设置中获取个人信息和微信登陆权限',
+						success(res) {
+							if (res.confirm) {
+								uni.openSetting({
+									// 弹出框，确认后打开设置页面
+									success(res) {
+										//console.log(res.authSetting)
+										app.globalData.isAuthorize = true
+										
+										//授权后自动登陆
+										//登陆
+										uni.login({
+											provider: 'weixin',
+											success: function(loginRes) {
+												_this.$api.login(loginRes.code, userInfo).then(res => {
+														console.log('授权登陆结果：',res)													
+												
+														uni.setStorageSync('token', res.data.data);
+														
+										
+													})												
+														
+												}
+											});
+										
+									},
+								})
+							} else if (res.cancel) {
+								console.log('用户点击取消');
+								app.globalData.isAuthorize = false
+							}
+						}
+					});
+				} 
+					
+					
+		
+				
 			},
+
 
 			goSignResult(){
 				uni.redirectTo({
