@@ -20,7 +20,7 @@
 									<p class="time">{{item.beginDate}} ～ {{item.endDate}} {{item.startClassTime}}-{{item.endClassTime}}</p>
 								</view>
 								<view class="des">
-									<h5 class="prize">{{item.price ? "¥"+item.price : "免费"}}</h5>
+									<h5 class="prize">{{item.totalAmount ? "¥"+item.totalAmount : "免费"}}</h5>
 									<text class="hour">共{{item.lesson}}课时</text><text class="line">|</text>
 									<text class="number">限{{item.limitStudents}}人</text>
 								</view>

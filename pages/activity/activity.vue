@@ -1,4 +1,4 @@
-<template>
+<template> 
 	<view class="contentbox">
 		<view class='nav'>	
 			<!-- 导航栏 agents导航栏标题 -->
@@ -7,9 +7,12 @@
 		<!-- swiper切换 swiper-item表示一页 scroll-view表示滚动视窗 -->	
 		<swiper  :current="currentTab" @change="swiperTab">
 			<swiper-item v-for="(page,i) in tabTitle.length">
-				<scroll-view  scroll-y="true" @scrolltolower="lower1" scroll-with-animation :scroll-into-view="toView">
-					 <view class="activity">
-						 <ul class="box">
+				<view class="no-data" v-show="noData==true">
+					暂时没有数据
+				</view>
+				<scroll-view  scroll-y="true" >	
+					
+						 <ul class=" activity">
 							<li @click="goActivityDetail(item.id)" class="shadow "  v-for="(item,index) in listItem":key="index">
 								<view class="activity-pic">
 									<image :src="item.cover" mode="widthFix"></image>	
@@ -21,7 +24,7 @@
 								</view>
 							</li>
 						</ul> 
-					</view>
+					
 					
 				</scroll-view>
 			</swiper-item>
@@ -42,6 +45,7 @@ export default {
 			currentTab: 0, //sweiper所在页
 			toView:'',//回到顶部id
 			listItem:[],
+			noData:false
 	
 		};
 	},
@@ -84,6 +88,12 @@ export default {
 					console.log(str)
 					arr = _this.listItem[i]					
 				}
+				if(_this.listItem.length == 0){
+					_this.noData = true
+				}else{
+					_this.noData = false
+				}
+				
 				_this.listItem.concat(arr)
 					console.log('list',_this.listItem)
 				
@@ -146,15 +156,20 @@ export default {
 <style lang="scss">
 @import "../../static/style/base.scss";
 .contentbox{
-	margin-top:140upx;
+	margin-top:10vh;
+	
 }
-swiper{
+	swiper{
 		height: 90vh;
 		overflow: scroll;
 		swiper-item{
 			width:100vw;
 			height:84vh;
 			overflow: scroll;
+			.no-data{
+				text-align: center;
+				margin-top:50upx;
+			}
 		}
 	}
 .activity{

@@ -112,7 +112,17 @@ export default {
 	margin-top:140upx;
 }
 	swiper{
-		height:100vh;
+		height: 90vh;
+		overflow: scroll;
+		swiper-item{
+			width:100vw;
+			height:84vh;
+			overflow: scroll;
+			.no-data{
+				text-align: center;
+				margin-top:50upx;
+			}
+		}
 	}
 	.hot-course{
 		li{

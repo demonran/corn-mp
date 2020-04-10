@@ -33,7 +33,7 @@
 		<view class="section" @tap="goAbout">
 			<view class="agency flex inbox shadow">
 				<view class="agency-logo">
-					<image class="null" :src="trainAgency.image"></image>
+					<image class="null" :src="trainAgency.cover"></image>
 				</view>
 				<view class="agency-des">
 					<h1 class="a-line">{{trainAgency.name}}</h1>
@@ -366,6 +366,7 @@
 			margin-right:2vw;
 			image{
 				width:100%;
+				height:100%;
 			}
 		}
 		.agency-des{

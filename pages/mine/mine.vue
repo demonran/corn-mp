@@ -1,10 +1,31 @@
 <template>
 	<view class="box content">
 		<div class="user">
+			<!-- 
+			<button open-type="getUserInfo">点击授权</button>
+		
+			<button open-type="getPhoneNumber">获取电话</button> -->
+			
+			
 			<view class="" >
 				<view class="agency-logo">
-					<image class="null" :src="image"></image>
+					<!-- <image class="null" :src="image"></image> -->
+					<open-data type="userAvatarUrl"></open-data>
 				</view>
+				<!-- <view class="agency-des mine"  @click="goMyEdit">
+					<h1 class="a-line">
+						<open-data type="userNickName" lang="zh_CN"></open-data>
+					</h1>
+					<text class="a-line">
+						点击修改个人信息
+					</text>
+				</view> -->
+				
+
+				
+				
+
+				
 				<view class="agency-des"  v-if="isAuthorize==false">
 					<button class="loginBtn" open-type="getUserInfo" @getuserinfo="getHandle">
 						<h1 class="a-line">
@@ -13,13 +34,16 @@
 						<text class="a-line">点击登陆</text>
 					</button>
 				</view>
+				
 				<view class="agency-des mine" v-if="isAuthorize==true" @click="goMyEdit">					
-					<h1 class="a-line">{{name}}</h1>
+					<h1 class="a-line">
+						<open-data type="userNickName" lang="zh_CN"></open-data>
+					</h1>
 					<text class="a-line">
 						点击修改个人信息
-					<!-- {{tel}} -->
 					</text>
 				</view>
+				
 			</view>
 
 
@@ -88,15 +112,17 @@
 		},
 		onLoad() {
 			const app = getApp()
-			const authorize= app.globalData.isAuthorize
+			let authorize= app.globalData.isAuthorize
 			
 			console.log('获取授权',authorize)
 			 if(authorize == true){
 				
 				this.isAuthorize = true
+				authorize = true
 				this.getUserInfo();
 			}else{
 				this.isAuthorize = false
+				authorize =false
 				//this.getHandle() 
 			} 
 			//判断是否授权
@@ -160,6 +186,8 @@
 					}
 				})
 			},
+			
+			
 			//登陆
 			WX_MP_getuserinfo(e) {
 				let that = this;

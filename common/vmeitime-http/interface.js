@@ -37,7 +37,11 @@ export default {
 		baseUrl: "http://localhost:8083/",
 		// #endif
 		// #ifndef LOCAL_ENV
+		//下面是正式环境
 		baseUrl: "https://api.yumimiao.cn/",
+		//下面是测试环境
+		//baseUrl:"https://apisit.yumimiao.cn/",
+		
 		// #endif
 		header: {
 			'Content-Type':'application/json;charset=UTF-8',

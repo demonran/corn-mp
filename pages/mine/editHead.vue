@@ -1,6 +1,6 @@
 <template> 
 <view> 
-	<image src="../../static/img/w5.png" mode="widthFix"></image>	
+	<image class="head" :src="userInfo.avatarUrl" mode=""></image>
 </view>
 </template>
 
@@ -8,11 +8,19 @@
 	export default {
 		data() {
 			return {
+				userInfo:'',
 	
 			}
 		},
+		onLoad() {
+			this.initUserInfo();
+		},
 		methods: {
-			
+			initUserInfo() {
+				this.$api.userInfo().then(res => {
+					this.userInfo = res.data.data;
+				})
+			},
 
 		}
 	}

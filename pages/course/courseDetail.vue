@@ -16,7 +16,7 @@
 			<view class="bottom">
 				<text class="fl">
 					<text class="prize" >
-					{{CourseDetail.price ? "¥"+CourseDetail.price : "免费"}}
+					{{CourseDetail.totalAmount ? "¥"+CourseDetail.totalAmount : "免费"}}
 					</text>
 					<text class="classHour">共{{CourseDetail.lesson}}课时</text>
 				</text>
@@ -44,12 +44,12 @@
 		</view>
 		<view class="agency flex  ">
 			<view class="agency-logo">
-				<image class="null" :src="CourseDetail.headimg"></image>
+				<image class="null" :src="CourseDetail.teacher.avatar"></image>
 			</view>
 			<view class="agency-des">
 				<h1 class="a-line">主讲:{{CourseDetail.teacher.name}}</h1>
 				<text class="a-line">
-					<text>{{CourseDetail.courseCategory.name}}</text><text class="line">|</text><text>{{CourseDetail.teacher.experience}}年经验</text>
+					<text>{{CourseDetail.category.categoryName}}</text><text class="line">|</text><text>{{CourseDetail.teacher.experience}}年经验</text>
 				</text>
 			</view>
 		</view>
@@ -61,8 +61,10 @@
 
 		</view>
 		<view class="bottomBar">
-			<text class="service">客服</text>
-			<text class="collection">收藏</text>
+			
+			<button class="service" open-type="contact">客服</button>
+			<button class="collection" >收藏</button>
+			
 			<view @click="goSignup(CourseDetail.courseId)" class="sign-up">立即报名</view>
 		</view>
 	</view>
@@ -230,6 +232,7 @@ swiper{
 		margin-left:3vw;
 		image{
 			width:100%;
+			height:100%;
 		}
 	}
 	.agency-des{
@@ -265,17 +268,19 @@ swiper{
 	bottom:0;
 	font-size:20upx;
 	color:#787878;
-	text{
+	button{
 		display: inline-block;
 		width:130upx;
 		height:95upx;
 		text-align: center;
 		line-height: 140upx;
+		font-size:20upx;
 		
 	}
 	.service{
 		background:url(../../static/img/service.png) no-repeat center 10upx;		
 		background-size: 40upx;
+	
 	}
 	.collection{
 		background:url(../../static/img/collect.png) no-repeat center 10upx;

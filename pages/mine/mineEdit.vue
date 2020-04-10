@@ -2,7 +2,7 @@
 <view class="box content"> 
 	<view class="cont">
 		<navigator url="editHead">
-			<dl>
+			<dl> 
 				<dt>头像</dt>
 				<dd>
 					<image class="head" :src="userInfo.avatarUrl" mode=""></image>

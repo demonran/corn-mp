@@ -6,7 +6,7 @@
 		onShow: function() {
 			console.log('App Show')
 			this.getHandle()
-			console.log('App Show 222')
+			
 		},
 		onHide: function() {
 			console.log('App Hide')
@@ -63,6 +63,48 @@
 				})
 	
 			},	
+			
+ //第一授权获取用户信息===》按钮触发.
+			autoLogin() {
+				let _this = this
+				if (!this.isCanUse&&this.isLoginSuc) {
+				   //非第一次授权获取用户
+				   this.autoLoginPage = true
+				   uni.login({
+					  provider: 'weixin',
+					  success: function (loginRes) {
+						console.log(loginRes.authResult);
+						let code = loginRes.code
+						 uni.getUserInfo({
+							   provider: 'weixin',
+							   success: function(infoRes) {
+		　　　　　　　　　　　　　　　　　　　　　　//获取用户信息后向调用信息更新方法
+								   let nickName = infoRes.userInfo.nickName; //昵称
+								   let avatarUrl = infoRes.userInfo.avatarUrl; //头像
+									_this.nickName = nickName
+									_this.avatarUrl = avatarUrl
+									_this.authLogo = avatarUrl
+									let params = {
+										code:code,
+										silence: true
+									}
+									_this.quickLogin(avatarUrl,params)
+								  // _this.updateUserInfo();//调用更新信息方法
+							   },
+							   fail() {
+							     _this.autoLoginPage = false
+							   	 uni.setStorageSync('isLoginSuc', false);
+							   }
+						   });
+					  },
+					  fail() {
+					     _this.autoLoginPage = false
+					  	 uni.setStorageSync('isLoginSuc', false);
+					  }
+				   });
+				  
+			   }
+			}, 
 							
 		},
 	}

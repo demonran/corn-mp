@@ -23,7 +23,7 @@
 					<p class="a-line">{{CourseDetail.beginDate}}～{{CourseDetail.endDate}} 
 				{{CourseDetail.startClassTime}}-{{CourseDetail.endClassTime}}</p>
 				</view>			
-				<text class="prize" >¥{{CourseDetail.price||course.price}}</text>
+				<text class="prize" >¥{{CourseDetail.totalAmount||course.totalAmount}}</text>
 			</view>
 			<view class="bottom">
 				<view class="fl teacherbox">
@@ -41,7 +41,7 @@
 		<view class="cont boxwhite">
 			<dl class="noIco">
 				<dt>课程费用</dt>
-				<dd>¥{{CourseDetail.price||course.price}}</dd>
+				<dd>¥{{CourseDetail.totalAmount||course.totalAmount}}</dd>
 			</dl>
 			 <!-- <dl @click="">
 				<dt>优惠券</dt>
@@ -54,7 +54,7 @@
 		</view>
 		<view class="bottomBar" v-show="signInfo == 0 || signInfo == 2">
 			<view class="fl">
-				<view class="prize orange-color">应付：¥{{CourseDetail.price}}</view>
+				<view class="prize orange-color">应付：¥{{CourseDetail.totalAmount}}</view>
 				<!-- <view class="coupon">优惠群优惠：{{coupon}}元</view> -->
 			</view>		
 			<view @click="goOrder(CourseDetail)" class="sign-up">提交报名</view>
@@ -65,7 +65,7 @@
 			<view class="cont">
 				<dl>
 					<dt>学生姓名</dt>
-					<dd><input :key="student" v-model="studentName"  type="text" placeholder="请输入学生姓名" /></dd>
+					<dd><input focus :key="student" v-model="studentName"  type="text" placeholder="请输入学生姓名" /></dd>
 				</dl>
 				<dl>
 					<dt>家长姓名</dt>
@@ -134,7 +134,23 @@
 				
 			},
 			goSignup(){
-				this.signInfo = 2
+				if(this.studentName!=""&&this.patriarchName!=""&&this.tel!=""){
+					this.signInfo = 2
+				}else{
+					 uni.showModal({
+						//弹出提示框
+						title: '提示',
+						content: '请填写报名信息',
+						success(res) {
+							if (res.confirm) {
+								console.log('用户点击确定');
+					
+							} else if (res.cancel) {
+								console.log('用户点击取消');
+							}
+						}
+					}); 
+				}
 			},
 
 			goOrder(data) {
@@ -142,22 +158,42 @@
 				const app = getApp()
 				if(app.globalData.isAuthorize == true){
 					let that = this
-					//console.log(data)		
-					  var a = {		
-						 // "id":data.courseId,
-						"courseId": data.courseId,
-						"courseName": data.courseName,
-						"patriarchName": this.patriarchName,
-						"studentName": this.studentName,
-						"tel": this.tel, 
+					if(this.studentName!=""&&this.patriarchName!=""&&this.tel!=""){
+						//console.log(data)
+						  var a = {		
+							 // "id":data.courseId,
+							"courseId": data.courseId,
+							"courseName": data.courseName,
+							"patriarchName": this.patriarchName,
+							"studentName": this.studentName,
+							"tel": this.tel, 
+							
+							"totalAmount": data.price
+						} 
 						
-						"totalAmount": data.price
-					} 
+						this.$api.orders(a).then(res => {					
+							console.log(res)
+							that.goSignResult()
+						}) 
+					}else{
+						// 如果要获取的权限尚未授权,则此时触发授权，打开设置页面
+						uni.showModal({
+							//弹出提示框
+							title: '提示',
+							content: '请填写报名信息',
+							success(res) {
+								if (res.confirm) {
+									console.log('用户点击确定');
+
+								} else if (res.cancel) {
+									console.log('用户点击取消');
+								}
+							}
+						});
+					}
 					
-					this.$api.orders(a).then(res => {					
-						console.log(res)
-						that.goSignResult()
-					}) 
+					
+					
 
 				}else{
 					//this.isAuthorize = false
