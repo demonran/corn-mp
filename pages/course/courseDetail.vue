@@ -42,7 +42,7 @@
 				<dd>{{organization.tel}}</dd>
 			</dl>
 		</view>
-		<view class="agency flex  ">
+		<view class="agency flex  " @click="goTeacher(CourseDetail.teacher.id)">
 			<view class="agency-logo">
 				<image class="null" :src="CourseDetail.teacher.avatar"></image>
 			</view>
@@ -60,11 +60,9 @@
 			</view>
 
 		</view>
-		<view class="bottomBar">
-			
+		<view class="bottomBar">		
 			<button class="service" open-type="contact">客服</button>
-			<button class="collection" >收藏</button>
-			
+			<!-- <button class="collection" >收藏</button> -->		
 			<view @click="goSignup(CourseDetail.courseId)" class="sign-up">立即报名</view>
 		</view>
 	</view>
@@ -95,6 +93,14 @@
 				this.$api.CourseDetail(id).then(res => {
 					this.CourseDetail = res.data.data; 
 				}) 
+			},
+			goTeacher:function(id){
+				uni.navigateTo({
+					url: `/pages/teacher/teacherDetail?id=`+id,
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
 			},
 			goMap:function(){
 				uni.navigateTo({
@@ -265,7 +271,7 @@ swiper{
 	height:95upx;
 	z-index:9;
 	right: 0;
-	bottom:0;
+	bottom:-1px;
 	font-size:20upx;
 	color:#787878;
 	button{

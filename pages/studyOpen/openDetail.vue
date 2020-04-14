@@ -31,11 +31,11 @@
 			<h6>课程介绍</h6>
 			<rich-text style="padding-bottom:100upx;" mode="widthFix" :nodes="course.content"></rich-text>
 		</view>
-<!-- 		<view class="bottomBar">
-			<text class="service">客服</text>
-			<text class="collection">收藏</text>
-			<view @click="goSignup(course.id)" class="sign-up">购买学习</view>
-		</view> -->
+		<view class="bottomBar">			
+			<button class="service" open-type="contact">客服</button>
+			<!-- <button class="collection" >收藏</button> -->			
+			<!-- <view @click="goSignup(CourseDetail.courseId)" class="sign-up">立即报名</view> -->
+		</view>
 	</view>
 </template>
 
@@ -190,20 +190,22 @@ video{
 	height:95upx;
 	z-index:9;
 	right: 0;
-	bottom:0;
+	bottom:-1px;
 	font-size:20upx;
 	color:#787878;
-	text{
+	button{
 		display: inline-block;
 		width:130upx;
 		height:95upx;
 		text-align: center;
 		line-height: 140upx;
+		font-size:20upx;
 		
 	}
 	.service{
 		background:url(../../static/img/service.png) no-repeat center 10upx;		
 		background-size: 40upx;
+	
 	}
 	.collection{
 		background:url(../../static/img/collect.png) no-repeat center 10upx;
