@@ -77,7 +77,7 @@
 			</navigator>
 			<dl @click="goCall">
 				<dt>联系我们</dt>
-				<dd>028-9788 0265</dd>
+				<dd>{{organization.tel}}</dd>
 			</dl>
 		</view>
 
@@ -91,6 +91,7 @@
 		data() {
 			return {
 				userInfo:'',
+				organization:[],
 				isAuthorize: false,
 				image: '',
 				name: '',
@@ -111,6 +112,7 @@
 			}
 		},
 		onLoad() {
+			this.getOrganization();
 			const app = getApp()
 			let authorize= app.globalData.isAuthorize
 			
@@ -130,6 +132,12 @@
 		},
 
 		methods: {
+			getOrganization(){
+				this.$api.organization().then(res => {
+					this.organization = res.data.data;
+					console.log('organization:',this.organization)
+				})
+			},
 			getUserInfo() {
 				this.$api.userInfo().then(res => {
 					this.userInfo = res.data.data;
@@ -210,9 +218,9 @@
 				//console.log(e)
 			},
 
-			goCall: function() {
+			goCall:function(){
 				uni.makePhoneCall({
-					phoneNumber: '15281029319'
+				    phoneNumber: this.organization.tel
 				});
 			},
 			goMyEdit() {

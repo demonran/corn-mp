@@ -111,11 +111,12 @@
 			    flex-direction: row;
 			    flex-wrap:nowrap;			 			
 			.longItem{		
-				margin:0 10vw;
+				margin:0 20upx;
 				display: inline-block;			
 				width:auto;
 				text-align:center;			
 			}
+			
 
 			.click{
 				color:#212121;					
@@ -123,6 +124,9 @@
 				display: inline-block;				
 				border-bottom: 2px solid #ff8300;	
 			}
+		}
+		.longTab:first-child{
+			margin-left:5vw;
 		}
 			
 			

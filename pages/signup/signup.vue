@@ -102,15 +102,11 @@
 		},
 		onLoad(options) {
 			this.initCourseDetail(options.id);
-			this.initOnlineCourseDetail(options.id);
+			
 			
 		},
 		methods: {
-			initOnlineCourseDetail(id) {
-				this.$api.onlineCourseDetail(id).then(res => {
-					this.course = res.data.data;
-				})
-			},
+
 			initCourseDetail(id) {
 				this.$api.CourseDetail(id).then(res => {
 					this.CourseDetail = res.data.data; 

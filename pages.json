@@ -3,39 +3,39 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "玉米苗",
+				"navigationBarTitleText": "点彩童画",
 				"enablePullDownRefresh": true
 			}
 		}, {
 			"path": "pages/mine/mine",
 			"style": {
-				"navigationBarTitleText": "玉米苗",
+				"navigationBarTitleText": "我的",
 				"enablePullDownRefresh": true
 			}
 		}, {
 			"path": "pages/course/course",
 			"style": {
-				"navigationBarTitleText": "玉米苗",
+				"navigationBarTitleText": "选课",
 				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/course/courseDetail",
 			"style": {
-				"navigationBarTitleText": "玉米苗",
+				"navigationBarTitleText": "课程详情",
 				"enablePullDownRefresh": true
 			}
 		}, {
 			"path": "pages/study/study",
 			"style": {
-				"navigationBarTitleText": "玉米苗",
+				"navigationBarTitleText": "学习",
 				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/study/studyDetail",
 			"style": {
-				"navigationBarTitleText": "玉米苗",
+				"navigationBarTitleText": "学习详情",
 				"enablePullDownRefresh": true
 			}
 		},
@@ -120,24 +120,29 @@
 		, {
 			"path": "pages/studyOpen/studyOpen",
 			"style": {
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": true,
+				"navigationBarTitleText": "公开课"
 			}
 		},
 		{
 			"path": "pages/studyOpen/openDetail",
 			"style": {
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": true,
+				"navigationBarTitleText": "公开课详情"
 			}
 		}
 
 		, {
 			"path": "pages/map/map",
 			"style": {
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": true,
+				"navigationBarTitleText": "地图"
 			}
 		}, {
 			"path": "pages/signup/signup",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "报名"
+			}
 		}, {
 			"path": "pages/signup/signInfo",
 			"style": {
@@ -170,11 +175,15 @@
 		}, {
 			"path": "pages/teacher/teacher",
 			"style": {
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": true,
+				"navigationBarTitleText": "老师"
+				
 			}
 		}, {
 			"path": "pages/teacher/teacherDetail",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "老师详情"
+			}
 		}, {
 			"path": "pages/works/works",
 			"style": {
@@ -190,38 +199,56 @@
 		},
 		{
 			"path": "pages/works/worksDetail",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "作品详情"
+			}
 		}, 
 		{
 			"path": "pages/activity/activity",
 			"style": {
-				 "enablePullDownRefresh": true
+				 "enablePullDownRefresh": true,
+				 "navigationBarTitleText": "活动"
 			}
 		}, {
 			"path": "pages/activity/activityDetail",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "活动详情"
+			}
 		}, {
 			"path": "pages/share/share",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "分享"
+			}
 		}, {
 			"path": "pages/share/cashOut",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "分享"
+			}
 		}, {
 			"path": "pages/share/cashSuccess",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "分享"
+			}
 		}, {
 			"path": "pages/share/cashRecord",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "分享"
+			}
 		}, {
 			"path": "pages/share/totalInvite",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "分享"
+			}
 		}, {
 			"path": "pages/share/totalProfit",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "分享"
+			}
 		}, {
 			"path": "pages/collection/collection",
 			"style": {
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": true,
+				"navigationBarTitleText": "收藏"
 			}
 		}
 	],
@@ -264,7 +291,7 @@
 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "玉米苗",
+		"navigationBarTitleText": "点彩童画",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#fff"
 	},

@@ -1,4 +1,4 @@
-<template> 
+<template>  
 	<view class="contentbox">
 		<view class='nav'>	
 			<!-- 导航栏 agents导航栏标题 -->
@@ -13,7 +13,7 @@
 				<scroll-view  scroll-y="true" >	
 					
 						 <ul class=" activity">
-							<li @click="goActivityDetail(item.id)" class="shadow "  v-for="(item,index) in listItem":key="index">
+							<li @click="goActivityDetail(item.id)" class="shadow inbox"  v-for="(item,index) in listItem":key="index">
 								<view class="activity-pic">
 									<image :src="item.cover" mode="widthFix"></image>	
 								</view>

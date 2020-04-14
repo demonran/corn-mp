@@ -38,9 +38,9 @@ export default {
 		// #endif
 		// #ifndef LOCAL_ENV
 		//下面是正式环境
-		baseUrl: "https://api.yumimiao.cn/",
+		//baseUrl: "https://api.yumimiao.cn/",
 		//下面是测试环境
-		//baseUrl:"https://apisit.yumimiao.cn/",
+		baseUrl:"https://apisit.yumimiao.cn/",
 		
 		// #endif
 		header: {

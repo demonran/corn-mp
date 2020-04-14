@@ -99,7 +99,7 @@
 					<li v-for="(item,index) in works" :key="index" 
 					@click="goWorkDetail(item.id)" >
 						<view class="works-pic">
-							<image :src="item.image" mode="widthFix"></image>	
+							<image :src="item.image" ></image>	
 						</view>
 						<view class="works-des">
 							<h4 class="a-line">{{item.name}}</h4>
@@ -531,6 +531,10 @@
 					background: #eee;
 					overflow:hidden;
 					margin-bottom:30upx;
+					image{
+						max-width: 100%;
+						max-height: 100%;
+					}
 				}
 				span{
 					font-size:24upx;

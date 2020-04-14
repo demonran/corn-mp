@@ -1,17 +1,17 @@
 <template>
 	<view>
-		<!-- <swiper  :autoplay="true" :interval="3000" :duration="1000">
-			<swiper-item v-for="(item,index) in about" :key="index" >
-				<image :src="item.image" mode="widthFix"></image>
+		<swiper  :autoplay="true" :interval="3000" :duration="1000">
+			<swiper-item v-for="(item,index) in organization.images" :key="index" >
+				<image :src="item" mode="widthFix"></image>
 				<view class="num">
-					<text>{{index+1}}/{{about.length}}</text>
+					<text>{{index+1}}/{{organization.images.length}}</text>
 					<view class="bg"></view>
 				</view>
 			</swiper-item>
-		</swiper> -->
-		<view class="banner">
+		</swiper> 
+		<!-- <view class="banner">
 			<image :src="organization.cover" ></image>
-		</view>
+		</view> -->
 		
 		<view class="box">
 			<view class="">

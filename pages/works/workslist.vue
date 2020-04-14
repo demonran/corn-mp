@@ -18,7 +18,7 @@
 								<ul class="box flex">
 									<li @click="goWorkDetail(item.id)" v-for="(item,index) in worklist" :key="index">
 										<view class="works-pic">
-											<image :src="item.image" mode="widthFix"></image>	
+											<image :src="item.image" ></image>	
 										</view>
 										<view class="works-des">
 											<h4 class="a-line">{{item.name}}</h4>
@@ -160,6 +160,10 @@ export default {
 					background: #eee;
 					overflow:hidden;
 					margin-bottom:30upx;
+					images{
+						max-width: 100%;
+						max-height: 100%;
+					}
 				}
 				span{
 					font-size:24upx;
