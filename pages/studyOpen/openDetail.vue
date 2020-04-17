@@ -43,12 +43,14 @@
 	export default {
 		data() {
 			return {
-				course: {}
+				course: [],
+				openID:''
 			}
 		},
 		onLoad(options) {
 			console.log(options)
 			this.initOnlineCourseDetail(options.id);
+			this.openID = options.id
 		},
 		methods: {
 			videoErrorCallback: function(e) {
@@ -81,12 +83,13 @@
 			},
 		},
 		onShareAppMessage(res) {
+			let id = this.openID
 		    if (res.from === 'button') {// 来自页面内分享按钮
 		      console.log(res.target)
 		    }
 		    return {
 		      title: '这是一个分享',
-		      path: '/pages/studyOpen/openDetail'
+		      path: '/pages/studyOpen/openDetail?id='+ id,
 		    }
 		  }
 	}
