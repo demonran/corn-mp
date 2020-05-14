@@ -97,7 +97,7 @@ export default {
 		height:150upx;
 	}
 .bg{
-	background:#eee url(../../static/img/sharebg.png) no-repeat center top;
+	// background:#eee url(../../static/img/sharebg.png) no-repeat center top;
 	background-size: 100%;
 	height: 360upx;
 	color: #fff;

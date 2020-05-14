@@ -45,8 +45,7 @@
 				"navigationBarTitleText": "课程记录",
 				"enablePullDownRefresh": true
 			}
-		}
-		, {
+		}, {
 			"path": "pages/mine/about",
 			"style": {
 				"navigationBarTitleText": "关于我们",
@@ -177,7 +176,7 @@
 			"style": {
 				"enablePullDownRefresh": true,
 				"navigationBarTitleText": "老师"
-				
+
 			}
 		}, {
 			"path": "pages/teacher/teacherDetail",
@@ -202,12 +201,12 @@
 			"style": {
 				"navigationBarTitleText": "作品详情"
 			}
-		}, 
+		},
 		{
 			"path": "pages/activity/activity",
 			"style": {
-				 "enablePullDownRefresh": true,
-				 "navigationBarTitleText": "活动"
+				"enablePullDownRefresh": true,
+				"navigationBarTitleText": "活动"
 			}
 		}, {
 			"path": "pages/activity/activityDetail",
@@ -218,6 +217,11 @@
 			"path": "pages/share/share",
 			"style": {
 				"navigationBarTitleText": "分享"
+			}
+		}, {
+			"path": "pages/share/shareResult",
+			"style": {
+				"navigationBarTitleText": "分享结果"
 			}
 		}, {
 			"path": "pages/share/cashOut",

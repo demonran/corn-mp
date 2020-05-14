@@ -138,6 +138,10 @@ export const articleDetail = (id) => {
 export const articleRecommend = () => {
     return http.get('article/recommend')
 }
+
+export const receiveCoupon = (mobile, couponId) => {
+    return http.post('coupon',{mobile:mobile, couponId:couponId})
+}
 // 默认全部导出  import api from '@/common/vmeitime-http/'
 export default {
 	test,
@@ -163,5 +167,6 @@ export default {
 	organization,
 	article,
 	articleDetail,
-	articleRecommend
+	articleRecommend,
+	receiveCoupon
 }
