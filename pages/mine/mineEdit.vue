@@ -27,7 +27,7 @@
 		<navigator url="editTel">
 			<dl >
 				<dt>手机</dt>
-				<dd>{{tel}}</dd>
+				<dd>{{userInfo.mobile}}</dd>
 			</dl>
 		</navigator>
 		<navigator url="editAddr">
@@ -46,7 +46,6 @@
 			return {
 				userInfo:'',
 				sex:'',
-				tel:''
 				
 			}
 		},

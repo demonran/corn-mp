@@ -90,8 +90,8 @@ export const CourseCategory = () => {
     return http.get('offline-course/categories')
 }
 // jcode2session
-export const login = (code, userInfo) => {
-    return http.post('login', {code:code, userInfo:userInfo})
+export const login = (code, encryptedData, ivStr) => {
+    return http.post('login', {code:code, encryptedData:encryptedData, ivStr: ivStr})
 }
 // 用户信息
 export const userInfo = () => {

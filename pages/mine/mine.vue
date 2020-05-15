@@ -1,55 +1,6 @@
 <template>
 	<view class="box content">
-		<div class="user">
-			<!-- 
-			<button open-type="getUserInfo">点击授权</button>
-		
-			<button open-type="getPhoneNumber">获取电话</button> -->
-			
-			
-			<view class="" >
-				<view class="agency-logo">
-					<!-- <image class="null" :src="image"></image> -->
-					<open-data type="userAvatarUrl"></open-data>
-				</view>
-				<!-- <view class="agency-des mine"  @click="goMyEdit">
-					<h1 class="a-line">
-						<open-data type="userNickName" lang="zh_CN"></open-data>
-					</h1>
-					<text class="a-line">
-						点击修改个人信息
-					</text>
-				</view> -->
-				
-
-				
-				
-
-				
-				<view class="agency-des"  v-if="isAuthorize==false">
-					<button class="loginBtn" open-type="getUserInfo" @getuserinfo="getHandle">
-						<h1 class="a-line">
-							未登录
-						</h1>
-						<text class="a-line">点击登陆</text>
-					</button>
-				</view>
-				
-				<view class="agency-des mine" v-if="isAuthorize==true" @click="goMyEdit">					
-					<h1 class="a-line">
-						<open-data type="userNickName" lang="zh_CN"></open-data>
-					</h1>
-					<text class="a-line">
-						点击修改个人信息
-					</text>
-				</view>
-				
-			</view>
-
-
-		</div>
-
-
+		<login></login>
 		<view class="nav-list flex shadow">
 			<view class="nav-box" hover-class="nav-hover" v-for="(item,index) in nav" :key="index">
 				<navigator :url="item.goUrl">
@@ -87,11 +38,15 @@
 
 
 <script>
+	import login from './login/login';
 	export default {
+		components: {
+			login
+		},
 		data() {
 			return {
-				userInfo:'',
-				organization:[],
+				userInfo: '',
+				organization: [],
 				isAuthorize: false,
 				image: '',
 				name: '',
@@ -113,29 +68,13 @@
 		},
 		onLoad() {
 			this.getOrganization();
-			const app = getApp()
-			let authorize= app.globalData.isAuthorize
-			
-			console.log('获取授权',authorize)
-			 if(authorize == true){
-				
-				this.isAuthorize = true
-				authorize = true
-				this.getUserInfo();
-			}else{
-				this.isAuthorize = false
-				authorize =false
-				//this.getHandle() 
-			} 
-			//判断是否授权
-			
 		},
 
 		methods: {
-			getOrganization(){
+			getOrganization() {
 				this.$api.organization().then(res => {
 					this.organization = res.data.data;
-					console.log('organization:',this.organization)
+					console.log('organization:', this.organization)
 				})
 			},
 			getUserInfo() {
@@ -145,92 +84,14 @@
 					this.name = this.userInfo.nickName;
 					this.image = this.userInfo.avatarUrl;
 				})
-			}, 
-			// 点击按钮激发授权事件
-			getHandle() {
-				// 重赋值this
-				let _this = this;
-				const app = getApp()
-				// 获取用户授权设置
-				uni.getSetting({
-					success(res) {
-						if (res.authSetting['scope.userInfo']) {
-							// 如果要获取的权限已经授权,则直接获取相关信息
-							uni.getUserInfo({
-								success(res) {
-									// 获取相关数据后，进行登录及数据请求
-									console.log('请求登陆')
-									app.globalData.isAuthorize = _this.isAuthorize = true
-									_this.WX_MP_getuserinfo(res);
-								},
-								fail(err) {
-									// 错误信息
-									console.log(err)
-									app.globalData.isAuthorize = _this.isAuthorize = false
-								}
-							})
-						} else if (!res.authSetting['scope.userInfo']) {
-							// 如果要获取的权限尚未授权,则此时触发授权，打开设置页面
-							uni.showModal({
-								//弹出提示框
-								title: '是否打开设置页授权登陆？',
-								content: '需要在设置中获取个人信息和微信登陆权限',
-								success(res) {
-									if (res.confirm) {
-										uni.openSetting({
-											// 弹出框，确认后打开设置页面
-											success(res) {
-												//console.log(res.authSetting)
-												_this.isAuthorize = true
-											},
-										})
-									} else if (res.cancel) {
-										console.log('用户点击取消');
-										_this.isAuthorize = false
-									}
-								}
-							});
-						}
-					}
-				})
-			},
-			
-			
-			//登陆
-			WX_MP_getuserinfo(e) {
-				let that = this;
-				let userInfo = e.userInfo;
-				this.name = userInfo.nickName;
-				this.image = userInfo.avatarUrl;
-
-				uni.login({
-					provider: 'weixin',
-					success: function(loginRes) {
-						that.$api.login(loginRes.code, userInfo).then(res => {
-							console.log(res)
-							uni.setStorageSync('token',res.data.data);
-
-						})
-						
-
-					}
-				});
-				//console.log(e)
 			},
 
-			goCall:function(){
+			goCall: function() {
 				uni.makePhoneCall({
-				    phoneNumber: this.organization.tel
-				});
-			},
-			goMyEdit() {
-				uni.navigateTo({
-					url: 'mineEdit',
-					success: res => {},
-					fail: () => {},
-					complete: () => {}
+					phoneNumber: this.organization.tel
 				});
 			}
+			
 		}
 	}
 </script>
@@ -238,60 +99,6 @@
 <style lang="scss" scoped>
 	@import "../../static/style/base.scss";
 
-	.user {
-		padding: 60upx 0;
-		height: 14vw;
-		border-radius: 8upx;
-		background: #fff url(../../static/img/info-arr.png) no-repeat 85vw center;
-		background-size: 40upx;
-
-		.mine{
-			display: block;
-			height:60upx;
-			text {
-				font-size: 24upx;
-				color: #7e7e7e;
-			}
-		}
-
-		.agency-logo {
-			width: 15vw;
-			height: 15vw;
-			border-radius: 50%;
-			overflow: hidden;
-			margin-right: 2vw;
-			float: left;
-
-			image {
-				width: 100%;
-				height: 100%;
-			}
-		}
-
-		.agency-des {
-			.loginBtn {
-				background: none;
-				border: none;
-				text-align: left;
-				line-height: 150%;
-				padding: 0;
-
-				h1 {
-					font-size: 38upx;
-					color: #393939;
-
-				}
-
-				text {
-					font-size: 24upx;
-					color: #7e7e7e;
-				}
-			}
-
-
-		}
-
-	}
 
 	.nav-list {
 		margin-bottom: 40upx;
