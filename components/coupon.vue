@@ -38,6 +38,7 @@
 		background-size: 100% 100%;
 		// border: 1px solid rgba(254, 131, 0, 1);
 		padding: 36upx 40upx;
+		margin-bottom: 25upx;
 
 		h2 {
 			height: 84upx;

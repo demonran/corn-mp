@@ -2,7 +2,7 @@
 	<view class="user">
 
 		<view class="agency-logo">
-			<image class="null" :src="image"></image> 
+			<image class="null" :src="image"></image>
 			<open-data type="userAvatarUrl"></open-data>
 		</view>
 		<view class="agency-des" v-if="isAuthorize==false">
@@ -26,35 +26,53 @@
 </template>
 
 <script>
-	import { mapGetters } from 'vuex'
+	import {
+		mapGetters
+	} from 'vuex'
 	export default {
 		data() {
 			return {
-				 isAuth: this.isAuthorize
+				image: '',
+				name: '',
+				isAuth: this.isAuthorize
 			}
 		},
 		computed: {
 			...mapGetters([
 				'isAuthorize'
-			]), 
+			]),
 		},
 		mounted() {
-			let that = this;
-			uni.login({
-				provider: 'weixin',
-				success: function(loginRes) {
-					console.log("logined")
-				}
-			})
+			console.log('onLoad')
+			if (this.isAuthorize) {
+				this.getUserInfo();
+			} else {
+				uni.login({
+					provider: 'weixin',
+					success: function(loginRes) {
+						console.log("logined")
+					}
+				})
+			}
+
 		},
 		methods: {
 			goMyEdit() {
-				uni.navigateTo({ 
+				uni.navigateTo({
 					url: 'mineEdit',
 					success: res => {},
 					fail: () => {},
 					complete: () => {}
 				});
+			},
+			getUserInfo() {
+				this.$api.userInfo().then(res => {
+					this.userInfo = res.data.data;
+					console.log(res)
+					this.name = this.userInfo.nickName;
+					this.image = this.userInfo.avatarUrl;
+					this.$store.commit('SET_USER', this.userInfo)
+				})
 			},
 			getPhoneNumber(e) {
 				let that = this;
@@ -70,6 +88,7 @@
 										console.log(res)
 										uni.setStorageSync('token', res.data.data);
 										that.$store.commit('SET_AUTHORIZE', true)
+										that.getUserInfo();
 									})
 								}
 							})

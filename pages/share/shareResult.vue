@@ -4,12 +4,15 @@
             <view class='detail-rule'>
                 <navigator url=""><span>详细规则</span></navigator>
             </view>
-            <image src=""></image>
-            <text>张三</text>
+			<view class="user">
+				<image :src="sharedUser.avatarUrl"></image>
+				<text>{{sharedUser.nickName}}</text>
+			</view>
+            
             <h2>你的好友送来学习福利</h2>
             <h5>报名即可抵扣相应现金哦</h5>
             <view class="shadow">
-                <coupon count=200 tip="满2000元可使用" type=1></coupon>
+                <coupon v-for="(item, index) in coupons" :key="index" :count="item.amount" :tip="'满'+item.minUsed+'元可使用'" type=1></coupon>
                 <input v-model="mobile" class="mobile-input"  placeholder-style="text-align:center" type="number" placeholder="输入手机号" />
                 <button @click="receiveCoupon">立即领取</button>
             </view>
@@ -26,23 +29,30 @@
         },
         data() {
             return {
-				mobile: ''
+				sharedUser: {},
+				mobile: '',
+				couponId: '',
+				sharedUserId: '',
+				coupons:[]
 
             }
         },
-        mounted() {
-        },
+		onLoad(options) {
+			this.couponIds = options.couponIds;
+			this.sharedUserId = options.sharedUserId;
+			this.fetchCoupon(this.sharedUserId, this.couponIds)
+		},
+       
         methods: {
-            onShareAppMessage(res){
-                console.log(res)
-                return {
-                    title:"test",
-                    path: '/pages/study/studyDetail'
-                }
-            },
+            fetchCoupon(userId, couponIds) {
+				this.$api.fetchCouponByIds(userId, couponIds).then(res => {
+					console.log(res.data.data)
+					this.sharedUser = res.data.data.user;
+					this.coupons = res.data.data.coupons;
+				})
+			},
 			receiveCoupon() {
-				console.log("click")
-				this.$api.receiveCoupon(this.mobile, "").then(res => {
+				this.$api.receiveCoupon(this.mobile, this.couponIds.split(','), this.sharedUserId).then(res => {
 					if(res.data.statusCode == 200){
 						uni.showToast({
 							icon: 'success',
@@ -103,6 +113,20 @@
             font-size: 48upx;
             font-weight: 600;
         }
+		
+		.user{
+			padding-top: 103upx;
+			image {
+				display: block;
+				margin:0 auto;
+				width: 132upx;
+				height: 132upx;
+				border-radius: 50%;
+			}
+			text {
+				color: white;
+			}
+		}
 
 
     }

@@ -8,6 +8,9 @@ const user = {
 		SET_AUTHORIZE: (state, isAuthorize) => {
 			state.isAuthorize = isAuthorize
 		},
+		SET_USER: (state, user) => {
+			state.user = user
+		},
 	},
 	actions: {
 

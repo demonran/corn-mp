@@ -1,4 +1,5 @@
 import http from './interface'
+import Coupon from '../../api/coupon'
  
 /**
  * 将业务所有接口统一起来便于维护
@@ -139,13 +140,10 @@ export const articleRecommend = () => {
     return http.get('article/recommend')
 }
 
-export const receiveCoupon = (mobile, couponId) => {
-    return http.post('coupon',{mobile:mobile, couponId:couponId})
-}
-
 export const fetchCoupon = () => {
     return http.get('coupon')
 }
+
 // 默认全部导出  import api from '@/common/vmeitime-http/'
 export default {
 	test,
@@ -173,5 +171,5 @@ export default {
 	articleDetail,
 	articleRecommend,
 	fetchCoupon,
-	receiveCoupon
+	...Coupon
 }

@@ -32,6 +32,9 @@
 
 <script>
 	import coupon from '../../components/coupon.vue'
+	import {
+		mapGetters
+	} from 'vuex'
 	export default {
 		components: {
 			coupon
@@ -40,33 +43,39 @@
 			return {
 				discountCoupons: [],
 				cashCoupons: []
-				
+
 			}
+		},
+		computed: {
+			...mapGetters([
+				'user'
+			])
 		},
 		onLoad: function(options) {
 			this.fetchCoupon()
 
 		},
-		
-		mounted() {
-		},
+
+		mounted() {},
 		methods: {
 			fetchCoupon() {
 				this.$api.fetchCoupon().then(res => {
 					res = res.data;
 					console.log(res)
-					if(res.statusCode == 200){
+					if (res.statusCode == 200) {
 						this.cashCoupons = res.data.cashCoupons;
 						this.discountCoupons = res.data.discountCoupons
 					}
-					
+
 				})
 			},
-			onShareAppMessage(res){
-				console.log(res) 
+			onShareAppMessage(res) {
+				let couponIds = this.discountCoupons.map(coupon => coupon.couponId);
+				let path = `/pages/share/shareResult?sharedUserId=${this.user.id}&couponIds=${couponIds}`;
+				console.log(path)
 				return {
-					title:"获取优惠券",
-					path: '/pages/share/shareResult'
+					title: "获取优惠券",
+					path: path
 				}
 			}
 		}

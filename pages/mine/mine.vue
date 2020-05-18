@@ -77,14 +77,6 @@
 					console.log('organization:', this.organization)
 				})
 			},
-			getUserInfo() {
-				this.$api.userInfo().then(res => {
-					this.userInfo = res.data.data;
-					console.log(res)
-					this.name = this.userInfo.nickName;
-					this.image = this.userInfo.avatarUrl;
-				})
-			},
 
 			goCall: function() {
 				uni.makePhoneCall({
