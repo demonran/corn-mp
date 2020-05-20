@@ -86,7 +86,7 @@
 </template>
 
 <script>
-
+import {mapGetters} from 'vuex'
 	export default {
 		data() {
 			return {
@@ -99,6 +99,11 @@
 				
 				
 			} 
+		},
+		computed: {
+			...mapGetters([
+				'isAuthorize'
+			]),
 		},
 		onLoad(options) {
 			this.initCourseDetail(options.id);
@@ -152,7 +157,7 @@
 			goOrder(data) {
 				//判断是否登陆，没有登陆，则先登陆
 				const app = getApp()
-				if(app.globalData.isAuthorize == true){
+				if(this.isAuthorize == true){
 					let that = this
 					if(this.studentName!=""&&this.patriarchName!=""&&this.tel!=""){
 						//console.log(data)
@@ -169,7 +174,7 @@
 						
 						this.$api.orders(a).then(res => {					
 							console.log(res)
-							that.goSignResult()
+							that.goSignResult(res.data.data.id)
 						}) 
 					}else{
 						// 如果要获取的权限尚未授权,则此时触发授权，打开设置页面
@@ -240,9 +245,9 @@
 			},
 
 
-			goSignResult(){
+			goSignResult(orderId){
 				uni.redirectTo({
-					url:`/pages/signup/goSignResult`
+					url:`/pages/signup/goSignResult?orderId=${orderId}`
 				})
 			}
 
