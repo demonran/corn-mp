@@ -5,7 +5,7 @@
 		},
 		onShow: function() {
 			console.log('App Show')
-			this.getHandle()
+			// this.getHandle()
 			
 		},
 		onHide: function() {

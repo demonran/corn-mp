@@ -92,6 +92,7 @@
 			initCourseDetail(id) {
 				this.$api.CourseDetail(id).then(res => {
 					this.CourseDetail = res.data.data; 
+					console.log(this.CourseDetail)
 				}) 
 			},
 			goTeacher:function(id){

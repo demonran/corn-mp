@@ -1,3 +1,27 @@
+export default {
+	install(Vue) {
+		Vue.prototype.$navigateTo = navigateTo;
+		Vue.prototype.$navigateBack = navigateBack;
+	}
+}
+
+
+
+function navigateTo(url) {
+	uni.navigateTo({
+		url: url,
+		success: res => {},
+		fail: () => {},
+		complete: () => {}
+	});
+}
+function navigateBack() {
+	uni.navigateBack({
+		delta: 1
+	});
+}
+
+
 function throttle(fn, gapTime) {
   if (gapTime == null || gapTime == undefined) {
     gapTime = 1500
@@ -15,9 +39,11 @@ function throttle(fn, gapTime) {
   }
 }
 
-module.exports = {
-	throttle:throttle,
-	vuemixin:{
-		created: function () { console.log(1) }
-	}
-}
+
+
+// module.exports = {
+// 	throttle:throttle,
+// 	vuemixin:{
+// 		created: function () { console.log(1) }
+// 	}
+// }
