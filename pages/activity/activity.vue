@@ -6,7 +6,7 @@
 		</view> 
 		<!-- swiper切换 swiper-item表示一页 scroll-view表示滚动视窗 -->	
 		<swiper  :current="currentTab" @change="swiperTab">
-			<swiper-item v-for="(page,i) in tabTitle.length">
+			<swiper-item v-for="(page,i) in tabTitle.length" :key="i">
 				<view class="no-data" v-show="noData==true">
 					暂时没有数据
 				</view>

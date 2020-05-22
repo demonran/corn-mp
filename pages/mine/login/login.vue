@@ -86,7 +86,7 @@
 									console.log(loginRes)
 									that.$api.login(loginRes.code, e.detail.encryptedData, e.detail.iv).then(res => {
 										console.log(res)
-										uni.setStorageSync('token', res.data.data);
+										uni.setStorageSync('token', res.data);
 										that.$store.commit('SET_AUTHORIZE', true)
 										that.getUserInfo();
 									})

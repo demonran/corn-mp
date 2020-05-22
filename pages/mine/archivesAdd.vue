@@ -4,15 +4,15 @@
 		<view class="cont">
 			<dl>
 				<dt>学生姓名</dt>
-				<dd><input :key="student"  type="text" placeholder="请输入学生姓名" /></dd>
+				<dd><input v-model="children.studentName"  type="text" placeholder="请输入学生姓名" /></dd>
 			</dl>
 			<dl>
 				<dt>家长姓名</dt>
-				<dd><input type="text" placeholder="请输入家长姓名" /></dd>
+				<dd><input type="text" v-model="children.patriarchName"  placeholder="请输入家长姓名" /></dd>
 			</dl>
 			<dl>
 				<dt>联系电话</dt>
-				<dd><input type="text"  placeholder="请输入11位手机号码"/></dd>
+				<dd><input type="text" v-model="children.tel"  placeholder="请输入11位手机号码"/></dd>
 			</dl>
 		</view>
 
@@ -22,27 +22,39 @@
 </template>
 
 <script>
+	import user from '../../api/user.js'
 	export default {
 		data() {
 			return {
-				
+				children:{}
 			}
 		},
+		onLoad(options) {
+			console.log(options)
+			const id = options.id
+			id && this.getById(id)
+		},
 		methods: {
+			getById(id) {
+				user.getChildren(id).then(res => {
+					this.children = res.data
+				})
+			},
 			goSignup:function(){
-				uni.setStorage({
-					key:'student',
-					data:'456',
-					success(){
-						console.log('success')
-					},
-					fail(){
-						console.log('fail')
+				let saveOrUpdateChild ;
+				if(this.children.id){
+					saveOrUpdateChild = user.updateChildren(this.children)
+				}else {
+					saveOrUpdateChild = user.addChildren(this.children)
+				}
+				saveOrUpdateChild.then(res => {
+					if(res.statusCode == 200) {
+						uni.navigateBack({
+							delta: 1
+						});
 					}
 				})
-				uni.navigateBack({
-					delta: 1
-				});
+				
 				
 			}
 	}

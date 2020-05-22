@@ -10,6 +10,17 @@
 					"MP-WEIXIN": true,
 					"LOCAL_ENV": true
 				}
+			},
+			"chrome": {
+				"title": "chrome",
+				"BROWSER":"Chrome",  
+				"env": {
+					"UNI_PLATFORM": "h5"
+				},
+				"define": {
+					"MP-WEIXIN": true,
+					"LOCAL_ENV": true
+				}
 			}
 		}
 	}

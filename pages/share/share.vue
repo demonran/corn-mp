@@ -8,9 +8,9 @@
 			<h5>好友报名成功后即可体现哦</h5>
 			<view class="shadow">
 				<view class="coupon-title">你可以获得 <span>邀请好友报名可领取</span></view>
-				<coupon v-for="(item , i) in cashCoupons" :count="item.amount" tip="红包可体现" type=0></coupon>
+				<coupon v-for="(item , i) in cashCoupons" :key="i" :count="item.amount" tip="红包可体现" type=0></coupon>
 				<view class="coupon-title">好友获得优惠 <span>报名即可使用</span></view>
-				<coupon v-for="(item , i) in discountCoupons" :count="item.amount" :tip="'满' + item.minUsed+ '元可使用'" type=1></coupon>
+				<coupon v-for="(item , i) in discountCoupons" :key="i" :count="item.amount" :tip="'满' + item.minUsed+ '元可使用'" type=1></coupon>
 				<button open-type="share">立即邀请</button>
 			</view>
 
