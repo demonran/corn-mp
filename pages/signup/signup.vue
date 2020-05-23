@@ -69,7 +69,7 @@
 
 	</view>
 </template>
-
+ 
 <script>
 	import {
 		mapGetters

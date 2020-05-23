@@ -1,7 +1,7 @@
 <template>
 	<view class="popup-coupon">
 		<view class="coupon-title"><text class="coupon-title-text">{{title}}</text></view>
-		
+		 
 		<view class="coupon-content">
 			<radio-group>
 				<view class='coupon-item' v-for="(item , i) in myCoupons" :key="i">

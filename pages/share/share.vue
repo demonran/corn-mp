@@ -39,7 +39,9 @@
 
 			<view class="shadow-box inbox Withdrawal">
 				<view class="title">可体现红包</view>
-				<view class="price"><span>¥9000.00</span><button>提现</button></view>
+				<view class="price"><span>¥9000.00</span>
+				<button @click="goCash">提现</button>
+				</view>
 				<view class="Statistics">
 					<view>
 						<p>成功邀请</p>
@@ -98,6 +100,14 @@
 					title: "获取优惠券",
 					path: path
 				}
+			},
+			goCash(){
+				uni.navigateTo({
+					url: `/pages/share/cashOut`,
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
 			}
 		}
 
