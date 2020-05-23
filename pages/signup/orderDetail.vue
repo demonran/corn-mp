@@ -57,7 +57,7 @@
 			</dl>
 			<dl>
 				<dt>提交时间</dt>
-				<dd>{{order.createAt}}</dd>
+				<dd>{{order.createdAt}}</dd>
 			</dl>
 		</view>
 		<view v-if="order.status=='CREATED'" class="bottomBar">
