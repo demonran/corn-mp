@@ -6,7 +6,7 @@
 				<text>家长：{{child.patriarchName}}</text><text class="line">|</text><text>电话：{{child.tel}}</text>
 			</view>
 		</view>
-		<image src='../static/img/edit.png' @click="goArchiveEdit"></image>
+		<image src='../static/img/edit.png' @click.stop="goArchiveEdit"></image>
 	</view>
 
 </template>
@@ -23,9 +23,7 @@
 		methods: {
 
 			goArchiveEdit: function() {
-				uni.navigateTo({
-					url: `./archivesAdd?id=${this.child.id}`
-				})
+				this.$navigateTo(`/pages/mine/archivesAdd?id=${this.child.id}`)
 			}
 
 
@@ -52,8 +50,8 @@
 		align-items: center;
 
 		image {
-			width: 40upx;
-			height: 40upx;
+			width: 50upx;
+			height: 50upx;
 			position: absolute;
 			right: 40upx;
 		}

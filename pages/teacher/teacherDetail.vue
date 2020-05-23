@@ -39,7 +39,7 @@
 		methods: {
 			getTeacherDetail(id) {
 				this.$api.teacherDetail(id).then(res => {
-					this.teacher = res.data.data;
+					this.teacher = res.data;
 					console.log(this.teacher)
 				})
 			},

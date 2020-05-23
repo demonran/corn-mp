@@ -61,7 +61,7 @@
 			},
 			initOnlineCourseDetail(id) {
 				this.$api.onlineCourseDetail(id).then(res => {
-					this.course = res.data.data;
+					this.course = res.data;
 				})
 			},
 

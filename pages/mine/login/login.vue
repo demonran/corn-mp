@@ -67,7 +67,7 @@
 			},
 			getUserInfo() {
 				this.$api.userInfo().then(res => {
-					this.userInfo = res.data.data;
+					this.userInfo = res.data;
 					console.log(res)
 					this.name = this.userInfo.nickName;
 					this.image = this.userInfo.avatarUrl;
@@ -86,7 +86,7 @@
 									console.log(loginRes)
 									that.$api.login(loginRes.code, e.detail.encryptedData, e.detail.iv).then(res => {
 										console.log(res)
-										uni.setStorageSync('token', res.data);
+										uni.setStorageSync('token', res.data.data);
 										that.$store.commit('SET_AUTHORIZE', true)
 										that.getUserInfo();
 									})

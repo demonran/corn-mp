@@ -52,9 +52,9 @@
 		methods: {
 			initUserInfo() {
 				this.$api.userInfo().then(res => {
-					this.userInfo = res.data.data;
+					this.userInfo = res.data;
 					console.log('123')
-					console.log(res.data.data)
+					console.log(res.data)
 
 					if(this.userInfo.gender==1){
 						this.sex = '男'

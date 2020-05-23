@@ -30,7 +30,7 @@ export default {
 	methods: {
 		getDetail(id) {
 			this.$api.worksDetail(id).then(res => {
-				this.detail = res.data.data;
+				this.detail = res.data;
 				console.log(this.detail)
 			})
 		},

@@ -24,7 +24,7 @@
 		methods: {
 			getArticle(id) {
 				this.$api.articleDetail(id).then(res => {
-					this.article = res.data.data;
+					this.article = res.data;
 					console.log('res:',res)
 				})
 			},

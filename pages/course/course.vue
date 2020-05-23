@@ -80,7 +80,7 @@ export default {
 			let _this = this
 			let arr = []
 			this.$api.OfflineCourse(id).then(res => {
-				_this.OfflineCourseList = res.data.data; 
+				_this.OfflineCourseList = res.data; 
 				for(var i = 0;i<_this.OfflineCourseList.length;i++){
 	
 					arr = _this.OfflineCourseList[i]					
@@ -125,7 +125,7 @@ export default {
 		},
 		initCourseCategory() {
 			this.$api.CourseCategory().then(res => {		
-				let tab =res.data.data
+				let tab =res.data
 				let tabTitle = []				
 				tab.unshift({categoryName:'全部',categoryId:''})
 				for(var i = 0;i<tab.length;i++){				

@@ -22,11 +22,9 @@
 </template>
 
 <script>
-    import coupon from '../../components/coupon.vue'
+	import couponRes from '@/api/coupon.js'
     export default {
-        components: {
-            coupon
-        },
+       
         data() {
             return {
 				sharedUser: {},
@@ -45,15 +43,14 @@
        
         methods: {
             fetchCoupon(userId, couponIds) {
-				this.$api.fetchCouponByIds(userId, couponIds).then(res => {
-					console.log(res.data.data)
-					this.sharedUser = res.data.data.user;
-					this.coupons = res.data.data.coupons;
+				couponRes.fetchCouponByIds(userId, couponIds).then(res => {
+					this.sharedUser = res.data.user;
+					this.coupons = res.data.coupons;
 				})
 			},
 			receiveCoupon() {
-				this.$api.receiveCoupon(this.mobile, this.couponIds.split(','), this.sharedUserId).then(res => {
-					if(res.data.statusCode == 200){
+				couponRes.receiveCoupon(this.mobile, this.couponIds.split(','), this.sharedUserId).then(res => {
+					if(res.statusCode == 200){
 						uni.showToast({
 							icon: 'success',
 							title:'领取成功'
@@ -61,7 +58,7 @@
 					}else{
 						uni.showToast({
 							icon:'none',
-							title: res.data.errorMessage
+							title: res.errorMessage
 						})
 					}
 				})

@@ -1,10 +1,10 @@
 <template>
 	<view>
 		<swiper  :autoplay="true" :interval="3000" :duration="1000">
-			<swiper-item v-for="(item,index) in imageUrl" :key="index" >
-				<image :src="item.image" mode="widthFix"></image>
+			<swiper-item v-for="(item,index) in images" :key="index" >
+				<image :src="item" mode="widthFix"></image>
 				<view class="num">
-					<text>{{index+1}}/{{course.length}}</text>
+					<text>{{index+1}}/{{images.length}}</text>
 					<view class="bg"></view>
 				</view>
 			</swiper-item>
@@ -70,11 +70,11 @@
 
 <script>
 	
-	
+	import courseRes from '@/api/course.js'
 	export default {
 		data() {
 			return {	
-				CourseDetail:[],
+				CourseDetail:{},
 				organization:[]
 			}
 		}, 
@@ -82,16 +82,21 @@
 			this.initCourseDetail(options.id);
 			this.getOrganization();
 		},
+		computed: {
+			images() {
+				return this.CourseDetail.imageUrl ? this.CourseDetail.imageUrl.split(',') : []
+			}
+		},
 		methods: {
 			getOrganization(){
 				this.$api.organization().then(res => {
-					this.organization = res.data.data;
+					this.organization = res.data;
 					console.log('organization:',this.organization)
 				})
 			},
 			initCourseDetail(id) {
-				this.$api.CourseDetail(id).then(res => {
-					this.CourseDetail = res.data.data; 
+				courseRes.detail(id).then(res => {
+					this.CourseDetail = res.data; 
 					console.log(this.CourseDetail)
 				}) 
 			},

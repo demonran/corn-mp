@@ -197,23 +197,23 @@
 			},
 			getOrganization(){
 				this.$api.organization().then(res => {
-					this.trainAgency = res.data.data;
+					this.trainAgency = res.data;
 				})
 			},
 			initArticle() {
 				this.$api.articleRecommend().then(res => {
-					this.activity = res.data.data;
+					this.activity = res.data;
 					console.log('active',this.activity)
 				})
 			},
 			initWorks() {
 				this.$api.worksRecommend().then(res => {
-					this.works = res.data.data;
+					this.works = res.data;
 				})
 			},
 			initBanner() {
 				this.$api.banner().then(res => {
-					this.banner = res.data.data;
+					this.banner = res.data;
 				})
 			},
 			goBanner(link){
@@ -233,12 +233,12 @@
 			},
 			initRecommendCourse() { 
 				this.$api.recommendCourse().then(res => {
-					this.recommendCourse = res.data.data;
+					this.recommendCourse = res.data;
 				})
 			}, 
 			initHotOfflineCourse() {
 				this.$api.hotOfflineCourse().then(res => {
-					this.hotCourse = res.data.data; 
+					this.hotCourse = res.data; 
 				}) 
 			},
 

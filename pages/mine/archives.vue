@@ -30,25 +30,29 @@
 			child
 		},
 		onLoad(options) {
+			uni.$on("childrenUpdated", this.list)
 			this.from = options.from
 			this.list()
 		},
 		methods: {
 			select(child) {
-				console.log(child)
 				uni.$emit("childSelected", child)
 				this.$navigateBack()
 				
 			},
 			list() {
+				
 				user.listChildren().then(res => {
 					this.children = res.data
 				})
 			},
-			goArchiveAdd:function(){
-				uni.navigateTo({
-					url:'archivesAdd'
-				})
+			goArchiveAdd(){
+				this.$navigateTo('archivesAdd')
+			},
+			
+			onUnload() {
+				console.log("onUnload")
+				uni.$off("childrenUpdated")
 			}
 			
 			

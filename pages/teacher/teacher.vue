@@ -30,7 +30,7 @@
 		methods: {
 			initTeacher() {
 				this.$api.teacherList().then(res => {
-					this.teacher = res.data.data.content;
+					this.teacher = res.data.content;
 					console.log(this.teacher)
 				})
 			},

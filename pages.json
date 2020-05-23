@@ -142,11 +142,6 @@
 			"style": {
 				"navigationBarTitleText": "报名"
 			}
-		}, {
-			"path": "pages/signup/signInfo",
-			"style": {
-				"navigationBarTitleText": "立即报名"
-			}
 		},
 		{
 			"path": "pages/signup/goPay",
@@ -161,13 +156,13 @@
 			}
 		},
 		{
-			"path": "pages/signup/mySign",
+			"path": "pages/signup/myOrder",
 			"style": {
 				"navigationBarTitleText": "我的报名"
 			}
 		},
 		{
-			"path": "pages/signup/mySignDetail",
+			"path": "pages/signup/orderDetail",
 			"style": {
 				"navigationBarTitleText": "报名详情"
 			}
@@ -257,6 +252,10 @@
 		}
 	    ,{
             "path" : "pages/mine/login/login",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/signup/popup-coupon/popup-coupon",
             "style" : {}
         }
     ],

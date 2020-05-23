@@ -65,7 +65,7 @@
 		methods: {
 			getOrganization(){
 				this.$api.organization().then(res => {
-					this.organization = res.data.data;
+					this.organization = res.data;
 					console.log('organization:',this.organization)
 				})
 			},

@@ -66,7 +66,7 @@ export default {
 	methods: {
 		initCourseCategory() {
 			this.$api.CourseCategory().then(res => {		
-				let tab =res.data.data
+				let tab =res.data
 				let tabTitle = []				
 				tab.unshift({categoryName:'全部',categoryId:''})
 				for(var i = 0;i<tab.length;i++){				
@@ -83,7 +83,7 @@ export default {
 			console.log('栏目id',id)
 			let arr = []
 			this.$api.worksList(id).then(res => {
-				_this.worklist = res.data.data.content;
+				_this.worklist = res.data.content;
 				for(var i = 0;i<_this.worklist.length;i++){
 					arr = _this.worklist[i]					
 				}			

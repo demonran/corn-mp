@@ -34,7 +34,7 @@
 <style lang="scss">
 	.coupon {
 		position: relative;
-		background: url(../static/img/coupon1.png) no-repeat;
+		background: url(@/static/img/coupon1.png) no-repeat;
 		background-size: 100% 100%;
 		// border: 1px solid rgba(254, 131, 0, 1);
 		padding: 36upx 40upx;

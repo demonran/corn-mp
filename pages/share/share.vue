@@ -31,14 +31,12 @@
 </template>
 
 <script>
-	import coupon from '../../components/coupon.vue'
 	import {
 		mapGetters
 	} from 'vuex'
+	import couponRes from '@/api/coupon.js'
 	export default {
-		components: {
-			coupon
-		},
+		
 		data() {
 			return {
 				discountCoupons: [],
@@ -59,9 +57,7 @@
 		mounted() {},
 		methods: {
 			fetchCoupon() {
-				this.$api.fetchCoupon().then(res => {
-					res = res.data;
-					console.log(res)
+				couponRes.fetchCoupon().then(res => {
 					if (res.statusCode == 200) {
 						this.cashCoupons = res.data.cashCoupons;
 						this.discountCoupons = res.data.discountCoupons

@@ -40,6 +40,7 @@
 					this.children = res.data
 				})
 			},
+		
 			goSignup:function(){
 				let saveOrUpdateChild ;
 				if(this.children.id){
@@ -49,9 +50,8 @@
 				}
 				saveOrUpdateChild.then(res => {
 					if(res.statusCode == 200) {
-						uni.navigateBack({
-							delta: 1
-						});
+						uni.$emit("childrenUpdated", this.children)
+						this.$navigateBack();
 					}
 				})
 				

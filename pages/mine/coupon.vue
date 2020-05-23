@@ -32,6 +32,7 @@
 
 <script>
 	import navTab from '../../components/navTab.vue';
+	import couponRes from '@/api/coupon.js'
 	export default {
 		components: {
 			navTab
@@ -72,9 +73,8 @@
 			},
 
 			fetchMyCoupon() {
-				this.$api.fetchMyCoupon().then(res => {
-					console.log(res.data.data)
-					this.couponList = res.data.data;
+				couponRes.fetchMyCoupon().then(res => {
+					this.couponList = res.data;
 					this.filterByStatusList = this.couponList.filter(coupon => coupon.status == this.status[0])
 				})
 			},

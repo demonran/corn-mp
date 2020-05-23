@@ -40,7 +40,7 @@
 										success: function(loginRes) {
 											_this.$api.login(loginRes.code, userInfo).then(res => {
 												console.log(res)
-												uni.setStorageSync('token',res.data.data);
+												uni.setStorageSync('token',res.data);
 												_this.$options.globalData.isAuthorize = true
 																
 											})

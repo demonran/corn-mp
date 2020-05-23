@@ -1,6 +1,11 @@
 import http from './interface'
-import Coupon from '../../api/coupon'
- 
+
+//设置请求结束后拦截器
+http.interceptor.response = (response) => {
+	//判断返回状态 执行相应操作
+	return response.data;
+}
+
 /**
  * 将业务所有接口统一起来便于维护
  * 如果项目很大可以将 url 独立成文件，接口分成不同的模块
@@ -22,142 +27,130 @@ export const test = (data) => {
 		//判断返回状态 执行相应操作
 		return response;
 	}
-    return http.request({
+	return http.request({
 		baseUrl: 'http://unidemo.dcloud.net.cn/',
-        url: 'ajax/echo/text?name=uni-app',
+		url: 'ajax/echo/text?name=uni-app',
 		dataType: 'text',
-        data,
-    })
+		data,
+	})
 }
 
 // 轮播图
 export const banner = () => {
-    return http.request({
-        url: 'banners',
-        method: 'GET', 
+	return http.request({
+		url: 'banners',
+		method: 'GET',
 		// handle:true
-    })
+	})
 }
 
 // 导航
 export const navs = () => {
-    return http.request({
-        url: 'navs',
-        method: 'GET', 
+	return http.request({
+		url: 'navs',
+		method: 'GET',
 		// handle:true
-    })
+	})
 }
 
 // 推荐课程
 export const recommendCourse = () => {
-    return http.request({
-        url: 'online-course/recommend',
-        method: 'GET', 
+	return http.request({
+		url: 'online-course/recommend',
+		method: 'GET',
 		// handle:true
-    })
+	})
 }
 // 推荐课程
 export const onlineCourseDetail = (id) => {
-    return http.get('online-course/' + id)
+	return http.get('online-course/' + id)
 }
 // 公开课列表
 export const onlineCourse = (categoryId) => {
-    return http.get('online-course?categoryId='+ categoryId )
+	return http.get('online-course?categoryId=' + categoryId)
 }
 // 公开课次数更新
 export const onlineCourseCount = (id) => {
-    return http.put('online-course/'+ id +'/watch_times' )
+	return http.put('online-course/' + id + '/watch_times')
 }
 // 热门线下课程课程
 export const hotOfflineCourse = () => {
-    return http.get('offline-course/hot')
+	return http.get('offline-course/hot')
 }
 // 组织机构
 export const organization = () => {
-    return http.get('/organization/info')
-} 
+	return http.get('/organization/info')
+}
 // 线下课程
 export const OfflineCourse = (categoryId) => {
-    return http.get('offline-course?categoryId='+categoryId)
-} 
-// 线下课程详情
-export const CourseDetail = (id) => {
-    return http.get('offline-course/'+ id)
+	return http.get('offline-course?categoryId=' + categoryId)
 }
 
 
 // 线下课程分类
 export const CourseCategory = () => {
-    return http.get('offline-course/categories')
+	return http.get('offline-course/categories')
 }
 // jcode2session
 export const login = (code, encryptedData, ivStr) => {
-    return http.post('login', {code:code, encryptedData:encryptedData, ivStr: ivStr})
+	return http.post('login', {
+		code: code,
+		encryptedData: encryptedData,
+		ivStr: ivStr
+	})
 }
 // 用户信息
 export const userInfo = () => {
-    return http.get('user/info')
+	return http.get('user/info')
 }
 // 老师列表
 export const teacherList = () => {
-    return http.get('teachers')
+	return http.get('teachers')
 }
 // 老师详情
 export const teacherDetail = (id) => {
-    return http.get('teachers/'+id)
+	return http.get('teachers/' + id)
 }
 // 作品列表
 export const worksList = (categoryId) => {
-    return http.get('painting?categoryId=' + categoryId)
+	return http.get('painting?categoryId=' + categoryId)
 }
 // 作品推荐列表
 export const worksRecommend = () => {
-    return http.get('painting/recommend')
+	return http.get('painting/recommend')
 }
 // 作品详情
 export const worksDetail = (id) => {
-    return http.get('painting/'+id)
+	return http.get('painting/' + id)
 }
-// 课程报名
-export const orders = (data) => {
-    return http.post('orders',data)
-}
-// 我的报名
-export const myOrders = () => {
-    return http.get('orders')
-}
+
 // 最新活动
 export const article = (categoryId) => {
-    return http.get('article?categoryId='+categoryId)
+	return http.get('article?categoryId=' + categoryId)
 }
 // 最新活动详情
 export const articleDetail = (id) => {
-    return http.get('article/'+id)
+	return http.get('article/' + id)
 }
 
 // 推荐活动
 export const articleRecommend = () => {
-    return http.get('article/recommend')
+	return http.get('article/recommend')
 }
 
-export const fetchCoupon = () => {
-    return http.get('coupon')
-}
+
 
 // 默认全部导出  import api from '@/common/vmeitime-http/'
 export default {
 	test,
-    banner,
+	banner,
 	navs,
 	recommendCourse,
 	hotOfflineCourse,
 	OfflineCourse,
-	CourseDetail,
 	CourseCategory,
 	login,
 	userInfo,
-	orders,
-	myOrders,
 	onlineCourseDetail,
 	onlineCourse,
 	onlineCourseCount,
@@ -170,6 +163,5 @@ export default {
 	article,
 	articleDetail,
 	articleRecommend,
-	fetchCoupon,
-	...Coupon
+
 }

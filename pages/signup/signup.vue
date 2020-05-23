@@ -1,5 +1,9 @@
 <template>
 	<view>
+	
+		<uni-popup ref="popup" type="share">
+			<popup-coupon @select="couponSelected"></popup-coupon>
+		</uni-popup>
 		<view class="sign">
 			<view class="boxwhite edit" @click="goSignInfo" v-if="child != undefined">
 				<view class="sign-des orange-color">
@@ -44,9 +48,9 @@
 					<dt>课程费用</dt>
 					<dd>¥{{CourseDetail.totalAmount||course.totalAmount}}</dd>
 				</dl>
-				<dl @click="">
+				<dl @click="popCouponSelect">
 					<dt>优惠券</dt>
-					<dd class="orange-color">-200</dd>
+					<dd class="orange-color">{{ coupon ? coupon.amount : '请选择优惠券'}}</dd>
 				</dl>
 				<dl class="noIco">
 					<dt>备注说明</dt>
@@ -55,8 +59,8 @@
 			</view>
 			<view class="bottomBar">
 				<view class="fl">
-					<view class="prize orange-color">应付：¥{{CourseDetail.totalAmount}}</view>
-					<view class="coupon">优惠群优惠：{{coupon}}元</view>
+					<view class="prize orange-color">应付：¥{{totalPrice}}</view>
+					<view v-if="coupon != undefined" class="coupon">优惠群优惠：{{coupon && coupon.amount}}元</view>
 				</view>
 				<view @click="goOrder(CourseDetail)" class="sign-up">提交报名</view>
 			</view>
@@ -70,31 +74,47 @@
 	import {
 		mapGetters
 	} from 'vuex'
+	import popupCoupon from './popup-coupon/popup-coupon.vue'
+	import orderRes from '@/api/order.js'
+	import courseRes from '@/api/course.js'
 	export default {
+		components: {
+			popupCoupon
+		},
 		data() {
 			return {
 				CourseDetail: {},
 				child: undefined,
-				course: []
+				course: [],
+				coupon: undefined
 			}
 		},
 		computed: {
+			totalPrice() {
+				return this.coupon? this.CourseDetail.totalAmount - this.coupon.amount : this.CourseDetail.totalAmount
+			},
 			...mapGetters([
 				'isAuthorize'
 			]),
+			
 		},
 		onLoad(options) {
 			this.initCourseDetail(options.id);
 
 		},
 		methods: {
+			couponSelected(coupon){
+				this.coupon = coupon
+				this.$refs.popup.close()
+			},
 			childSelected(child) {
 				uni.$off('childSelected')
 				this.child = child
 			},
 			initCourseDetail(id) {
-				this.$api.CourseDetail(id).then(res => {
-					this.CourseDetail = res.data.data;
+				courseRes.detail(id).then(res => {
+					this.CourseDetail = res.data;
+					console.log(res)
 				})
 			},
 			goMap: function() {
@@ -110,7 +130,9 @@
 				this.$navigateTo("../mine/archives?from=order")
 
 			},
-
+			popCouponSelect() {
+				this.$refs.popup.open()
+			},
 			goOrder(data) {
 				//判断是否登陆，没有登陆，则先登陆
 				if (this.isAuthorize) {
@@ -118,17 +140,18 @@
 					if (this.child) {
 						//console.log(data)
 						var a = {
-							"courseId": data.courseId,
-							"courseName": data.courseName,
-							"patriarchName": this.child.patriarchName,
-							"studentName": this.child.studentName,
-							"tel": this.child.tel,
-							"totalAmount": data.price
+							courseId: data.courseId,
+							courseName: data.courseName,
+							patriarchName: this.child.patriarchName,
+							studentName: this.child.studentName,
+							tel: this.child.tel,
+							totalAmount: this.totalPrice,
+							couponId: this.coupon ? this.coupon.id : undefined
 						}
 
-						this.$api.orders(a).then(res => {
+						orderRes.createOrder(a).then(res => {
 							console.log(res)
-							that.goSignResult()
+							this.$navigateTo(`orderDetail?orderId=${res.data.id}`)
 						})
 					} else {
 						// 如果要获取的权限尚未授权,则此时触发授权，打开设置页面
@@ -158,7 +181,7 @@
 					uni.showModal({
 						//弹出提示框
 						title: '是否打开设置页授权登陆？',
-						content: '需要在设置中获取个人信息和微信登陆权限',     
+						content: '需要在设置中获取个人信息和微信登陆权限',
 					});
 				}
 

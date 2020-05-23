@@ -54,7 +54,7 @@
 				nav: [{
 					title: "我的报名",
 					image: "../../static/img/nav4.png",
-					goUrl: "../signup/mySign"
+					goUrl: "../signup/myOrder"
 				}, {
 					title: "我的收藏",
 					image: "../../static/img/nav5.png",
@@ -73,7 +73,7 @@
 		methods: {
 			getOrganization() {
 				this.$api.organization().then(res => {
-					this.organization = res.data.data;
+					this.organization = res.data;
 					console.log('organization:', this.organization)
 				})
 			},

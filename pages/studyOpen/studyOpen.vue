@@ -107,7 +107,7 @@ export default {
 			let itemId
 			
 			this.$api.onlineCourse(id).then(res => {	
-				_this.list = res.data.data.content
+				_this.list = res.data.content
 				
 				
 				for(var i = 0;i<_this.list.length;i++){
@@ -130,7 +130,7 @@ export default {
 
 		initCourseCategory() {
 			this.$api.CourseCategory().then(res => {		
-				let tab =res.data.data
+				let tab =res.data
 				let tabTitle = []				
 				tab.unshift({categoryName:'全部',categoryId:''})
 				for(var i = 0;i<tab.length;i++){				

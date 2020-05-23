@@ -82,7 +82,7 @@ export default {
 			console.log('栏目id',id)
 			let arr = []
 			this.$api.article(id).then(res => {								
-				_this.listItem = res.data.data.content
+				_this.listItem = res.data.content
 				for(var i = 0;i<_this.listItem.length;i++){
 					var str = _this.listItem[i].title
 					console.log(str)
@@ -103,7 +103,7 @@ export default {
 		},
 		initCourseCategory() {
 			this.$api.CourseCategory().then(res => {		
-				let tab =res.data.data
+				let tab =res.data
 				let newTab = {}
 				newTab.categoryName = '全部'
 				newTab.categoryId = ''
