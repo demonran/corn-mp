@@ -46,7 +46,7 @@
 						<span>12人</span>
 					</view>
 					<view>
-						<p>成功邀请</p>
+						<p>累计获得</p>
 						<span>12000.00</span>
 					</view>
 				</view>	
