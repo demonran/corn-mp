@@ -2,8 +2,8 @@
 	<view class="user">
 
 		<view class="agency-logo">
-			<image class="null" :src="image"></image>
-			<open-data type="userAvatarUrl"></open-data>
+			<image v-if="image != ''" :src="image"></image>
+			<open-data v-if="image == ''" type="userAvatarUrl"></open-data>
 		</view>
 		<view class="agency-des" v-if="isAuthorize==false">
 
@@ -86,7 +86,7 @@
 									console.log(loginRes)
 									that.$api.login(loginRes.code, e.detail.encryptedData, e.detail.iv).then(res => {
 										console.log(res)
-										uni.setStorageSync('token', res.data.data);
+										uni.setStorageSync('token', res.data);
 										that.$store.commit('SET_AUTHORIZE', true)
 										that.getUserInfo();
 									})

@@ -34,7 +34,7 @@ export default {
 	
 	config: {
 		// #ifdef LOCAL_ENV
-		baseUrl: "http://192.168.0.101:8083/",
+		baseUrl: "http://192.168.0.103:8083/",
 		// #endif
 		// #ifndef LOCAL_ENV
 		//下面是正式环境

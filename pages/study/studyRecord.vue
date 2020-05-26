@@ -2,11 +2,11 @@
 	<view>	
 		<view class="bg">
 			<view class="box">
-				<h5 class="title">2019少儿美术周末班</h5>
-				<h2 class="time">2019.09.01 - 2019.12.11  周六 09:00 - 12:00</h2>
-				<text class="prize">￥800</text>
-				<span class="hour">共20课时</span>
-				<span class="status orange-color">学习中</span>
+				<h5 class="title">{{study.courseName}}</h5>
+				<h2 class="time">{{study.studyTime}}</h2>
+				<text class="prize">¥{{study.coursePrice}}</text>
+				<span class="hour">{{study.totalLesson}}节课</span>
+				<span class="status orange-color">{{study.status == 'STUDYING'? '学习中':'已学完'}}</span>
 			</view>
 			
 		</view>
@@ -15,19 +15,19 @@
 				<navigator class="btn" url="">再次报名</navigator>
 				<dl >
 					<dt>学生</dt>
-					<dd class="orange-color">黎莉莉</dd>
+					<dd class="orange-color">{{study.studentName}}</dd>
 				</dl>
 				<view class="flex">
 					<dl>
 						<dt >已上课时</dt>
 						<dd class="orange-color">
-							<text>12</text>课时
+							<text>{{study.studiedLesson}}</text>课时
 						</dd>
 					</dl>
 					<dl>
 						<dt>剩余课时</dt>
 						<dd class="orange-color">
-							<text>12</text>课时
+							<text>{{study.totalLesson - study.studiedLesson}}</text>课时
 						</dd>
 					</dl>
 				</view>
@@ -51,11 +51,12 @@
 
 <script>
 import navTab from '../../components/navTab.1.vue';
+import studyRes from '@/api/course-study.js'
 export default {
 	components: {navTab},
 		data() {
 			return {
-
+				study: {},
 				list:[
 					{
 						time:'2019.09.11   09:00 -12:00'
@@ -73,8 +74,17 @@ export default {
 			}
 		},
 		
-		methods: {
+		onLoad(options) {
+			const id = options.id
+			this.queryById(id)
+		},
 		
+		methods: {
+			queryById(id) {
+				studyRes.queryById(id).then(res => {
+					this.study = res.data
+				})
+			},
 			
 			goInvite:function(){
 				uni.navigateTo({
@@ -97,7 +107,7 @@ export default {
 		height:150upx;
 	}
 .bg{
-	// background:#eee url(../../static/img/sharebg.png) no-repeat center top;
+	background: #FF7E00;
 	background-size: 100%;
 	height: 360upx;
 	color: #fff;

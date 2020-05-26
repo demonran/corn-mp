@@ -136,8 +136,8 @@
 		      console.log(res.target)
 		    }
 		    return {
-		      title: '这是一个分享',
-		      path: '/pages/study/studyDetail'
+		      title: this.CourseDetail.courseName,
+		      path: `/pages/course/courseDetail?id=${this.CourseDetail.courseId}`
 		    }
 		  }
 	}

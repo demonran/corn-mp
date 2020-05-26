@@ -150,8 +150,16 @@
 						}
 
 						orderRes.createOrder(a).then(res => {
-							console.log(res)
-							this.$navigateTo(`orderDetail?orderId=${res.data.id}`)
+							if(res.errCode == 200) {
+								this.$navigateTo(`orderDetail?orderId=${res.data.id}`)
+							}else {
+								uni.showToast({
+									icon:'none',
+									title: res.errorMessage
+								})
+							}
+							
+							
 						})
 					} else {
 						// 如果要获取的权限尚未授权,则此时触发授权，打开设置页面
