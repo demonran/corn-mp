@@ -2,13 +2,26 @@
 	<view class="popup-coupon">
 		<view class="coupon-title"><text class="coupon-title-text">{{title}}</text></view>
 		 
-		<view class="coupon-content">
-			<radio-group>
+		<view v-if="hasCoupons" class="coupon-content">
+		<!-- 	<radio-group >
 				<view class='coupon-item' v-for="(item , i) in myCoupons" :key="i">
-					<radio  @click.stop="select(item)" />
+					<label for="">
+					<radio class="radio" @click.stop="select(item)" />
 					<coupon  :count="item.amount" :tip="'满' + item.minUsed+ '元可使用'" type=1></coupon>
+					</label>
 				</view>
+			</radio-group> -->
+			<radio-group @change="radioChange">
+				<label class="uni-list-cell uni-list-cell-pd" v-for="(item , i) in myCoupons" :key="item.i">
+					<view class='coupon-item'>
+						<radio :value="i" :checked="i === current" class="radio" />
+						<coupon  :count="item.amount" :tip="'满' + item.minUsed+ '元可使用'" type=1></coupon>
+					</view>
+				</label>
 			</radio-group>
+		</view>
+		<view v-else class="coupon-none">
+			您没有优惠券！
 		</view>
 	</view>
 </template>
@@ -20,22 +33,37 @@
 			title: {
 				type: String,
 				default: '选择优惠券'
-			}
+			},
+			current: 0,
+			current2:0
 		},
 		data() {
 			return {
-				myCoupons: []
+				myCoupons: [],
+				hasCoupons:false
 			}
 		},
 		created(){
 			couponRes.fetchMyCoupon().then(res => {
 				this.myCoupons = res.data.filter(coupon => coupon.status == 'NOT_USED')
+				console.log('coupon res,',res.data)
+				if(res.data != ''){
+					this.hasCoupons = true
+				}else{
+					this.hasCoupons = false
+				}
 			})
 		},
 		methods: {
-			select(item) {
-				console.log(item)
-				this.$emit('select', item)
+			radioChange: function(evt) {				
+				for (var i = 0; i < this.myCoupons.length; i++) {
+					if (this.myCoupons[i].value === evt.target.value) {
+						this.current = i;
+						break;
+					}
+				}
+				let coupon = this.myCoupons[evt.target.value]
+				this.$emit('select', coupon)
 			}
 		}
 	}
@@ -48,19 +76,33 @@
 		.coupon-title{
 			align-items: center;
 			justify-content: center;
-			height: 40px;
+			height: 80upx;
 			display: flex;
 			
 			.coupon-title-text {
-				font-size: 14px;
-				color: #666;
+				font-size: 28upx;
+				color:#666;
 			}
 		}
 		
 	
 		.coupon-content {
 			justify-content: center;
-			padding-top: 10px;
+			padding-top: 20upx;
+			.coupon-item{
+				position: relative;
+				.radio{
+					position: absolute;
+					right:0;
+					top:50%;
+					margin-top:-30upx;
+				}
+			}
+			
+		}
+		.coupon-none{
+			text-align: center;
+			padding:40upx 0;
 		}
 	}
 </style>

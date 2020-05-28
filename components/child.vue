@@ -39,8 +39,6 @@
 		font-size: 36upx;
 		padding: 40upx 0;
 		line-height: 50upx;
-		border-bottom: 1px solid #eee;
-
 		text {
 			color: #7e7e7e;
 			font-size: 30upx;

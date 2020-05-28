@@ -1,10 +1,12 @@
 <template>
-	<view class="coupon">
-		<view>
-			<h2>¥{{count}}</h2>
-			<h6>{{tip}}</h6>
-		</view>
-		<view class="type">{{typeStr}}</view>
+	<view class="inbox">
+		<view class="coupon">
+			<view class="">
+				<h2>¥{{count}}</h2>
+				<h6>{{tip}}</h6>
+			</view>
+			<view class="type">{{typeStr}}</view>
+		</view>		
 	</view>
 </template>
 
@@ -34,7 +36,7 @@
 <style lang="scss">
 	.coupon {
 		position: relative;
-		background: url(@/static/img/coupon1.png) no-repeat;
+		background: url(@/static/img/coupon.png) no-repeat;
 		background-size: 100% 100%;
 		// border: 1px solid rgba(254, 131, 0, 1);
 		padding: 36upx 40upx;
@@ -46,7 +48,7 @@
 			font-family: PingFang SC;
 			font-weight: 600;
 			line-height: 84upx;
-			color: rgba(254, 131, 0, 1);
+			color:#FE8300;
 		}
 
 		h6 {
@@ -55,7 +57,7 @@
 			font-family: PingFang SC;
 			font-weight: 400;
 			line-height: 33upx;
-			color: rgba(0, 0, 0, 0.6);
+			color:#979797;
 		}
 
 		.type {
@@ -66,7 +68,7 @@
 			width: 24upx;
 			font-size: 24upx;
 			font-weight: 400;
-			color: #fe10be;
+			color:#FE8300;
 		}
 	}
 </style>

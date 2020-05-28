@@ -50,7 +50,7 @@
 				</dl>
 				<dl @click="popCouponSelect">
 					<dt>优惠券</dt>
-					<dd class="orange-color">{{ coupon ? coupon.amount : '请选择优惠券'}}</dd>
+					<dd class="orange-color" >{{ coupon ? coupon.amount : '请选择优惠券'}}</dd>
 				</dl>
 				<dl class="noIco">
 					<dt>备注说明</dt>
@@ -86,7 +86,7 @@
 				CourseDetail: {},
 				child: undefined,
 				course: [],
-				coupon: undefined
+				coupon: undefined  
 			}
 		},
 		computed: {
@@ -105,6 +105,7 @@
 		methods: {
 			couponSelected(coupon){
 				this.coupon = coupon
+				console.log('this.coupon,',coupon)
 				this.$refs.popup.close()
 			},
 			childSelected(child) {

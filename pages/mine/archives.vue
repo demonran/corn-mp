@@ -2,7 +2,7 @@
 	<view class="box">
 		
 		<radio-group v-if="from">
-			<radio :value="item.id" @click="select(item)" child v-for="(item,index) in children" :key="item.id" >
+			<radio class="radio" :value="item.id" @click="select(item)" child v-for="(item,index) in children" :key="item.id" >
 				<child :child="item"></child>	
 			</radio>
 		</radio-group>
@@ -61,9 +61,13 @@
 	}
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped>
 	@import "../../static/style/base.scss";
-
+.radio{
+	width:100%;
+	border-bottom: 1px solid #eee;
+	position: relative;
+}
 
 
 .sign-up{
