@@ -38,7 +38,7 @@
 			</view>
 
 			<view class="shadow-box inbox Withdrawal">
-				<view class="title">可体现红包</view>
+				<view class="title">可提现红包</view>
 				<view class="price"><span>¥9000.00</span>
 				<button @click="goCash">提现</button>
 				</view>

@@ -95,12 +95,10 @@
 			},
 			...mapGetters([
 				'isAuthorize'
-			]),
-			
+			]),			
 		},
 		onLoad(options) {
 			this.initCourseDetail(options.id);
-
 		},
 		methods: {
 			couponSelected(coupon){
@@ -118,18 +116,24 @@
 					console.log(res)
 				})
 			},
-			goMap: function() {
-				this.$navigateTo('../map/map');
-			},
-			goCall: function() {
-				uni.makePhoneCall({
-					phoneNumber: '15281029319'
-				});
-			},
 			goSignInfo: function() {
-				uni.$on('childSelected', this.childSelected)
-				this.$navigateTo("../mine/archives?from=order")
-
+				if (this.isAuthorize) {
+					uni.$on('childSelected', this.childSelected)
+					this.$navigateTo("../mine/archives?from=order")
+				}else{
+					uni.showModal({
+						title: '提示？',
+						content: '您还有没有登陆，请先登陆',
+						success(res) {
+							if (res.confirm) {
+								console.log('用户点击确定');
+						
+							} else if (res.cancel) {
+								console.log('用户点击取消');
+							}
+						}
+					});
+				}
 			},
 			popCouponSelect() {
 				this.$refs.popup.open()
@@ -149,7 +153,6 @@
 							totalAmount: this.totalPrice,
 							couponId: this.coupon ? this.coupon.id : undefined
 						}
-
 						orderRes.createOrder(a).then(res => {
 							if(res.errCode == 200) {
 								this.$navigateTo(`orderDetail?orderId=${res.data.id}`)
@@ -158,9 +161,7 @@
 									icon:'none',
 									title: res.errorMessage
 								})
-							}
-							
-							
+							}			
 						})
 					} else {
 						// 如果要获取的权限尚未授权,则此时触发授权，打开设置页面
@@ -178,10 +179,6 @@
 							}
 						});
 					}
-
-
-
-
 				} else {
 					//this.isAuthorize = false
 					//app.globalData.isAuthorize = false
@@ -193,20 +190,7 @@
 						content: '需要在设置中获取个人信息和微信登陆权限',
 					});
 				}
-
-
-
-
 			},
-
-
-			goSignResult() {
-				uni.redirectTo({
-					url: `/pages/signup/goSignResult`
-				})
-			}
-
-
 		},
 		onShareAppMessage(res) {
 			if (res.from === 'button') { // 来自页面内分享按钮

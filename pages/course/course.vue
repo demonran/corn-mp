@@ -24,10 +24,7 @@
 									<text class="hour">共{{item.lesson}}课时</text><text class="line">|</text>
 									<text class="number">限{{item.limitStudents}}人</text>
 								</view>
-								<view class="sign-up">
-									立即报名
-									{{item.courseId}}
-								</view>
+								<view class="sign-up">立即报名</view>
 							</li>
 						</ul>	
 				</scroll-view>				
@@ -182,6 +179,7 @@ export default {
 		swiper-item{
 			width:100vw;
 			height:84vh;
+			margin-top:4vh;
 			overflow: scroll;
 			.no-data{
 				text-align: center;
