@@ -22,6 +22,10 @@ export default {
 		interceptor(http)
 		return http.get(`user/children/${id}`)
 	},
+	deleteChildren(id) {
+		interceptor(http)
+		return http.delete(`user/children/${id}`)
+	},
 
 }
 

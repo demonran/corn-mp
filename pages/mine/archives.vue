@@ -63,6 +63,12 @@
 
 <style lang="scss" scoped>
 	@import "../../static/style/base.scss";
+	.box{
+		position: relative;
+		min-height:90vh;
+		padding-bottom:2vh;
+		
+	}
 .radio{
 	width:100%;
 	border-bottom: 1px solid #eee;
@@ -72,11 +78,11 @@
 
 .sign-up{
 		position:absolute;
-		right:5vw;
-		bottom:20upx;
+		right:0;
+		bottom:1vh;
 		width:90vw;
-		height:72upx;
-		line-height:72upx;
+		height:6vh;
+		line-height:6vh;
 		border-radius: 8upx;
 		text-align: center;
 		font-size: 24upx;

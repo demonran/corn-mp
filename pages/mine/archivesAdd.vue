@@ -17,6 +17,7 @@
 		</view>
 
 		<view @click="goSignup" class="sign-up">保存</view>
+		<view v-show="childrenId" @click="goDelete" class="delete">删除学生</view>
 
 	</view>
 </template>
@@ -26,7 +27,8 @@
 	export default {
 		data() {
 			return {
-				children:{}
+				children:{},
+				childrenId:true
 			}
 		},
 		onLoad(options) {
@@ -56,6 +58,27 @@
 				})
 				
 				
+			},
+			goDelete(){
+				 user.deleteChildren(this.children.id).then(res => {
+					if(res.statusCode == 200) {
+						console.log('delete')
+						uni.showToast({
+						    title: '删除成功',
+						    duration: 2000,
+							success: () => {
+								this.$navigateBack();
+							}
+						});
+						
+					}else{
+						uni.showToast({
+						    title: '删除失败',
+						    duration: 2000,
+							icon:'none'
+						});
+					}
+				}) 
 			}
 	}
 
@@ -75,6 +98,14 @@
 		font-size: 24upx;
 		color:#fff;
 		background:#ff8300;
+	}
+	.delete{
+		width:100%upx;
+		height:72upx;
+		line-height:72upx;
+		color:#ff8300;
+		text-align: center;
+		font-size: 24upx;
 	}
 
 .cont{
