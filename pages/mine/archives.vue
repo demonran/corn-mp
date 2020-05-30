@@ -7,10 +7,9 @@
 			</radio>
 		</radio-group>
 		<child v-else v-for="(item,index) in children" :key="item.id" :child="item"></child>	
-		
-		
-		
-		<view @click="goArchiveAdd" class="sign-up">添加</view>		
+		<view class="sign-up">
+			<button @click="goArchiveAdd" >添加</button>
+		</view>		
 	</view>
 </template>
 
@@ -65,9 +64,7 @@
 	@import "../../static/style/base.scss";
 	.box{
 		position: relative;
-		min-height:90vh;
-		padding-bottom:2vh;
-		
+		min-height:90vh;		
 	}
 .radio{
 	width:100%;
@@ -79,15 +76,18 @@
 .sign-up{
 		position:absolute;
 		right:0;
-		bottom:1vh;
-		width:90vw;
-		height:6vh;
-		line-height:6vh;
-		border-radius: 8upx;
-		text-align: center;
-		font-size: 24upx;
-		color:#fff;
-		background:#ff8300;
+		bottom:-8vh;
+		padding-bottom: 40upx;
+		button{
+			height:6vh;
+			width:90vw;
+			line-height:6vh;
+			border-radius: 8upx;
+			text-align: center;
+			font-size: 24upx;
+			color:#fff;
+			background:#ff8300;
+		}
 	}
 
 </style>

@@ -67,8 +67,10 @@
 						    title: '删除成功',
 						    duration: 2000,
 							success: () => {
-								this.$navigateBack();
-							}
+								//this.$navigateBack();
+								
+								this.$navigateTo('archives')
+							} 
 						});
 						
 					}else{
@@ -117,9 +119,13 @@
 		dt{
 			color:#212121;
 			margin-top:20upx;
+			display: inline;
+			float:left;
+			margin-right:40upx;
+			color:#666;
 		}
 		dd{
-			color:#aaaaaa;
+			color:#000;
 			input{
 				
 				line-height:88upx;
