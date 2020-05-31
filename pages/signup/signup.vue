@@ -1,6 +1,5 @@
 <template>
 	<view>
-	
 		<uni-popup ref="popup" type="share">
 			<popup-coupon @select="couponSelected"></popup-coupon>
 		</uni-popup>
@@ -154,7 +153,7 @@
 							couponId: this.coupon ? this.coupon.id : undefined
 						}
 						orderRes.createOrder(a).then(res => {
-							if(res.errCode == 200) {
+							if(res.statusCode == 200) {				
 								this.$navigateTo(`orderDetail?orderId=${res.data.id}`)
 							}else {
 								uni.showToast({

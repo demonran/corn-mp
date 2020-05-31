@@ -122,7 +122,7 @@
 				});
 			},
 			goSignup:function(id){
-				 uni.navigateTo({
+				 uni.navigateTo({ 
 					url: `/pages/signup/signup?id=`+id,
 					success: res => {},
 					fail: () => {},

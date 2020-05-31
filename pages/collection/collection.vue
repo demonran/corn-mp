@@ -9,7 +9,7 @@
 			<swiper-item >
 				<scroll-view  scroll-y="true" @scrolltolower="lower1" scroll-with-animation :scroll-into-view="toView">
 			
-						<ul class="hot-course">
+						<ul class="hot-course shadow-box">
 							<li class="shadow inbox" v-for="(item,index) in list" v-if="list.length > 0" :key="index">
 								<view class="">
 									<h4 class="a-line">{{item.title}}</h4>
@@ -33,7 +33,7 @@
 			<swiper-item class="box">
 				<scroll-view  scroll-y="true" @scrolltolower="lower1" scroll-with-animation :scroll-into-view="toView">
 			
-					<ul class="rec-course">
+					<ul class="rec-course shadow-box">
 						<li class="shadow rec-box" v-for="(item,index) in open" v-if="open.length > 0" :key="index"
 							@click="goCourseDetail"
 						>

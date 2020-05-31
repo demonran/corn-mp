@@ -23,7 +23,6 @@
 					<h4 class="a-line">{{order.courseInfo.courseName}}</h4>
 					<p class="a-line">{{order.courseInfo.beginDate}}～{{order.courseInfo.endDate}} {{order.courseInfo.startClassTime}}-{{order.courseInfo.endClassTime}}</p>
 				</view>
-				<text class="prize">{{order.courseInfo.totalAmount}}</text>
 			</view>
 			<view class="bottom">
 				<view class="fl teacherbox">
@@ -45,7 +44,7 @@
 			</dl>
 			<dl>
 				<dt>优惠券</dt>
-				<dd></dd>
+				<dd>{{order.courseInfo.totalAmount}}</dd>
 			</dl>
 			<dl>
 				<dt>应付金额</dt>
@@ -53,7 +52,7 @@
 			</dl>
 			<dl>
 				<dt>备注说明</dt>
-				<dd>无</dd>
+				<dd>{{order.courseInfo.totalAmount}}</dd>
 			</dl>
 			<dl>
 				<dt>提交时间</dt>

@@ -12,7 +12,7 @@
 			</dl>
 			<dl>
 				<dt>联系电话</dt>
-				<dd><input type="text" v-model="children.tel"  placeholder="请输入11位手机号码"/></dd>
+				<dd><input v-model="children.tel"  placeholder="请输入11位手机号码" maxlength="11" type="number"/></dd>
 			</dl>
 		</view>
 

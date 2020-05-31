@@ -79,7 +79,7 @@
 					item.status == this.status[e.currentIndex].status : true)
 			},
 
-
+ 
 			goMySignDetail: function(orderId) {
 				this.$navigateTo(`orderDetail?orderId=${orderId}`);
 			}

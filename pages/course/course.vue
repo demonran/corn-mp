@@ -179,7 +179,7 @@ export default {
 		swiper-item{
 			width:100vw;
 			height:84vh;
-			margin-top:4vh;
+			margin-top:2vh;
 			overflow: scroll;
 			.no-data{
 				text-align: center;

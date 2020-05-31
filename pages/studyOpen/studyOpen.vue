@@ -183,6 +183,7 @@ export default {
 			width:100vw;
 			height:84vh;
 			overflow: scroll;
+			margin-top:2vh;
 			.no-data{
 				text-align: center;
 				margin-top:50upx;
