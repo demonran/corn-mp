@@ -11,7 +11,7 @@
 					暂时没有数据
 				</view>
 				<scroll-view  scroll-y="true" >	
-						<ul class="hot-course">							
+						<ul class="hot-course shadow-box">							
 							<li @click="goCourseDetail(item.courseId)" class="shadow inbox" v-for="(item,index) in OfflineCourseList" :key="index">
 								<view class="">
 									<h4 class="a-line">{{item.courseName}}

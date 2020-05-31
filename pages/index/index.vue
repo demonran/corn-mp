@@ -277,8 +277,7 @@
 				})
 			},
 			goWorks:function(){
-				//uni.navigateTo({
-				uni.switchTab({
+				uni.navigateTo({
 					url: '../works/works',
 					success: res => {},
 					fail: () => {},
