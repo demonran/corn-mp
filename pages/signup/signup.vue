@@ -53,7 +53,7 @@
 				</dl>
 				<dl class="noIco">
 					<dt>备注说明</dt>
-					<dd><input type="text" value="" placeholder="请输入备注说明" /></dd>
+					<dd><input type="text" v-model="remark" value="" placeholder="请输入备注说明" /></dd>
 				</dl>
 			</view>
 			<view class="bottomBar">
@@ -150,6 +150,7 @@
 							studentName: this.child.studentName,
 							tel: this.child.tel,
 							totalAmount: this.totalPrice,
+							remark:this.remark,
 							couponId: this.coupon ? this.coupon.id : undefined
 						}
 						orderRes.createOrder(a).then(res => {
