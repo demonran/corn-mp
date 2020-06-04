@@ -1,12 +1,11 @@
 <template>
-	<view class="inbox">
-		<view class="coupon">
-			<view class="">
-				<h2>¥{{count}}</h2>
-				<h6>{{tip}}</h6>
+	<view :class="'coupon-content coupon-content-' + type">
+		<view class="left">
+			<view class="price">
+				¥<span>{{count}}</span>		
 			</view>
-			<view class="type">{{typeStr}}</view>
-		</view>		
+			<text>{{tip}}</text>
+		</view>				
 	</view>
 </template>
 
@@ -18,57 +17,35 @@
 
 			};
 		},
-		computed: {
-			typeStr() {
-				if (this.type == 0) {
-					return '现金'
-				} else if (this.type == 1) {
-					return '优惠券'
-				}else{
-					return 'error'
-				}
-			}
-
-		}
 	}
 </script>
 
 <style lang="scss">
-	.coupon {
+	.coupon-content{
+		&.coupon-content-0{
+			background: url(../../static/img/coupon3.png) no-repeat center center;
+			background-size: 100% 100%;
+		}
+		&.coupon-content-1{
+			background: url(@/static/img/coupon4.png) no-repeat center center;
+			background-size: 100% 100%;
+		}
 		position: relative;
-		background: url(@/static/img/coupon.png) no-repeat;
-		background-size: 100% 100%;
-		// border: 1px solid rgba(254, 131, 0, 1);
-		padding: 36upx 40upx;
-		margin-bottom: 25upx;
-
-		h2 {
-			height: 84upx;
-			font-size: 60upx;
-			font-family: PingFang SC;
-			font-weight: 600;
-			line-height: 84upx;
-			color:#FE8300;
-		}
-
-		h6 {
-			height: 33upx;
-			font-size: 24upx;
-			font-family: PingFang SC;
-			font-weight: 400;
-			line-height: 33upx;
-			color:#979797;
-		}
-
-		.type {
-			position: absolute;
-			line-height: 40upx;
-			top: 40upx;
-			right: 25upx;
-			width: 24upx;
-			font-size: 24upx;
-			font-weight: 400;
-			color:#FE8300;
+		color:#FE8300;
+		font-size:24upx;
+		margin-bottom:40upx;
+		.left{
+			margin-left:40upx;
+			padding:20upx 0;
+			.price{
+				span{
+					font-size:60upx;
+				}
+			}
+			text{
+				color:#979797;
+			}
 		}
 	}
+	
 </style>

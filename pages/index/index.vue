@@ -1,8 +1,9 @@
 <template>
 	<view class="content">
 		<!-- banner start -->
-		<swiper class="banner" :indicator-dots="true" autoplay="true" circular="true" interval="3000" previous-margin="25" next-margin="25">
-			<swiper-item  v-for="(item,index) in banner" :key="index" >
+		<swiper class="banner" :indicator-dots="true" autoplay="true" circular="true" interval="3000" previous-margin="25"
+		 next-margin="25">
+			<swiper-item v-for="(item,index) in banner" :key="index">
 				<view class="pic" @click="goBanner(item.link)">
 					<image :src="item.image" mode="widthFix"></image>
 				</view>
@@ -10,7 +11,7 @@
 		</swiper>
 		<!-- banner end -->
 		<!-- nav start -->
-<!-- 		<view class="nav-list flex">
+		<!-- 		<view class="nav-list flex">
 			<view class="nav-box"  hover-class="nav-hover" v-for="(item,index) in nav" :key="index">
 				<navigator :url="item.link">
 					<image :src="item.image"></image>
@@ -20,15 +21,16 @@
 		</view> -->
 		<!-- nav end -->
 		<!-- nav start -->
-				<view class="nav-list flex">
-					<view class="nav-box"  hover-class="nav-hover" v-for="(item,index) in nav" :key="index">
-						<navigator :url="item.goUrl">
-							<image :src="item.image"></image>
-							<view class="text">{{item.title}}</view>
-						</navigator>					
-					</view>
-				</view>
-				<!-- nav end -->
+		<!-- <navigator url="plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=2">test</navigator> -->
+		<view class="nav-list flex">
+			<view class="nav-box" hover-class="nav-hover" v-for="(item,index) in nav" :key="index">
+				<navigator :url="item.goUrl">
+					<image :src="item.image"></image>
+					<view class="text">{{item.title}}</view>
+				</navigator>
+			</view>
+		</view>
+		<!-- nav end -->
 		<!-- 培训机构信息 start -->
 		<view class="section" @tap="goAbout">
 			<view class="agency flex inbox shadow">
@@ -46,9 +48,9 @@
 		<view class="section">
 			<view class="box head">
 				<h3 class="Btitle fl">推荐公开课</h3>
-				<p class="more fr" @click="goStudyOpen()">更多</p>				
+				<p class="more fr" @click="goStudyOpen()">更多</p>
 			</view>
-			<scroll-view class="rec-course "  scroll-x="true" >
+			<scroll-view class="rec-course " scroll-x="true">
 				<view @click="goOpenDetail(item.id)" class="shadow rec-box" v-for="(item,index) in recommendCourse" :key="index">
 					<view class="rec-pic">
 						<image class="btn" src="../../static/img/play-btn.png" mode="widthFix"></image>
@@ -60,7 +62,7 @@
 						<p class="a-line">{{item.subTitle}}</p>
 					</view>
 				</view>
-			</scroll-view>						
+			</scroll-view>
 		</view>
 		<!-- 推荐公开课 end -->
 		<!-- 热门线下课 start -->
@@ -87,7 +89,7 @@
 					全部课程
 				</view>
 			</view>
-		</view>	
+		</view>
 		<!-- 热门线下课 end -->
 		<!-- 优秀作品 start -->
 		<view class="section">
@@ -96,10 +98,9 @@
 			</view>
 			<view class="works">
 				<ul class="box flex">
-					<li v-for="(item,index) in works" :key="index" 
-					@click="goWorkDetail(item.id)" >
+					<li v-for="(item,index) in works" :key="index" @click="goWorkDetail(item.id)">
 						<view class="works-pic">
-							<image :src="item.image" ></image>	
+							<image :src="item.image"></image>
 						</view>
 						<view class="works-des">
 							<h4 class="a-line">{{item.name}}</h4>
@@ -111,19 +112,19 @@
 					全部作品
 				</view>
 			</view>
-		</view>	
+		</view>
 		<!-- 优秀作品 end -->
 		<!-- 最新活动 start -->
 		<view class="section">
 			<view class="box head">
 				<h3 class="Btitle fl">最新活动</h3>
-				<p class="more fr" @click="goActivity">更多</p>				
+				<p class="more fr" @click="goActivity">更多</p>
 			</view>
 			<view class="activity">
 				<ul class="box">
 					<li @click="goActivityDetail(item.id)" class="shadow " v-for="(item,index) in activity" :index="index">
 						<view class="activity-pic">
-							<image :src="item.cover" mode="widthFix"></image>	
+							<image :src="item.cover" mode="widthFix"></image>
 						</view>
 						<view class="des">
 							<h4 class="title">{{item.title}}</h4>
@@ -133,69 +134,66 @@
 					</li>
 				</ul>
 			</view>
-		</view>	
+		</view>
 		<!-- 最新活动 end -->
-		
+
 	</view>
 </template>
 
 <script>
-	
 	export default {
 		data() {
-			
+
 			return {
 
 				banner: [],
-				trainAgency:[],
-				recommendCourse:[],
-				hotCourse:[],
-				works:[],
-				activity:[],
-				nav:[
-						{
-							title:"公开课",
-							image:"../../static/img/nav1.png",
-							goUrl:"../studyOpen/studyOpen"
-						},{
-							title:"优秀教师",
-							image:"../../static/img/nav2.png",
-							goUrl:"../teacher/teacher"
-						},{
-							title:"作品展示",
-							image:"../../static/img/nav3.png",
-							goUrl:"../works/workslist"
-						},{
-							title:"最新活动",
-							image:"../../static/img/nav7.png",
-							goUrl:"../activity/activity"
-						},
-					],
+				trainAgency: [],
+				recommendCourse: [],
+				hotCourse: [],
+				works: [],
+				activity: [],
+				nav: [{
+					title: "公开课",
+					image: "../../static/img/nav1.png",
+					goUrl: "../studyOpen/studyOpen"
+				}, {
+					title: "优秀教师",
+					image: "../../static/img/nav2.png",
+					goUrl: "../teacher/teacher"
+				}, {
+					title: "作品展示",
+					image: "../../static/img/nav3.png",
+					goUrl: "../works/workslist"
+				}, {
+					title: "最新活动",
+					image: "../../static/img/nav7.png",
+					goUrl: "../activity/activity"
+				}, ],
 			}
 		},
 
 		onLoad() {
 			this.initBanner()
-			this.initRecommendCourse() 
+			this.initRecommendCourse()
 			this.initHotOfflineCourse();
 			this.initWorks();
 			this.getOrganization();
 			this.initArticle();
-			
-			setTimeout(function () {
-			    console.log('start pulldown');
+
+			setTimeout(function() {
+				console.log('start pulldown');
 			}, 1000);
 			uni.startPullDownRefresh();
 		},
 
 		methods: {
 			onPullDownRefresh() {
-			    console.log('refresh');
-			    setTimeout(function () {
-			        uni.stopPullDownRefresh();
-			    }, 1000);
+				console.log('refresh');
+				setTimeout(function() {
+					uni.stopPullDownRefresh();
+				}, 1000);
 			},
-			getOrganization(){
+			getOrganization() {
 				this.$api.organization().then(res => {
 					this.trainAgency = res.data;
 				})
@@ -203,7 +201,7 @@
 			initArticle() {
 				this.$api.articleRecommend().then(res => {
 					this.activity = res.data;
-					console.log('active',this.activity)
+					console.log('active', this.activity)
 				})
 			},
 			initWorks() {
@@ -216,11 +214,11 @@
 					this.banner = res.data;
 				})
 			},
-			goBanner(link){
-				
+			goBanner(link) {
+
 				/* plus.runtime.openURL(link, function(res) {  
 				    console.log(res);  
-				}); */ 
+				}); */
 				/* uni.navigateTo({
 					url: link,
 					success: res => {},
@@ -229,36 +227,38 @@
 						console.log(link)
 					}
 				}); */
-				
+
 			},
-			initRecommendCourse() { 
+			initRecommendCourse() {
 				this.$api.recommendCourse().then(res => {
 					this.recommendCourse = res.data;
 				})
-			}, 
+			},
 			initHotOfflineCourse() {
 				this.$api.hotOfflineCourse().then(res => {
-					this.hotCourse = res.data; 
-				}) 
+					this.hotCourse = res.data;
+				})
 			},
 
-			goCourse:function(){
+			goCourse: function() {
 				uni.switchTab({
 					url: '../course/course',
 					success: res => {},
-					fail: (e) => {console.log(e)},
+					fail: (e) => {
+						console.log(e)
+					},
 					complete: () => {}
 				});
 			},
-			goCourseDetail:function(id){						 
-				 uni.navigateTo({	 
-					url: `/pages/course/courseDetail?id=`+id,
+			goCourseDetail: function(id) {
+				uni.navigateTo({
+					url: `/pages/course/courseDetail?id=` + id,
 					success: res => {},
 					fail: () => {},
 					complete: () => {}
-				}); 
+				});
 			},
-			goOpenDetail:function(id){
+			goOpenDetail: function(id) {
 				uni.navigateTo({
 					url: `../studyOpen/openDetail?id=${id}`,
 					success: res => {},
@@ -266,16 +266,17 @@
 					complete: () => {}
 				});
 			},
-			goAbout:function(){
+			goAbout: function() {
 				uni.navigateTo({
-					url:'../mine/about'
+					url: '../mine/about'
 				})
 			},
-			goStudyOpen:function(){
+			goStudyOpen: function() {
 				uni.navigateTo({
-					url:'../studyOpen/studyOpen'
+					url: '../studyOpen/studyOpen'
 				})
 			},
+
 			goWorks:function(){
 				uni.navigateTo({
 					url: '../works/works',
@@ -284,15 +285,15 @@
 					complete: () => {}
 				});
 			},
-			goWorkDetail:function(id){
+			goWorkDetail: function(id) {
 				uni.navigateTo({
-					url: `/pages/works/worksDetail?id=`+ id,
+					url: `/pages/works/worksDetail?id=` + id,
 					success: res => {},
 					fail: () => {},
 					complete: () => {}
 				});
 			},
-			goActivity:function(){
+			goActivity: function() {
 				uni.navigateTo({
 					url: '../activity/activity',
 					success: res => {},
@@ -300,9 +301,9 @@
 					complete: () => {}
 				});
 			},
-			goActivityDetail:function(id){
+			goActivityDetail: function(id) {
 				uni.navigateTo({
-					url: `/pages/activity/activityDetail?id=`+ id,
+					url: `/pages/activity/activityDetail?id=` + id,
 					success: res => {},
 					fail: () => {},
 					complete: () => {}
@@ -315,267 +316,312 @@
 <style lang="scss" scoped>
 	@import "../../static/style/base.scss";
 
-	.banner{
+	.banner {
 		height: 320upx;
-		.pic{
-			width:610upx;
-			height:310upx;
-			display:block;
+
+		.pic {
+			width: 610upx;
+			height: 310upx;
+			display: block;
 			border-radius: 8upx;
 			overflow: hidden;
-			image{
-				width:100%;
-				height:100%;
-				}
+
+			image {
+				width: 100%;
+				height: 100%;
+			}
 		}
 	}
-	.nav-list{
+
+	.nav-list {
 		height: 150upx;
 		justify-content: space-around;
 		text-align: center;
 		font-weight: bold;
-		image{
+
+		image {
 			width: 72upx;
 			height: 73upx;
 			margin-top: 50upx;
 		}
-		.nav-box{
-			width:25%;
+
+		.nav-box {
+			width: 25%;
 			height: 100%;
 			color: #4b4b4b;
 			font-size: 26upx;
 		}
 	}
-	.section{
+
+	.section {
 		margin-top: 60upx;
-		width:100%;
+		width: 100%;
 		height: auto;
 	}
-	.agency{
-		height:14vw;
+
+	.agency {
+		height: 14vw;
 		margin-left: 5vw;
 		border-radius: 8upx;
-		background:#fff url(../../static/img/info-arr.png) no-repeat 82vw center;
+		background: #fff url(../../static/img/info-arr.png) no-repeat 82vw center;
 		background-size: 40upx;
-		.agency-logo{
-			width:14vw;
-			height:14vw;
+
+		.agency-logo {
+			width: 14vw;
+			height: 14vw;
 			border-radius: 50%;
 			overflow: hidden;
-			margin-right:2vw;
-			image{
-				width:100%;
-				height:100%;
+			margin-right: 2vw;
+
+			image {
+				width: 100%;
+				height: 100%;
 			}
 		}
-		.agency-des{
+
+		.agency-des {
 			width: 60vw;
-			h1{
+
+			h1 {
 				font-size: 38upx;
-				color:#393939;
+				color: #393939;
 			}
-			text{
+
+			text {
 				font-size: 24upx;
 				color: #7e7e7e;
 			}
 		}
 
 	}
-	.box{
-		color:#4b4b4b;
-		.Btitle{
-			font-size:30upx;	
+
+	.box {
+		color: #4b4b4b;
+
+		.Btitle {
+			font-size: 30upx;
 			font-weight: bold;
 		}
-		.more{
+
+		.more {
 			font-size: 24upx;
 			background: url(../../static/img/info-arr.png) no-repeat right center;
-			background-size:30upx;
+			background-size: 30upx;
 			padding-right: 40upx;
 		}
 	}
-	.head{
+
+	.head {
 		padding-bottom: 20upx;
 	}
-	.rec-course{
-		height:368upx;
-		width:100vw;
+
+	.rec-course {
+		height: 368upx;
+		width: 100vw;
 		white-space: nowrap;
-		.rec-box{
+
+		.rec-box {
 			margin-top: 20upx;
 			display: inline-block;
-			width:365upx;
-			height:328upx;	
+			width: 365upx;
+			height: 328upx;
 			margin-left: 5vw;
 			border-radius: 10upx;
 			overflow: hidden;
-			.rec-pic{
-				width:100%;
-				height:206upx;
+
+			.rec-pic {
+				width: 100%;
+				height: 206upx;
 				overflow: hidden;
 				position: relative;
-				.btn{
-					position:absolute;
-					width:80upx;
-					hegiht:80upx;
-					left:50%;
-					top:50%;
-					margin-top:-40upx;
-					margin-left:-40upx;
-					z-index:0;
+
+				.btn {
+					position: absolute;
+					width: 80upx;
+					hegiht: 80upx;
+					left: 50%;
+					top: 50%;
+					margin-top: -40upx;
+					margin-left: -40upx;
+					z-index: 0;
 				}
-				.prize{
-					width:88upx;
-					height:36upx;
-					line-height:36upx;
-					background:#f6613c;
+
+				.prize {
+					width: 88upx;
+					height: 36upx;
+					line-height: 36upx;
+					background: #f6613c;
 					opacity: 0.9;
-					border-radius:8upx 0 8upx 0;
-					color:#fff;
+					border-radius: 8upx 0 8upx 0;
+					color: #fff;
 					font-size: 20upx;
 					text-align: center;
 					position: absolute;
-					top:0;
-					left:0;
-					z-index:2;
+					top: 0;
+					left: 0;
+					z-index: 2;
 				}
 			}
-			.rec-des{
+
+			.rec-des {
 				padding: 20upx;
-				font-size:30upx;
-				p{
+				font-size: 30upx;
+
+				p {
 					font-size: 22upx;
 					color: #7e7e7e;
 				}
 			}
 		}
 	}
-	.hot-course{
-		li{
+
+	.hot-course {
+		li {
 			position: relative;
 			border-radius: 8upx;
 			margin-bottom: 3vw;
-			h4{
-				font-size: 36upx;;
+
+			h4 {
+				font-size: 36upx;
+				;
 			}
-			.time{
-				font-size:24upx;
-				color:#7e7e7e;
+
+			.time {
+				font-size: 24upx;
+				color: #7e7e7e;
 			}
-			.des{
-				font-size:24upx;
-				color:#7e7e7e;
-				margin-top:20upx;
-				.line{
-					color:#d8d8d8;
-					font-size:18upx;
-					padding:0 40upx;
+
+			.des {
+				font-size: 24upx;
+				color: #7e7e7e;
+				margin-top: 20upx;
+
+				.line {
+					color: #d8d8d8;
+					font-size: 18upx;
+					padding: 0 40upx;
 				}
-				.prize{
-					font-size:36upx;
-					color:#f8962e;
+
+				.prize {
+					font-size: 36upx;
+					color: #f8962e;
 				}
 			}
-			.sign-up{
+
+			.sign-up {
 				position: absolute;
 				right: 3vw;
-				bottom:3vw;
-				width:177upx;
-				height:54upx;
-				line-height:54upx;
+				bottom: 3vw;
+				width: 177upx;
+				height: 54upx;
+				line-height: 54upx;
 				border-radius: 8upx;
 				text-align: center;
 				font-size: 24upx;
-				color:#fff;
-				background:#ff8300 url(../../static/img/arr-white.png) no-repeat 140upx center;
+				color: #fff;
+				background: #ff8300 url(../../static/img/arr-white.png) no-repeat 140upx center;
 				background-size: 30upx;
 			}
-		}		
+		}
 	}
-	.all-btn{
-		color:#ff8300;
-		font-size:24upx;
+
+	.all-btn {
+		color: #ff8300;
+		font-size: 24upx;
 		border: 1px solid #ff8300;
 		border-radius: 30upx;
 		display: block;
-		width:218upx;
+		width: 218upx;
 		height: 60upx;
 		line-height: 60upx;
-		text-align:center;
-		margin:0 auto;
+		text-align: center;
+		margin: 0 auto;
 		background: url(../../static/img/arr-orange.png) no-repeat 170upx center;
-		background-size:30upx;
+		background-size: 30upx;
 	}
-	.title{
-		font-size:30upx;
-		color:#393939;
+
+	.title {
+		font-size: 30upx;
+		color: #393939;
 	}
-	.line{
-		font-size:12upx;
-		padding:0 20upx;
+
+	.line {
+		font-size: 12upx;
+		padding: 0 20upx;
 	}
-	.works{
-		ul{
-			flex-wrap:wrap;
+
+	.works {
+		ul {
+			flex-wrap: wrap;
 			justify-content: space-between;
-			li{
-				width:320upx;
-				height:auto;
-				overflow:hidden;
+
+			li {
+				width: 320upx;
+				height: auto;
+				overflow: hidden;
 				margin-bottom: 40upx;
-				.works-pic{
-					width:320upx;
-					height:310upx;
+
+				.works-pic {
+					width: 320upx;
+					height: 310upx;
 					border-radius: 8upx;
 					background: #eee;
-					overflow:hidden;
-					margin-bottom:30upx;
-					image{
+					overflow: hidden;
+					margin-bottom: 30upx;
+
+					image {
 						max-width: 100%;
 						max-height: 100%;
 					}
 				}
-				span{
-					font-size:24upx;
-					color:#acacac;
-					
+
+				span {
+					font-size: 24upx;
+					color: #acacac;
+
 				}
 			}
 		}
 	}
-	.activity{
+
+	.activity {
 		padding-top: 40upx;
 		padding-bottom: 110upx;
-		li{
+
+		li {
 			margin-bottom: 5vw;
 			border-radius: 8upx;
 			overflow: hidden;
-			.activity-pic{
-				height:390upx;
-				width:100%;
-				overflow:hidden;
+
+			.activity-pic {
+				height: 390upx;
+				width: 100%;
+				overflow: hidden;
 			}
-			.title{
-				marign-bottom:20upx;
+
+			.title {
+				marign-bottom: 20upx;
 			}
-			.des{
-				font-size:24upx;
-				color:#7e7e7e;
-				padding:20upx;
-				.cont{
-					marign:20upx 0;
+
+			.des {
+				font-size: 24upx;
+				color: #7e7e7e;
+				padding: 20upx;
+
+				.cont {
+					marign: 20upx 0;
 					height: 70upx;
 					text-overflow: ellipsis;
-					overflow:hidden;
+					overflow: hidden;
 					white-space: normal;
 				}
 			}
-			span{
-				font-size:18upx;
-				color:#acacac;
-				
+
+			span {
+				font-size: 18upx;
+				color: #acacac;
+
 			}
 		}
 	}
-	
 </style>

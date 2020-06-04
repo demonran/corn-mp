@@ -29,20 +29,24 @@ http.delete('user/1').then((res)=>{
 }) 
 
 */
+function getBaseUrl() {
+	// #ifdef LOCAL_ENV
+	return "http://192.168.0.103:8083/",
+	// #endif
+	// #ifndef LOCAL_ENV
+	 if(process.env.NODE_ENV === 'development'){
+	     return "https://apisit.yumimiao.cn/";
+	 }else{
+	     return "https://api.yumimiao.cn/"
+	 }
+	// #endif
+	
+}
 		
 export default {
 	
 	config: {
-		// #ifdef LOCAL_ENV
-		baseUrl: "http://192.168.0.103:8083/",
-		// #endif
-		// #ifndef LOCAL_ENV
-		//下面是正式环境
-		//baseUrl: "https://api.yumimiao.cn/",
-		//下面是测试环境
-		baseUrl:"https://apisit.yumimiao.cn/",
-		
-		// #endif
+		baseUrl: getBaseUrl(),
 		header: {
 			'Content-Type':'application/json;charset=UTF-8',
 			'dbid':'001',

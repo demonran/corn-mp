@@ -15,25 +15,10 @@
 		</view>	
 			<view class="shadow-box inbox">
 				<view class="coupon-title">你可以获得 <span>邀请好友报名可领取</span></view>
-				<!-- <coupon v-for="(item , i) in cashCoupons" :key="i" :count="item.amount" tip="红包可体现" type=0></coupon> -->
-				<view class="coupon-content">
-					<view class="left">
-						<view class="price">
-							¥<span>200</span>		
-						</view>
-						<text>红包可提现</text>
-					</view>				
-				</view>
+				<coupon v-for="(item , i) in cashCoupons" :key="i" :count="item.amount" tip="红包可体现" type=0></coupon>
+				
 				<view class="coupon-title">好友获得优惠 <span>报名即可使用</span></view>
-				<!-- <coupon v-for="(item , i) in discountCoupons" :key="i" :count="item.amount" :tip="'满' + item.minUsed+ '元可使用'" type=1></coupon> -->
-				<view class="coupon-content coupon-content2">
-					<view class="left">
-						<view class="price">
-							¥<span>200</span>		
-						</view>
-						<text>满2000可使用</text>
-					</view>				
-				</view>
+				<coupon v-for="(item , i) in discountCoupons" :key="i" :count="item.amount" :tip="'满' + item.minUsed+ '元可使用'" type=1></coupon>
 				<button open-type="share">立即邀请</button>
 			</view>
 
@@ -199,31 +184,7 @@
 				color: rgba(0, 0, 0, 0.7);
 			}
 		}
-		.coupon-content{
-			&.coupon-content2{
-				background: url(../../static/img/coupon4.png) no-repeat center center;
-				background-size: 100% 100%;
-			}
-			background: url(../../static/img/coupon3.png) no-repeat center center;
-			background-size: 100% 100%;
-			position: relative;
-			color:#FE8300;
-			font-size:24upx;
-			margin-bottom:40upx;
-			.left{
-				margin-left:40upx;
-				padding:20upx 0;
-				.price{
-					span{
-						font-size:60upx;
-					}
-				}
-				text{
-					color:#979797;
-				}
-			}
-
-		}
+		
 		button {
 			background: rgba(255, 126, 0, 1);
 			border-radius: 40upx;
