@@ -11,6 +11,7 @@
 					</label>
 				</view>
 			</radio-group> -->
+			<view class="inbox">
 			<radio-group @change="radioChange">
 				<label class="uni-list-cell uni-list-cell-pd" v-for="(item , i) in myCoupons" :key="item.i">
 					<view class='coupon-item'>
@@ -19,6 +20,7 @@
 					</view>
 				</label>
 			</radio-group>
+			</view>
 		</view>
 		<view v-else class="coupon-none">
 			您没有优惠券！
@@ -93,7 +95,7 @@
 				position: relative;
 				.radio{
 					position: absolute;
-					right:0;
+					right:-5vw;
 					top:50%;
 					margin-top:-30upx;
 				}

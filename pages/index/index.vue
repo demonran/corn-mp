@@ -72,7 +72,7 @@
 			</view>
 			<view class="hot-course">
 				<ul>
-					<li class="shadow inbox" v-for="(item,index) in hotCourse" :key="index">
+					<li @click="goCourseDetail(item.courseId)" class="shadow inbox" v-for="(item,index) in hotCourse" :key="index">
 						<view class="">
 							<h4>{{item.courseName}}</h4>
 							<p class="time">{{item.beginDate}} ～ {{item.endDate}}</p>
@@ -82,7 +82,7 @@
 							<text class="hour">共{{item.lesson}}课时</text><text class="line">|</text>
 							<text class="number">限{{item.limitStudents}}人</text>
 						</view>
-						<view @click="goCourseDetail(item.courseId)" class="sign-up">立即报名</view>
+						<view  class="sign-up">立即报名</view>
 					</li>
 				</ul>
 				<view class="all-btn" @click="goCourse">

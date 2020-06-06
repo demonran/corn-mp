@@ -31,6 +31,7 @@
 			background-size: 100% 100%;
 		}
 		position: relative;
+		left:-5vw;
 		color:#FE8300;
 		font-size:24upx;
 		margin-bottom:40upx;

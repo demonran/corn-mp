@@ -151,8 +151,9 @@
 							tel: this.child.tel,
 							totalAmount: this.totalPrice,
 							remark:this.remark,
-							couponId: this.coupon ? this.coupon.id : undefined
-						}
+							couponId: this.coupon ? this.coupon.id : undefined,
+							couponPrice:this.coupon.amount
+						} 
 						orderRes.createOrder(a).then(res => {
 							if(res.statusCode == 200) {				
 								this.$navigateTo(`orderDetail?orderId=${res.data.id}`)
@@ -172,6 +173,7 @@
 							success(res) {
 								if (res.confirm) {
 									console.log('用户点击确定');
+									that.goSignInfo()
 
 								} else if (res.cancel) {
 									console.log('用户点击取消');

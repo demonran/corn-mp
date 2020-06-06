@@ -28,13 +28,16 @@
 		data() {
 			return {
 				children:{},
-				childrenId:true
+				childrenId:false
 			}
 		},
 		onLoad(options) {
 			console.log(options)
 			const id = options.id
 			id && this.getById(id)
+			if(id){
+				this.childrenId = true
+			}
 		},
 		methods: {
 			getById(id) {
@@ -103,6 +106,7 @@
 	}
 	.delete{
 		width:100%upx;
+		margin-top:40upx;
 		height:72upx;
 		line-height:72upx;
 		color:#ff8300;
