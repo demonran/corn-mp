@@ -13,30 +13,35 @@
 				<image src="../../static/img/sharebg1.png" mode="widthFix"></image>
 			</view>
 		</view>	
-			<view class="shadow-box inbox">
-				<view class="coupon-title">你可以获得 <span>邀请好友报名可领取</span></view>
-				<coupon v-for="(item , i) in cashCoupons" :key="i" :count="item.amount" tip="红包可体现" type=0></coupon>
-				
-				<view class="coupon-title">好友获得优惠 <span>报名即可使用</span></view>
-				<coupon v-for="(item , i) in discountCoupons" :key="i" :count="item.amount" :tip="'满' + item.minUsed+ '元可使用'" type=1></coupon>
-				<button open-type="share">立即邀请</button>
+			<view class=" inbox">
+				<view class="shadow-box">
+					<view class="coupon-title">你可以获得 <span>邀请好友报名可领取</span></view>
+					<coupon v-for="(item , i) in cashCoupons" :key="i" :count="item.amount" tip="红包可体现" type=0></coupon>
+					
+					<view class="coupon-title">好友获得优惠 <span>报名即可使用</span></view>
+					<coupon v-for="(item , i) in discountCoupons" :key="i" :count="item.amount" :tip="'满' + item.minUsed+ '元可使用'" type=1></coupon>
+					<button open-type="share">立即邀请</button>
+				</view>
 			</view>
 
-			<view class="shadow-box inbox Withdrawal">
-				<view class="title">可提现红包</view>
-				<view class="price"><span>¥9000.00</span>
-				<button @click="goCash">提现</button>
+			<view class=" inbox Withdrawal">
+				<view class="shadow-box">
+					<view class="title">可提现红包</view>
+					<view class="price"><span>¥9000.00</span>
+					<button @click="goCash">提现</button>
+					</view>
+					<view class="Statistics">
+						<view>
+							<p>成功邀请</p>
+							<span>12人</span>
+						</view>
+						<view>
+							<p>累计获得</p>
+							<span>12000.00</span>
+						</view>
+					</view>	
 				</view>
-				<view class="Statistics">
-					<view>
-						<p>成功邀请</p>
-						<span>12人</span>
-					</view>
-					<view>
-						<p>累计获得</p>
-						<span>12000.00</span>
-					</view>
-				</view>	
+				
 			</view>
 		
 	</view>
@@ -169,7 +174,7 @@
 		background: #fff;
 		border-radius: 12upx;
 		box-shadow:0px 0px 24px rgba(0,0,0,0.08);
-		margin-bottom:60upx;
+		padding:40upx 20upx;
 		.coupon-title {
 			font-size: 32upx;
 			color: rgba(36, 36, 36, 1);
@@ -215,6 +220,7 @@
 		}
 		.Statistics{
 			padding:40upx 0;
+			padding-bottom:80upx;
 			font-size:24upx;
 			text-align: center;
 			view{
