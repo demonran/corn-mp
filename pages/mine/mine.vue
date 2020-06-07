@@ -55,11 +55,13 @@
 					title: "我的报名",
 					image: "../../static/img/nav4.png",
 					goUrl: "../signup/myOrder"
-				}, {
+				},
+				/* {
 					title: "我的收藏",
 					image: "../../static/img/nav5.png",
 					goUrl: "../collection/collection"
-				}, {
+				}, */
+				{
 					title: "优惠券",
 					image: "../../static/img/nav6.png",
 					goUrl: "../mine/coupon"

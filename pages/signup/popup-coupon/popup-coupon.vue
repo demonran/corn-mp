@@ -2,7 +2,7 @@
 	<view class="popup-coupon">
 		<view class="coupon-title"><text class="coupon-title-text">{{title}}</text></view>
 		 
-		<view v-if="hasCoupons" class="coupon-content">
+		<view v-if="hasCoupons" class="popup-coupon-content">
 		<!-- 	<radio-group >
 				<view class='coupon-item' v-for="(item , i) in myCoupons" :key="i">
 					<label for="">
@@ -86,9 +86,8 @@
 				color:#666;
 			}
 		}
-		
-	
-		.coupon-content {
+
+		.popup-coupon-content {
 			justify-content: center;
 			padding-top: 20upx;
 			.coupon-item{
@@ -99,6 +98,7 @@
 					top:50%;
 					margin-top:-30upx;
 				}
+			
 			}
 			
 		}

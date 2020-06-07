@@ -62,28 +62,42 @@
 				
 				
 			},
-			goDelete(){
-				 user.deleteChildren(this.children.id).then(res => {
-					if(res.statusCode == 200) {
-						console.log('delete')
-						uni.showToast({
-						    title: '删除成功',
-						    duration: 2000,
-							success: () => {
-								//this.$navigateBack();
-								
-								this.$navigateTo('archives')
-							} 
-						});
-						
-					}else{
-						uni.showToast({
-						    title: '删除失败',
-						    duration: 2000,
-							icon:'none'
-						});
+			goDelete(){ 
+				uni.showModal({
+					//弹出提示框
+					title: '提示',
+					content: '是否删除',
+					success(res) {
+						if (res.confirm) {
+							console.log('用户点击确定');
+							user.deleteChildren(this.children.id).then(res => {
+								if(res.statusCode == 200) {
+									console.log('delete')
+									uni.showToast({
+									    title: '删除成功',
+									    duration: 2000,
+										success: () => {
+											//this.$navigateBack();
+											
+											this.$navigateTo('archives')
+										} 
+									});
+									
+								}else{
+									uni.showToast({
+									    title: '删除失败',
+									    duration: 2000,
+										icon:'none'
+									});
+								}
+							}) 
+				
+						} else if (res.cancel) {
+							console.log('用户点击取消');
+						}
 					}
-				}) 
+				});
+				 
 			}
 	}
 

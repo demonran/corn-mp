@@ -16,10 +16,10 @@
 			<view class=" inbox">
 				<view class="shadow-box">
 					<view class="coupon-title">你可以获得 <span>邀请好友报名可领取</span></view>
-					<coupon v-for="(item , i) in cashCoupons" :key="i" :count="item.amount" tip="红包可体现" type=0></coupon>
+					<coupon class="share-coupon" v-for="(item , i) in cashCoupons" :key="i" :count="item.amount" tip="红包可体现" type=0></coupon>
 					
 					<view class="coupon-title">好友获得优惠 <span>报名即可使用</span></view>
-					<coupon v-for="(item , i) in discountCoupons" :key="i" :count="item.amount" :tip="'满' + item.minUsed+ '元可使用'" type=1></coupon>
+					<coupon class="share-coupon" v-for="(item , i) in discountCoupons" :key="i" :count="item.amount" :tip="'满' + item.minUsed+ '元可使用'" type=1></coupon>
 					<button open-type="share">立即邀请</button>
 				</view>
 			</view>
@@ -189,7 +189,10 @@
 				color: rgba(0, 0, 0, 0.7);
 			}
 		}
-		
+		.share-coupon{
+			position: relative;
+			left:5vw;
+		}
 		button {
 			background: rgba(255, 126, 0, 1);
 			border-radius: 40upx;
@@ -238,4 +241,6 @@
 			}
 		}
 	}
+	
+	
 </style>

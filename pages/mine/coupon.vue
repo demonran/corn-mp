@@ -94,16 +94,24 @@
 
 <style lang="scss">
 	@import "../../static/style/base.scss";
-
-	.contentbox {
-		margin-top: 140upx;
+.contentbox{
+	margin-top:10vh;
+	
+}
+	swiper{
+		height: 90vh;
+		overflow: scroll;
+		swiper-item{
+			width:100vw;
+			height:84vh;
+			margin-top:2vh;
+			overflow: scroll;
+			.no-data{
+				text-align: center;
+				margin-top:50upx;
+			}
+		}
 	}
-
-	swiper {
-		height: 150vh;
-	}
-
-
 
 	.orange-bg {
 		background: url(../../static/img/coupon1.png) no-repeat center center;

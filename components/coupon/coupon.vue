@@ -20,7 +20,9 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+
+	
 	.coupon-content{
 		&.coupon-content-0{
 			background: url(../../static/img/coupon3.png) no-repeat center center;

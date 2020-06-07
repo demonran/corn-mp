@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<uni-popup ref="popup" type="share">
-			<popup-coupon @select="couponSelected"></popup-coupon>
+			<popup-coupon class="pop-coupon" @select="couponSelected"></popup-coupon>
 		</uni-popup>
 		<view class="sign">
 			<view class="boxwhite edit" @click="goSignInfo" v-if="child != undefined">
