@@ -94,9 +94,10 @@
 <style lang="scss" scoped>
 	@import "../../static/style/base.scss";
 	swiper{
-		hegiht:420px;
+		hegiht:800upx;
 		swiper-item{
 			position: relative;
+			hegiht:800upx;
 			.num{
 				font-size: 18upx;
 				color:#fff;

@@ -1,7 +1,13 @@
 <template>
 	<view class="contentbox">
 		<!-- <uni-segmented-control :current="current" :values="tabTitle" @clickItem="changeTab" style-type="text" activeColor="#ff8300"></uni-segmented-control> -->
-
+		<view class="no-data inbox" v-show="noData==true">
+			<view class="pic">
+				<image src="../../static/img/null.png" mode="widthFix"></image>
+			</view>
+			<view class="">您还没有相关学习</view>
+			<navigator class="btn" url="../course/course" open-type="switchTab">去选课</navigator>
+		</view>
 		<scroll-view scroll-y="true" @scrolltolower="lower1" scroll-with-animation :scroll-into-view="toView">
 
 			<ul class="hot-course">
@@ -43,7 +49,8 @@
 				tabTitle: ['线下课', '公开课'], //导航栏格式 --导航栏组件
 				currentTab: 0, //sweiper所在页
 				toView: '', //回到顶部id
-				list: [] //数据格式
+				list: [] ,//数据格式
+				noData:false
 			};
 		},
 		onLoad: function(options) {
@@ -56,6 +63,11 @@
 			fetchCourseStudy() {
 				courseStudyRes.list().then(res => {
 					this.list = res.data;
+					if(res.data == ''){
+						this.noData = true
+					}else{
+						this.noData = false
+					}
 				})
 			},
 			onPullDownRefresh() {
@@ -88,22 +100,48 @@
 			gostudyRecord(id) {
 				console.log(id)
 				this.$navigateTo(`studyRecord?id=${id}`);
-			}
+			},
+	
 		}
 	};
 </script>
 
 <style lang="scss">
 	@import "../../static/style/base.scss";
-
-	.contentbox {
-		margin-top: 40upx;
+.contentbox{
+	margin-top:10vh;
+	
+}
+.no-data{
+	text-align: center;
+	margin-top:50upx;
+	color:#666;
+	.pic{
+		width:50%;
+		margin:50upx auto;
 	}
-
-	swiper {
-		height: 100vh;
+	.btn{
+		border-radius: 16upx;
+		height:88upx;
+		line-height: 88upx;
+		text-align: center;
+		font-size: 30upx;
+		color: #fff;
+		background: #ff8300;
+		margin:40upx 0;
 	}
-
+}
+	swiper{
+		height: 90vh;
+		overflow: scroll;
+		swiper-item{
+			width:100vw;
+			height:84vh;
+			margin-top:2vh;
+			overflow: scroll;
+			
+		}
+	}
 	.hot-course {
 		li {
 			position: relative;

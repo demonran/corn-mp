@@ -132,7 +132,6 @@ components: {navTab},
 				this.orders = this.allOrders.filter(
 					item => this.status[e].status ? item.status == this.status[e].status : true)
 				      this.$nextTick(function(){
-				        console.log('顺序，',this.orders.length)
 						if(this.orders.length == 0){
 							this.noData = true
 						}else{
