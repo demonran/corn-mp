@@ -56,11 +56,13 @@
 	@import "../../static/style/base.scss";
 
 .box{
-	margin-top:100upx;
+	margin-top:150upx;
 	.addr{
 		color:#666;
 		text-align: left;
 		line-height: 60upx;
+		display: inline-block;
+		margin:0 auto;
 	}
 	image{
 		width:20vw;
