@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view> 
 		<uni-popup ref="popup" type="share">
 			<popup-coupon class="pop-coupon" @select="couponSelected"></popup-coupon>
 		</uni-popup>

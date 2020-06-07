@@ -63,10 +63,10 @@
 			<view @click="pay" class="btn sign-up">立即支付</view>
 			<view class="btn">取消订单</view>
 		</view>
-		<view v-else class="bottomBar">
+		<!-- <view v-else class="bottomBar">
 			<view class="btn sign-up">报名续费</view>
 			<view class="btn">查看课表</view>
-		</view>
+		</view> -->
 	</view>
 </template>
 
@@ -99,12 +99,32 @@
 				const _this = this
 				options.package = options.packageValue
 				options.success = res => {
-					console.log('success:' + JSON.stringify(res));
+					console.log('支付成功:' + JSON.stringify(res));
 					_this.fetchOrder(this.order.id)
+					uni.navigateTo({
+						url: `/pages/signup/goSignResult`,
+						success: res => {},
+						fail: () => {},
+						complete: () => {}
+					});
 					
 				}
 				options.fail = err => {
-					console.log('fail:' + JSON.stringify(err));
+					console.log('支付失败' + JSON.stringify(err));
+					uni.showModal({
+						//弹出提示框
+						title: '支付失败',
+						content: err,
+						success(res) {
+							if (res.confirm) {
+								console.log('用户点击确定');
+								that.goSignInfo()
+					
+							} else if (res.cancel) {
+								console.log('用户点击取消');
+							}
+						}
+					});
 				}
 				uni.requestPayment(options);
 			}

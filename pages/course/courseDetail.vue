@@ -12,7 +12,7 @@
 		<view class="rec-des" >
 			<h4 class="a-line">{{CourseDetail.courseName}}</h4>
 			<p class="a-line">{{CourseDetail.courseSubTitle}}</p>
-			<button open-type="share" class="share">分享</button>		
+			<button open-type="share" class="share">分享</button>
 			<view class="bottom">
 				<text class="fl">
 					<text class="prize" >
