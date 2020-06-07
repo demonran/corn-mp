@@ -12,7 +12,7 @@
 		</view>
 		<view class="box sharebox">
 			<view class="shadow">
-				<navigator class="btn" url="">再次报名</navigator>
+				<view class="btn" @click="goCourseDetail(study.courseId)">再次报名</view>
 				<dl >
 					<dt>学生</dt>
 					<dd class="orange-color">{{study.studentName}}</dd>
@@ -84,15 +84,14 @@ export default {
 					this.study = res.data
 				})
 			},
-			
-			goInvite:function(){
-				uni.navigateTo({
-					url: 'totalInvite',
+			goCourseDetail:function(id){
+				 uni.navigateTo({	 
+					url: `/pages/course/courseDetail?id=`+id,
 					success: res => {},
 					fail: () => {},
 					complete: () => {}
-				});
-			}
+				}); 
+			},
 		}
 
 		
@@ -170,8 +169,6 @@ export default {
 		width:48%;
 		height:75upx;
 		margin-top:20upx;
-		background: url(../../static/img/info-arr.png) no-repeat right center; 
-		background-size: 30upx;
 		border:none;
 		line-height:40upx;
 		dd{

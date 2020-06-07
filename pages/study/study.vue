@@ -108,10 +108,10 @@
 
 <style lang="scss">
 	@import "../../static/style/base.scss";
-.contentbox{
+/* .contentbox{
 	margin-top:10vh;
 	
-}
+} */
 .no-data{
 	text-align: center;
 	margin-top:50upx;

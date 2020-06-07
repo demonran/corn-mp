@@ -29,7 +29,7 @@
 									<text class="number">限{{item.courseInfo.limitStudents}}人</text>
 								</view>
 								<view class="state">
-									<view @click="gostudyDetail(item.id)" v-if="item.status=='PAID'||item.status=='FINISHED'" class="btn">查看记录</view>
+									<view @click="gostudyRecord(item.id)" v-if="item.status=='PAID'||item.status=='FINISHED'" class="btn">查看记录</view>
 									<view @click="goSignUp" v-if="item.status=='FINISHED'" class="btn2 btn">报名续费</view>
 									<view @click="goMySignDetail(item.id)" v-if="item.status=='CREATED'" class="btn2 btn">去支付</view>
 								</view>
@@ -144,6 +144,10 @@ components: {navTab},
 			swiperTab: function(e) {
 				var i = e.detail.current //获取索引
 				this.$refs.navTab.navClick(i)
+			},
+			gostudyRecord(id) {
+				console.log(id)
+				this.$navigateTo(`/pages/study/studyRecord?id=${id}`);
 			},
 		}
 	};
