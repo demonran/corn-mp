@@ -3,7 +3,7 @@
 		<login></login>
 		<view class="nav-list flex shadow">
 			<view class="nav-box" hover-class="nav-hover" v-for="(item,index) in nav" :key="index">
-				<navigator :url="item.goUrl">
+				<navigator class="nav-tab" :url="item.goUrl">
 					<image :src="item.image"></image>
 					<view class="text">{{item.title}}</view>
 				</navigator>
@@ -113,6 +113,9 @@
 			height: 206upx;
 			color: #4b4b4b;
 			font-size: 26upx;
+			.nav-tab{
+				height:100%;
+			}
 		}
 	}
 

@@ -50,10 +50,9 @@
 </template>
 
 <script>
-import navTab from '../../components/navTab.1.vue';
 import studyRes from '@/api/course-study.js'
 export default {
-	components: {navTab},
+	components: {},
 		data() {
 			return {
 				study: {},

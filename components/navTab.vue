@@ -37,7 +37,7 @@
 				tabClick: 0, //导航栏被点击
 				toView:'',
 				isLongWidth:0
-				
+				 
 			};
 		},
 		created() {

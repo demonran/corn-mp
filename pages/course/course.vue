@@ -167,7 +167,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../../static/style/base.scss";
 .contentbox{
 	margin-top:10vh;

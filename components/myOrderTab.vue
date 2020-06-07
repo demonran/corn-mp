@@ -6,7 +6,7 @@
 			<view class='navTab'>
 					<view v-for="(item,index) in tabTitle" :key="index" class='navTabItem'  @click='navClick(index)'>
 						<text :class="index===tabClick?'click':''">
-							{{item}}
+							{{item.name}}
 						</text>
 				
 					</view>			
