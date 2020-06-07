@@ -44,7 +44,7 @@
 			</dl>
 			<dl>
 				<dt>优惠券</dt>
-				<dd>{{order.courseInfo.couponId}}</dd>
+				<dd>{{order.couponPrice}}</dd>
 			</dl>
 			<dl>
 				<dt>应付金额</dt>
@@ -52,7 +52,7 @@
 			</dl>
 			<dl>
 				<dt>备注说明</dt>
-				<dd>{{order.courseInfo.remark}}</dd>
+				<dd>{{order.remark}}</dd>
 			</dl>
 			<dl>
 				<dt>提交时间</dt>
