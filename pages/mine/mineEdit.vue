@@ -1,41 +1,41 @@
 <template> 
 <view class="box content"> 
 	<view class="cont">
-		<navigator url="editHead">
+		<!-- <navigator url="editHead"> -->
 			<dl> 
 				<dt>头像</dt>
 				<dd>
 					<image class="head" :src="userInfo.avatarUrl" mode=""></image>
 				</dd>
 			</dl>
-		</navigator>
-		<navigator url="editName">
+		<!-- </navigator>
+		<navigator url="editName"> -->
 			<dl >
 				<dt>昵称</dt>
 				<dd>
 					{{userInfo.nickName}}
 				</dd>
 				
-			</dl>
+			</dl><!-- 
 		</navigator>
-		<navigator url="editSex">
+		<navigator url="editSex"> -->
 			<dl >
 				<dt>性别</dt>
 				<dd>{{sex}}</dd>
-			</dl>
+			</dl><!-- 
 		</navigator>
-		<navigator url="editTel">
+		<navigator url="editTel"> -->
 			<dl >
 				<dt>手机</dt>
 				<dd>{{userInfo.mobile}}</dd>
-			</dl>
+			</dl><!-- 
 		</navigator>
-		<navigator url="editAddr">
+		<navigator url="editAddr"> -->
 			<dl >
 				<dt>地址</dt>
 				<dd>{{userInfo.country}} {{userInfo.province}}  {{userInfo.city}}</dd>
 			</dl>
-		</navigator>
+		<!-- </navigator> -->
 	</view>
 </view>
 </template>
@@ -86,7 +86,7 @@
 		min-height:80vh;
 		padding-top:0;
 		dl{
-			background: url(../../static/img/info-arr.png) no-repeat right center; 
+			/* background: url(../../static/img/info-arr.png) no-repeat right center; */
 			background-size: 30upx;
 			height:108upx;
 			line-height:108upx;

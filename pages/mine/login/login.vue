@@ -47,12 +47,13 @@
 			if (this.isAuthorize) {
 				this.getUserInfo();
 			} else {
+				let that = this;
 				uni.login({
 					provider: 'weixin',
 					success: function(loginRes) {
-						console.log("logined")
+						console.log('login,',loginRes);
 					}
-				})
+				}) 
 			}
 
 		},
