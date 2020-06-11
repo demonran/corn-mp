@@ -63,6 +63,7 @@
 				
 			},
 			goDelete(){ 
+				let _this = this
 				uni.showModal({
 					//弹出提示框
 					title: '提示',
@@ -70,7 +71,7 @@
 					success(res) {
 						if (res.confirm) {
 							console.log('用户点击确定');
-							user.deleteChildren(this.children.id).then(res => {
+							user.deleteChildren(_this.children.id).then(res => {
 								if(res.statusCode == 200) {
 									console.log('delete')
 									uni.showToast({
@@ -79,7 +80,7 @@
 										success: () => {
 											//this.$navigateBack();
 											
-											this.$navigateTo('archives')
+											_this.$navigateTo('archives')
 										} 
 									});
 									

@@ -1,6 +1,8 @@
 <template>
 	<view class="box">
-		
+		<view class="null" v-if="children==''">
+			<no-data></no-data>
+		</view>
 		<radio-group v-if="from">
 			<radio class="radio" :value="item.id" @click="select(item)" child v-for="(item,index) in children" :key="item.id" >
 				<child :child="item"></child>	
@@ -16,6 +18,7 @@
 <script>
 	import user from '../../api/user.js'
 	import child from '../../components/child.vue'
+	import noData from '../../components/noData.vue'
 	
 	export default {
 		data() {
@@ -64,7 +67,13 @@
 	@import "../../static/style/base.scss";
 	.box{
 		position: relative;
-		min-height:90vh;		
+		min-height:90vh;
+	}
+	.null{
+		text-align: center;
+		position: absolute;
+		top:200upx;
+		width: 100%;
 	}
 .radio{
 	width:100%;
