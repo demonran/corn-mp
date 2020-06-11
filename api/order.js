@@ -21,7 +21,11 @@ export default {
 	 myOrders() {
 		interceptor(http)
 	    return http.get('orders')
-	}
+	},
+	cancelById(orderId) {
+		interceptor(http)
+		return http.delete(`orders/${orderId}`)
+	},
 
 }
 

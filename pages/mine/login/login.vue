@@ -19,7 +19,7 @@
 				<open-data type="userNickName" lang="zh_CN"></open-data>
 			</h1>
 			<text class="a-line">
-				点击修改个人信息
+				{{mobile}}
 			</text>
 		</view>
 	</view>
@@ -34,7 +34,8 @@
 			return {
 				image: '',
 				name: '',
-				isAuth: this.isAuthorize
+				isAuth: this.isAuthorize,
+				mobile:''
 			}
 		},
 		computed: {
@@ -72,6 +73,7 @@
 					console.log(res)
 					this.name = this.userInfo.nickName;
 					this.image = this.userInfo.avatarUrl;
+					this.mobile = this.userInfo.mobile;
 					this.$store.commit('SET_USER', this.userInfo)
 				})
 			},

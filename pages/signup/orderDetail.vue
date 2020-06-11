@@ -61,7 +61,7 @@
 		</view>
 		<view v-if="order.status=='CREATED'" class="bottomBar">
 			<view @click="pay" class="btn sign-up">立即支付</view>
-			<view class="btn">取消订单</view>
+			<view @click="cancel" class="btn">取消订单</view>
 		</view>
 		<!-- <view v-else class="bottomBar">
 			<view class="btn sign-up">报名续费</view>
@@ -127,6 +127,14 @@
 					});
 				}
 				uni.requestPayment(options);
+			},
+			cancel(){
+				/* uni.showModal({
+					
+				}) */
+				orderRes.cancelById(this.order.id).then(res => {
+					console.log('取消',res.data)
+				})
 			}
 
 
