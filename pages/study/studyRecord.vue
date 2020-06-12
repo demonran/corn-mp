@@ -36,12 +36,12 @@
 		<view class="box record">
 			<view>—— 上课记录 ——</view>
 			<ul>
-				<li v-for="(item,index) in list" :Key="index">
+				<li v-for="(item,index) in study.lessons" :Key="index">
 					<span class="circle"></span>
 					<span class="line"></span>
 					<view class="li">
-						<text class="fl">{{item.time}}</text>
-						<text class="fr">课件</text>
+						<text class="fl">{{item.studyDate}} {{item.startTime}} {{item.endTime}}</text>
+						<!-- <text class="fr">课件</text> -->
 					</view>
 				</li>
 			</ul>

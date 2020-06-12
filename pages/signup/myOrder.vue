@@ -21,7 +21,8 @@
 						
 									<view v-if="item.status=='CREATED'" class="icon">待支付</view>
 									<view v-else-if="item.status=='PAID'" class="icon studied">已支付</view>
-									<view v-else class="icon studied">已完成</view>
+									<view v-else-if="item.status=='FINISHED'" class="icon studied">已完成</view>
+									<view v-else class="icon studied">已取消</view>
 								</view>
 								<view class="des">
 									<h5 class="prize">{{item.totalAmount}}</h5>
@@ -87,6 +88,9 @@ components: {navTab},
 				}, {
 					status: "FINISHED",
 					name: '已完成'
+				}, {
+					status: "CANCEL",
+					name: '已取消'
 				}],
 				current: 0, //sweiper所在页
 				toView: '', //回到顶部id
@@ -103,7 +107,12 @@ components: {navTab},
 				}, {
 					status: "CREATED",
 					name: '未支付'
-				}, {
+				},
+				{
+					status: "CANCEL",
+					name: '已取消'
+				},
+				{
 					status: "FINISHED",
 					name: '已完成'
 				}], //导航栏格式 --导航栏组件
@@ -143,7 +152,11 @@ components: {navTab},
 			// swiper 滑动
 			swiperTab: function(e) {
 				var i = e.detail.current //获取索引
-				this.$refs.navTab.navClick(i)
+				if(this.tabTitle.length<=4){
+					this.$refs.navTab.navClick(i)
+				}else{
+					this.$refs.navTab.longClick(i)
+				}
 			},
 			gostudyRecord(id) {
 				console.log(id)

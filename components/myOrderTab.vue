@@ -4,18 +4,19 @@
 		<view class="shortTab" v-if="tabTitle.length<=4">
 			<!-- 导航栏 -->
 			<view class='navTab'>
-					<view v-for="(item,index) in tabTitle" :key="index" class='navTabItem'  @click='navClick(index)'>
-						<text :class="index===tabClick?'click':''">
-							{{item.name}}
-						</text>
-				
-					</view>			
+				<view v-for="(item,index) in tabTitle" :key="index" class='navTabItem'  @click='navClick(index)'>
+					<text :class="index===tabClick?'click':''">
+						{{item.name}}
+					</text>
+				</view>
 			</view>
 		</view>
 		<!-- 标题数量大于4 开启长导航栏模式 -->
 		<view class="longTab" v-if="tabTitle.length>4">
 			<scroll-view scroll-x="true"  scroll-with-animation  :scroll-into-view="toView">
-				<view class="longItem" :data-index="index" :class="index===tabClick?'click':''" v-for="(item,index) in tabTitle" :key="index" :id="'id'+index" @click="longClick(index)">{{item}}</view>
+				<view class="longItem" :data-index="index" :class="index===tabClick?'click':''" v-for="(item,index) in tabTitle" :key="index" :id="'id'+index" @click="longClick(index)">
+				{{item.name}}
+				</view>
 			</scroll-view>
 
 		</view>
@@ -69,10 +70,16 @@
 	.navTabBox{
 		border-bottom: 1px solid #eee;
 		width:100vw;
-		height:100upx;
-		line-height: 100upx;
+		height:10vh;
+		background:#333;
+		line-height:10vh;
 		font-size:30upx;
 		color:#7d7d7d;	
+		background:#fff;
+		position:fixed;
+		z-index:5;
+		top:0;
+		left:0;
 		.navTab{
 			display:flex;
 			white-space:nowrap;
@@ -81,16 +88,39 @@
 				width:25vw;
 				text-align:center;
 				.click{
-					color:#212121;
-					line-height: 100upx;
-					display: inline-block;
-					height:100upx;
+					color:#212121;	
 					font-weight: bold;
 					border-bottom: 2px solid #ff8300;	
 				}
+				text{
+					display: inline-block;
+					height:10vh;
+				}
 			}
 		}
-		
+		.longTab{			
+			    white-space: nowrap;
+			    display:flex;
+			    flex-direction: row;
+			    flex-wrap:nowrap;			 			
+			.longItem{		
+				margin:0 20upx;
+				display: inline-block;			
+				width:auto;
+				text-align:center;			
+			}
+			
+
+			.click{
+				color:#212121;					
+				font-weight: bold;
+				display: inline-block;				
+				border-bottom: 2px solid #ff8300;	
+			}
+		}
+		.longTab:first-child{
+			margin-left:5vw;
+		}
 			
 			
 		
