@@ -318,7 +318,7 @@
 
 	.banner {
 		height: 320upx;
-
+		margin-top:40upx;
 		.pic {
 			width: 610upx;
 			height: 310upx;
@@ -327,8 +327,8 @@
 			overflow: hidden;
 
 			image {
-				width: 100%;
-				height: 100%;
+				min-width: 100%;
+				min-height: 100%;
 			}
 		}
 	}
