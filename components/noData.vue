@@ -1,7 +1,7 @@
 <template>
 	<view class="">
 		<view class="null" v-if="children==''">
-			<image src="../../static/img/null.png" mode=""></image>
+			<image src="../../static/img/null.jpg" mode=""></image>
 			<text>没有数据！</text>
 		</view>
 	</view>

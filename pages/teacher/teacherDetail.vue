@@ -53,6 +53,7 @@
 		position:relative;
 		height: 750upx;
 		background:#000;
+		overflow: hidden;
 		.tbg{
 				min-height: 750upx;
 				position:absolute;

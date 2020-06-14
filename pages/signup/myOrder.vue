@@ -168,7 +168,10 @@ components: {navTab},
 
 <style lang="scss" scoped>
 @import "../../static/style/base.scss";
-
+.contentbox{
+	margin-top:10vh;
+	
+}
 	swiper{
 		height: 90vh;
 		overflow: scroll;

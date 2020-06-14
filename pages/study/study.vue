@@ -30,9 +30,7 @@
 					</view>
 				</li>
 			</ul>
-
 		</scroll-view>
-
 	</view>
 </template>
 
@@ -53,7 +51,7 @@
 				noData:false
 			};
 		},
-		onLoad: function(options) {
+		onShow: function(options) {
 			this.fetchCourseStudy()
 
 		},
@@ -63,7 +61,7 @@
 			fetchCourseStudy() {
 				courseStudyRes.list().then(res => {
 					this.list = res.data;
-					if(res.data == ''){
+					if(res.data == ''||res.statusCode!=200){
 						this.noData = true
 					}else{
 						this.noData = false
