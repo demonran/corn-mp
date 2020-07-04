@@ -236,12 +236,12 @@
 		}, {
 			"path": "pages/share/totalInvite",
 			"style": {
-				"navigationBarTitleText": "分享"
+				"navigationBarTitleText": "累计邀请"
 			}
 		}, {
 			"path": "pages/share/totalProfit",
 			"style": {
-				"navigationBarTitleText": "分享"
+				"navigationBarTitleText": "累计收益"
 			}
 		}, {
 			"path": "pages/collection/collection",
@@ -302,7 +302,7 @@
 		"current": 0, //当前激活的模式(list 的索引项)
 		"list": [{
 			"name": "", //模式名称
-			"path": "pages/study/study", //启动页面，必选
+			"path": "pages/mine/mine", //启动页面，必选
 			"query": "" //启动参数，在页面的onLoad函数里面得到
 		}]
 	}

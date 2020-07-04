@@ -18,7 +18,7 @@
 			<navigator url="../share/share">
 				<dl>
 					<dt>分享课程</dt>
-					<dd class="orange-color">送好友优惠券，得200元现金奖励</dd>
+					<dd class="orange-color">送好友优惠券，得现金奖励</dd>
 				</dl>
 			</navigator>
 			<navigator url="/pages/mine/about">

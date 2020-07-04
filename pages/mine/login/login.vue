@@ -43,7 +43,7 @@
 				'isAuthorize'
 			]),
 		},
-		mounted() {
+		onShow() {
 			console.log('onLoad')
 			if (this.isAuthorize) {
 				this.getUserInfo();
@@ -66,7 +66,7 @@
 					fail: () => {},
 					complete: () => {}
 				});
-			},
+			}, 
 			getUserInfo() {
 				this.$api.userInfo().then(res => {
 					this.userInfo = res.data;

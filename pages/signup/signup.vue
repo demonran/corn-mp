@@ -85,7 +85,9 @@
 				CourseDetail: {},
 				child: undefined,
 				course: [],
-				coupon: undefined  
+				coupon: {
+					amount:0
+				}
 			}
 		},
 		computed: {

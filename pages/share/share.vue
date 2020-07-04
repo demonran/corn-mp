@@ -1,8 +1,11 @@
 <template>
 	<view class="page">
 		<view class="bg">
+			<uni-popup ref="popup" type="center">
+			    <uni-popup-box title="详细规则" :content="rules"></uni-popup-box>
+			</uni-popup>
 			<view class='detail-rule'>
-				<navigator url="">详细规则</navigator>
+				<button style="" @click="open">详细规则</button>	
 				<div class="box"></div>
 			</view>
 			<view class="title">
@@ -27,17 +30,18 @@
 			<view class=" inbox Withdrawal">
 				<view class="shadow-box">
 					<view class="title">可提现红包</view>
-					<view class="price"><span>¥9000.00</span>
-					<button @click="goCash">提现</button>
+					<view class="price"><span>¥0.00</span>
+					<!--<button @click="goCash">提现</button>-->
+					<button style="background: #999;">暂未开启</button>
 					</view>
 					<view class="Statistics">
-						<view>
+						<view @click="goInvite">
 							<p>成功邀请</p>
-							<span>12人</span>
+							<span>0人</span>
 						</view>
-						<view>
+						<view @click="goProfit">
 							<p>累计获得</p>
-							<span>12000.00</span>
+							<span>¥0.00</span>
 						</view>
 					</view>	
 				</view>
@@ -48,16 +52,20 @@
 </template>
 
 <script>
+	import uniPopupBox from '@/components/uni-popup/uni-popup-box.vue'
 	import {
 		mapGetters
 	} from 'vuex'
 	import couponRes from '@/api/coupon.js'
 	export default {
-		
+		components:{
+			 uniPopupBox
+		},
 		data() {
 			return {
 				discountCoupons: [],
-				cashCoupons: []
+				cashCoupons: [],
+				rules:'00000'
 
 			}
 		},
@@ -98,6 +106,19 @@
 					fail: () => {},
 					complete: () => {}
 				});
+			},
+			goInvite(){
+				uni.navigateTo({
+					url: `/pages/share/totalInvite`,
+				});
+			},
+			goProfit(){
+				uni.navigateTo({
+					url: `/pages/share/totalProfit`,
+				});
+			},
+			open(){
+				 this.$refs.popup.open()
 			}
 		}
 
@@ -113,6 +134,11 @@
 	.bg {
 		position: relative;
 		text-align: center;
+		.rulebox{
+			.uni-popup__wrapper-box{
+				background: #fff;
+			}
+		}
 		.lbox{
 			width:300upx;
 			height:300upx;
@@ -130,14 +156,17 @@
 			width:189upx;
 			height:189upx;
 			line-height: 60upx;
-			navigator {
+			button {
 				position: absolute;
 				top: 24upx;
 				right: 0;
 				text-align: center;					
 				font-size: 24upx;				
 				color:#fff;
-				width: 150upx;
+				width: 160upx;
+				height: 60upx;
+				z-index:9;
+				background: none;
 			}
 			.box{
 				background:rgba(255,255,255,1);
