@@ -2,6 +2,7 @@ const user = {
 	state: {
 		token: uni.getStorageSync('token'),
 		user: {},
+		//isAuthorize:false
 		isAuthorize: uni.getStorageSync('token') !== undefined && uni.getStorageSync('token') !== ''
 	},
 	mutations: {

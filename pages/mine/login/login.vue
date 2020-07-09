@@ -1,12 +1,10 @@
 <template>
 	<view class="user">
-
 		<view class="agency-logo">
 			<image v-if="image != ''" :src="image"></image>
 			<open-data v-if="image == ''" type="userAvatarUrl"></open-data>
 		</view>
 		<view class="agency-des" v-if="isAuthorize==false">
-
 			<button class="loginBtn" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">
 				<h1>
 					登录/注册
@@ -34,9 +32,8 @@
 			return {
 				image: '',
 				name: '',
-				isAuth: this.isAuthorize,
 				mobile:''
-			}
+			} 
 		},
 		computed: {
 			...mapGetters([
@@ -79,16 +76,31 @@
 			},
 			getPhoneNumber(e) {
 				let that = this;
-				console.log(e)
+				console.log('getphone,',e)
 				if (e.detail.errMsg == 'getPhoneNumber:ok') {
 					uni.checkSession({
 						success(res) {
 							uni.login({
 								provider: 'weixin',
 								success: function(loginRes) {
+									console.log('loginres,',loginRes)
+									that.$api.login(loginRes.code, e.detail.encryptedData, e.detail.iv).then(res => {
+										console.log('login result,',res)
+										uni.setStorageSync('token', res.data);
+										that.$store.commit('SET_AUTHORIZE', true)
+										that.getUserInfo();
+									})
+								}
+							})
+						},
+						fail(e){
+							console.log('checksession err')
+							uni.login({
+								provider: 'weixin',
+								success: function(loginRes) {
 									console.log(loginRes)
 									that.$api.login(loginRes.code, e.detail.encryptedData, e.detail.iv).then(res => {
-										console.log(res)
+										console.log('login result,',res)
 										uni.setStorageSync('token', res.data);
 										that.$store.commit('SET_AUTHORIZE', true)
 										that.getUserInfo();

@@ -1,8 +1,11 @@
 <template>
 	<view class="page">
 		<view class="bg">
+			<uni-popup ref="popup" type="center">
+			    <uni-popup-box title="详细规则" :content="rules"></uni-popup-box>
+			</uni-popup>
 			<view class='detail-rule'>
-				<navigator url="">详细规则</navigator>
+				<button style="" @click="open">详细规则</button>	
 				<div class="box"></div>
 			</view>
 			<view class="user">
@@ -20,7 +23,7 @@
 		<view class="shadow-box inbox">
 			<coupon v-for="(item , i) in coupons" :key="i" :count="item.amount" :tip="'满' + item.minUsed+ '元可使用'" type=1></coupon>
 			<input v-model="mobile" class="mobile-input" placeholder-style="text-align:center" type="number" placeholder="输入手机号" />
-			<button @click="receiveCoupon">立即领取</button>
+			<button @click="receiveCoupon" open-type="getUserInfo" binggetUserInfo="getUserInfo">立即领取</button>
 		</view>
 		<view class="rules inbox">
 			<view class="title">
@@ -38,9 +41,12 @@
 </template>
 
 <script>
+	import uniPopupBox from '@/components/uni-popup/uni-popup-box.vue'
 	import couponRes from '@/api/coupon.js'
 	export default {
-
+		components:{
+			uniPopupBox
+		},
 		data() {
 			return {
 				sharedUser: {},
@@ -64,8 +70,19 @@
 					this.coupons = res.data.coupons;
 				})
 			},
+			getUserInfo(e){
+				console.log('getUserInfo,',e)
+			},
 			receiveCoupon() {
-				couponRes.receiveCoupon(this.mobile, this.couponIds.split(','), this.sharedUserId).then(res => {
+				 // 获取用户信息
+				/*    uni.getUserInfo({
+				      provider: 'weixin',
+				      success: function (infoRes) {
+				        console.log('用户昵称为：' + infoRes.userInfo.nickName);
+						
+				      }
+				    }); */
+				/* couponRes.receiveCoupon(this.mobile, this.couponIds.split(','), this.sharedUserId).then(res => {
 					if (res.statusCode == 200) {
 						uni.showToast({
 							icon: 'success',
@@ -77,8 +94,11 @@
 							title: res.errorMessage
 						})
 					}
-				})
+				}) */
 
+			},
+			open(){
+				 this.$refs.popup.open()
 			}
 		}
 
@@ -109,31 +129,32 @@
 
 		.detail-rule {
 			background: url(../../static/img/sharebg2.png) no-repeat right top;
-			position: absolute;
-			right: 0;
-			top: 0;
-			background-size: 189upx;
-			width: 189upx;
-			height: 189upx;
+			position:absolute;
+			right:0;
+			top:0;
+			background-size:189upx;
+			width:189upx;
+			height:189upx;
 			line-height: 60upx;
-
-			navigator {
+			button {
 				position: absolute;
 				top: 24upx;
 				right: 0;
-				text-align: center;
-				font-size: 24upx;
-				color: #fff;
-				width: 150upx;
+				text-align: center;					
+				font-size: 24upx;				
+				color:#fff;
+				width: 160upx;
+				height: 60upx;
+				z-index:9;
+				background: none;
 			}
-
-			.box {
-				background: rgba(255, 255, 255, 1);
-				opacity: 0.2;
+			.box{
+				background:rgba(255,255,255,1);
+				opacity:0.2;
 				border-radius: 30upx 0upx 0upx 30upx;
 				width: 160upx;
 				height: 60upx;
-				margin-top: 24upx;
+				margin-top:24upx;
 			}
 		}
 
@@ -179,55 +200,8 @@
 		background: #fff;
 		border-radius: 12upx;
 		box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.08);
-		margin-bottom: 60upx;
-		padding-top: 60upx;
-		padding-bottom: 60upx;
-
-		.coupon-title {
-			font-size: 32upx;
-			color: rgba(36, 36, 36, 1);
-			font-weight: 600;
-			margin-top: 10upx;
-			margin-bottom: 14upx;
-
-			span {
-				margin-left: 16upx;
-				font-size: 24upx;
-				font-weight: 400;
-				color: rgba(0, 0, 0, 0.7);
-			}
-		}
-
-		.coupon-content {
-			&.coupon-content2 {
-				background: url(../../static/img/coupon4.png) no-repeat center center;
-				background-size: 100% 100%;
-			}
-
-			background: url(../../static/img/coupon3.png) no-repeat center center;
-			background-size: 100% 100%;
-			position: relative;
-			color:#FE8300;
-			font-size:24upx;
-			margin-bottom:40upx;
-
-			.left {
-				margin-left: 40upx;
-				padding: 20upx 0;
-
-				.price {
-					span {
-						font-size: 60upx;
-					}
-				}
-
-				text {
-					color: #979797;
-				}
-			}
-
-		}
-
+		margin-bottom: 60upx;	
+		padding:60upx 20upx;
 		button {
 			background: rgba(255, 126, 0, 1);
 			border-radius: 40upx;
