@@ -30,18 +30,18 @@
 			<view class=" inbox Withdrawal">
 				<view class="shadow-box">
 					<view class="title">可提现红包</view>
-					<view class="price"><span>¥0.00</span>
+					<view class="price"><span>¥{{surplusCommission}}</span>
 					<!--<button @click="goCash">提现</button>-->
 					<button style="background: #999;">暂未开启</button>
 					</view>
 					<view class="Statistics">
 						<view @click="goInvite">
 							<p>成功邀请</p>
-							<span>0人</span>
+							<span>{{numberOfInvited}}人</span>
 						</view>
 						<view @click="goProfit">
 							<p>累计获得</p>
-							<span>¥0.00</span>
+							<span>¥{{totalCommission}}</span>
 						</view>
 					</view>	
 				</view>
@@ -65,7 +65,10 @@
 			return {
 				discountCoupons: [],
 				cashCoupons: [],
-				rules:'00000'
+				rules:'00000',
+				totalCommission:null,
+				surplusCommission:null,
+				numberOfInvited:null
 
 			}
 		},
@@ -74,9 +77,9 @@
 				'user'
 			])
 		},
-		onLoad: function(options) {
+		onShow: function(options) {
 			this.fetchCoupon()
-
+			this.getTotalInvite()
 		},
 
 		mounted() {},
@@ -111,6 +114,16 @@
 				uni.navigateTo({
 					url: `/pages/share/totalInvite`,
 				});
+			},
+			getTotalInvite(){
+				couponRes.InvitedCoupon().then(res => {
+					if (res.statusCode == 200) {
+						let couponres = res.data
+						this.surplusCommission = res.data.surplusCommission
+						this.totalCommission = res.data.totalCommission		
+						this.numberOfInvited = res.data.numberOfInvited
+					}
+				})
 			},
 			goProfit(){
 				uni.navigateTo({

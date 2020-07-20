@@ -27,8 +27,12 @@ export default {
 	fetchCoupon() {
 		interceptor(http)
 	    return http.get('coupon')
+	},
+	//
+	InvitedCoupon(){
+		interceptor(http)
+		return http.get('coupon/invited')
 	}
-	
 }
 
 function interceptor(http) {
